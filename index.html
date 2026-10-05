@@ -109,6 +109,11 @@
   }
 
 
+  header .wrap{
+    padding-right:40px;
+  }
+
+
   /* =========================
      HEADER
   ========================= */
@@ -165,7 +170,7 @@
 
   .brand .name{
     font-weight:700;
-    font-size:20px;
+    font-size:28px;
     letter-spacing:-.25px;
     white-space:nowrap;
   }
@@ -871,7 +876,7 @@
 
 
     .brand .name{
-      font-size:16px;
+      font-size:20px;
     }
 
 
@@ -3202,6 +3207,35 @@ const themeBtn=
   document.getElementById(
     'themeBtn'
   );
+
+
+(function initTheme(){
+
+  const prefersLight=
+    window.matchMedia(
+      '(prefers-color-scheme: light)'
+    ).matches;
+
+
+  const initial=
+    prefersLight
+      ? 'light'
+      : 'dark';
+
+
+  document.documentElement
+    .setAttribute(
+      'data-theme',
+      initial
+    );
+
+
+  themeBtn.textContent=
+    initial==='light'
+      ? 'Dark mode'
+      : 'Light mode';
+
+})();
 
 
 themeBtn.addEventListener(
