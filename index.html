@@ -66,9 +66,12 @@
   --err-dim:rgba(192,67,60,.08);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
   margin:0;
   background:var(--bg);
   color:var(--text);
@@ -81,14 +84,18 @@ body{
   min-height:100%;
 }
 
-.mono{font-family:'IBM Plex Mono',monospace}
+.mono{
+  font-family:'IBM Plex Mono',monospace;
+}
 
 a{
   color:var(--accent);
   text-decoration:none;
 }
 
-a:hover{text-decoration:underline}
+a:hover{
+  text-decoration:underline;
+}
 
 .wrap{
   max-width:960px;
@@ -100,6 +107,8 @@ header .wrap{
   padding-right:40px;
   padding-left:16px;
 }
+
+/* HEADER */
 
 header{
   position:sticky;
@@ -169,6 +178,8 @@ header{
   border-color:var(--faint);
 }
 
+/* MAIN */
+
 main{
   padding:28px 0 60px;
 }
@@ -236,7 +247,9 @@ button[type="submit"]{
   white-space:nowrap;
 }
 
-button[type="submit"]:hover{filter:brightness(1.08)}
+button[type="submit"]:hover{
+  filter:brightness(1.08);
+}
 
 button[type="submit"]:disabled{
   opacity:.5;
@@ -250,12 +263,16 @@ input:focus-visible{
   outline-offset:2px;
 }
 
+/* PROGRESS */
+
 .progress{
   margin-top:16px;
   display:none;
 }
 
-.progress.active{display:block}
+.progress.active{
+  display:block;
+}
 
 .progress-line{
   display:flex;
@@ -279,6 +296,8 @@ input:focus-visible{
   transition:width .25s ease;
 }
 
+/* SUMMARY */
+
 .summary{
   display:none;
   align-items:center;
@@ -289,7 +308,9 @@ input:focus-visible{
   flex-wrap:wrap;
 }
 
-.summary.active{display:flex}
+.summary.active{
+  display:flex;
+}
 
 .summary b{
   color:var(--text);
@@ -321,7 +342,11 @@ input:focus-visible{
   border-color:var(--faint);
 }
 
-section.group{margin-bottom:30px}
+/* GROUPS */
+
+section.group{
+  margin-bottom:30px;
+}
 
 .group-title{
   font-size:13px;
@@ -347,6 +372,8 @@ section.group{margin-bottom:30px}
   font-size:14.5px;
 }
 
+/* RESULTS */
+
 .hits{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -363,8 +390,14 @@ section.group{margin-bottom:30px}
 }
 
 @keyframes rise{
-  from{opacity:0;transform:translateY(6px)}
-  to{opacity:1;transform:translateY(0)}
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .card-head{
@@ -388,17 +421,15 @@ section.group{margin-bottom:30px}
   height:34px;
   border-radius:8px;
   flex-shrink:0;
+  background:var(--surface-2);
+  border:1px solid var(--border);
 }
 
 .avatar{
   object-fit:cover;
-  background:var(--surface-2);
-  border:1px solid var(--border);
 }
 
 .avatar-fallback{
-  background:var(--surface-2);
-  border:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -406,7 +437,9 @@ section.group{margin-bottom:30px}
   color:var(--muted);
 }
 
-.card-src{min-width:0}
+.card-src{
+  min-width:0;
+}
 
 .card-src .name{
   font-weight:600;
@@ -430,6 +463,7 @@ section.group{margin-bottom:30px}
   justify-content:center;
   cursor:pointer;
   flex-shrink:0;
+  font-family:'IBM Plex Mono',monospace;
 }
 
 .inspect-btn:hover{
@@ -552,12 +586,14 @@ section.group{margin-bottom:30px}
   font-family:'IBM Plex Mono',monospace;
 }
 
+/* MISSES */
+
 details.misses{
-  margin-top:14px;
   border:1px solid var(--border);
   border-radius:10px;
   overflow:hidden;
   background:var(--surface);
+  margin-top:14px;
 }
 
 details.misses summary{
@@ -590,15 +626,19 @@ details.misses[open] summary .chev{
   padding:8px 16px;
   font-size:12.5px;
   border-top:1px solid var(--border);
+  gap:12px;
 }
 
-.miss-row .n{color:var(--muted)}
+.miss-row .n{
+  color:var(--muted);
+}
 
 .miss-row .s{
   font-family:'IBM Plex Mono',monospace;
   font-size:11px;
   padding:1px 6px;
   border-radius:4px;
+  white-space:nowrap;
 }
 
 .miss-row .s.nf{
@@ -611,6 +651,8 @@ details.misses[open] summary .chev{
   background:var(--err-dim);
 }
 
+/* MODAL */
+
 .modal-bg{
   position:fixed;
   inset:0;
@@ -622,7 +664,9 @@ details.misses[open] summary .chev{
   z-index:50;
 }
 
-.modal-bg.open{display:flex}
+.modal-bg.open{
+  display:flex;
+}
 
 .modal{
   background:var(--surface);
@@ -687,6 +731,8 @@ details.misses[open] summary .chev{
   font-family:inherit;
 }
 
+/* ERROR */
+
 .api-error{
   border:1px solid var(--err);
   background:var(--err-dim);
@@ -697,23 +743,45 @@ details.misses[open] summary .chev{
   line-height:1.5;
 }
 
-@media(max-width:600px){
-  .header-row{padding:10px 0}
+.hidden{
+  display:none !important;
+}
 
-  .brand{gap:10px}
+/* MOBILE */
+
+@media (max-width:600px){
+  .header-row{
+    padding:10px 0;
+  }
+
+  .brand{
+    gap:10px;
+  }
 
   .brand-logo{
     width:100px;
     height:100px;
   }
 
-  .brand-text{gap:0}
+  .brand-text{
+    gap:0;
+  }
 
-  .brand .name{font-size:20px}
+  .brand .name{
+    font-size:20px;
+  }
 
-  .brand .tag{display:none}
+  .brand .tag{
+    display:none;
+  }
 
-  form{flex-direction:column}
+  form{
+    flex-direction:column;
+  }
+
+  .summary .copy-btn{
+    margin-left:0;
+  }
 }
 </style>
 </head>
@@ -724,7 +792,6 @@ details.misses[open] summary .chev{
   <div class="wrap header-row">
 
     <div class="brand">
-
       <img
         src="logo.png"
         class="brand-logo"
@@ -735,7 +802,6 @@ details.misses[open] summary .chev{
         <span class="name">Argus OSINT</span>
         <span class="tag">public profile lookup</span>
       </div>
-
     </div>
 
     <button class="theme-btn" id="themeBtn">
@@ -775,7 +841,7 @@ details.misses[open] summary .chev{
     <div class="progress" id="progressContainer">
 
       <div class="progress-line">
-        <span id="progressText">Preparing lookup…</span>
+        <span id="progressText">Contacting Argus API…</span>
         <span id="progressPercent">0%</span>
       </div>
 
@@ -791,17 +857,20 @@ details.misses[open] summary .chev{
 
     <span>
       <span class="dot" style="background:var(--ok)"></span>
-      <b id="statFound">0</b> matched
+      <b id="statFound">0</b>
+      matched
     </span>
 
     <span>
       <span class="dot" style="background:var(--faint)"></span>
-      <b id="statNotFound">0</b> no record
+      <b id="statNotFound">0</b>
+      no record
     </span>
 
     <span>
       <span class="dot" style="background:var(--err)"></span>
-      <b id="statErrors">0</b> blocked / errored
+      <b id="statErrors">0</b>
+      blocked / errored
     </span>
 
     <button class="copy-btn" id="copySummaryBtn">
@@ -843,9 +912,11 @@ details.misses[open] summary .chev{
     </div>
 
     <div class="modal-foot">
+
       <button id="copyModalJsonBtn">
         Copy JSON
       </button>
+
     </div>
 
   </div>
@@ -853,1472 +924,618 @@ details.misses[open] summary .chev{
 </div>
 
 <script>
+"use strict";
 
-/* =========================================================
-   ARGUS HYBRID LOOKUP
-========================================================= */
+/*
+  IMPORTANT:
+  The browser only talks to your Vercel function.
+  It does NOT contact Reddit, GitHub, Chess.com, etc. directly.
+*/
 
 const API_ENDPOINT = "/api/lookup";
 
+const searchForm = document.getElementById("searchForm");
+const usernameInput = document.getElementById("usernameInput");
+const searchBtn = document.getElementById("searchBtn");
 
-/* =========================================================
-   DIRECT BROWSER SOURCES
-========================================================= */
+const progressContainer = document.getElementById("progressContainer");
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const progressPercent = document.getElementById("progressPercent");
 
-const SOURCES = [
+const summary = document.getElementById("summary");
+const statFound = document.getElementById("statFound");
+const statNotFound = document.getElementById("statNotFound");
+const statErrors = document.getElementById("statErrors");
 
-  {
-    id:"pronouns_page",
-    name:"Pronouns.page",
-    category:"Identity",
+const resultsSection = document.getElementById("resultsSection");
+const emptyState = document.getElementById("emptyState");
 
-    url:user =>
-      `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`,
+const copySummaryBtn = document.getElementById("copySummaryBtn");
 
-    parse:data => {
+const jsonModal = document.getElementById("jsonModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalJsonContent = document.getElementById("modalJsonContent");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const copyModalJsonBtn = document.getElementById("copyModalJsonBtn");
 
-      if(!data || !data.profiles) return null;
+const themeBtn = document.getElementById("themeBtn");
 
-      const en =
-        data.profiles.en ||
-        Object.values(data.profiles)[0];
+let currentResults = [];
+let currentUsername = "";
+let rawModalJSON = null;
 
-      if(!en) return null;
 
-      const names =
-        (en.names || [])
-          .map(n =>
-            typeof n === "string"
-              ? n
-              : n.value || n.name
-          )
-          .filter(Boolean);
+/* =========================
+   ESCAPE HTML
+========================= */
 
-      const pronouns =
-        (en.pronouns || [])
-          .map(p =>
-            typeof p === "string"
-              ? p
-              : p.value || p.pronoun
-          )
-          .filter(Boolean);
+function esc(value){
 
-      return {
-        avatar:data.avatar || null,
-        title:names[0] || data.username,
-        handle:`@${data.username}`,
-        bio:en.bio || "",
-        badges:pronouns,
-        metrics:[
-          {l:"Names",v:names.length},
-          {l:"Pronouns",v:pronouns.length}
-        ],
-        links:(en.links || [])
-          .map(l =>
-            typeof l === "string"
-              ? l
-              : l.href || l.link
-          )
-          .filter(Boolean),
-        profileUrl:`https://pronouns.page/@${data.username}`
-      };
-    }
-  },
-
-
-  {
-    id:"chess_com",
-    name:"Chess.com",
-    category:"Gaming",
-
-    url:user =>
-      `https://api.chess.com/pub/player/${encodeURIComponent(user)}`,
-
-    parse:async(profile,user) => {
-
-      if(!profile || !profile.username) return null;
-
-      const base =
-        `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
-
-      const [statsResult,clubsResult] =
-        await Promise.allSettled([
-
-          fetchDirect(`${base}/stats`),
-
-          fetchDirect(`${base}/clubs`)
-
-        ]);
-
-      const stats =
-        statsResult.status === "fulfilled"
-          ? statsResult.value.data
-          : null;
-
-      const clubsData =
-        clubsResult.status === "fulfilled"
-          ? clubsResult.value.data
-          : null;
-
-      const clubs =
-        Array.isArray(clubsData?.clubs)
-          ? clubsData.clubs
-          : [];
-
-      return {
-
-        avatar:profile.avatar || null,
-
-        title:
-          profile.name ||
-          profile.username,
-
-        handle:
-          `@${profile.username}`,
-
-        bio:
-          `Joined ${
-            profile.joined
-              ? new Date(profile.joined * 1000).toLocaleDateString()
-              : "—"
-          } · last online ${
-            profile.last_online
-              ? new Date(profile.last_online * 1000).toLocaleDateString()
-              : "—"
-          }`,
-
-        badges:[
-          profile.title
-            ? `Title: ${profile.title}`
-            : null,
-          profile.location
-        ].filter(Boolean),
-
-        metrics:[
-          {
-            l:"Blitz",
-            v:stats?.chess_blitz?.last?.rating ?? "—"
-          },
-          {
-            l:"Rapid",
-            v:stats?.chess_rapid?.last?.rating ?? "—"
-          },
-          {
-            l:"Bullet",
-            v:stats?.chess_bullet?.last?.rating ?? "—"
-          },
-          {
-            l:"Followers",
-            v:profile.followers ?? "—"
-          }
-        ],
-
-        clubs:
-          clubs.slice(0,4).map(c => ({
-            name:c.name,
-            icon:c.icon,
-            url:c.url
-          })),
-
-        links:
-          profile.url
-            ? [profile.url]
-            : [],
-
-        profileUrl:
-          profile.url ||
-          `https://www.chess.com/member/${profile.username}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"lichess",
-    name:"Lichess",
-    category:"Gaming",
-
-    url:user =>
-      `https://lichess.org/api/user/${encodeURIComponent(user)}`,
-
-    parse:data => {
-
-      if(!data || data.error || !data.id) return null;
-
-      const perf=data.perfs || {};
-
-      return {
-
-        avatar:null,
-
-        title:data.username,
-
-        handle:
-          data.title
-            ? `[${data.title}] @${data.id}`
-            : `@${data.id}`,
-
-        bio:data.bio || "",
-
-        badges:[
-          data.online ? "Online" : "Offline",
-          data.patron ? "Patron" : null
-        ].filter(Boolean),
-
-        metrics:[
-          {l:"Blitz",v:perf.blitz?.rating ?? "—"},
-          {l:"Rapid",v:perf.rapid?.rating ?? "—"},
-          {l:"Puzzles",v:perf.puzzle?.rating ?? "—"},
-          {l:"Games",v:data.count?.all ?? 0}
-        ],
-
-        links:data.url ? [data.url] : [],
-
-        profileUrl:
-          data.url ||
-          `https://lichess.org/@/${data.username}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"github",
-    name:"GitHub",
-    category:"Developer",
-
-    url:user =>
-      `https://api.github.com/users/${encodeURIComponent(user)}`,
-
-    parse:data => {
-
-      if(
-        !data ||
-        data.message === "Not Found" ||
-        !data.login
-      ) return null;
-
-      return {
-
-        avatar:data.avatar_url,
-
-        title:data.name || data.login,
-
-        handle:`@${data.login}`,
-
-        bio:data.bio || "",
-
-        badges:[
-          data.company,
-          data.location
-        ].filter(Boolean),
-
-        metrics:[
-          {l:"Repos",v:data.public_repos},
-          {l:"Followers",v:data.followers},
-          {l:"Gists",v:data.public_gists}
-        ],
-
-        links:
-          data.blog
-            ? [
-                data.blog.startsWith("http")
-                  ? data.blog
-                  : `https://${data.blog}`
-              ]
-            : [],
-
-        profileUrl:data.html_url
-
-      };
-    }
-  },
-
-
-  {
-    id:"gravatar",
-    name:"Gravatar",
-    category:"Identity",
-
-    url:user =>
-      `https://en.gravatar.com/${encodeURIComponent(user)}.json`,
-
-    parse:data => {
-
-      if(!data?.entry?.[0]) return null;
-
-      const e=data.entry[0];
-
-      const urls=(e.urls || [])
-        .map(u=>u.value)
-        .filter(Boolean);
-
-      return {
-
-        avatar:e.thumbnailUrl,
-
-        title:
-          e.displayName ||
-          e.preferredUsername,
-
-        handle:`@${e.preferredUsername}`,
-
-        bio:e.aboutMe || "",
-
-        badges:[
-          e.currentLocation
-        ].filter(Boolean),
-
-        metrics:[
-          {l:"Accounts",v:e.accounts?.length ?? 0},
-          {l:"URLs",v:urls.length}
-        ],
-
-        links:urls,
-
-        profileUrl:
-          e.profileUrl ||
-          `https://gravatar.com/${e.preferredUsername}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"keybase",
-    name:"Keybase",
-    category:"Security",
-
-    url:user =>
-      `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`,
-
-    parse:data => {
-
-      if(!data?.them?.[0]) return null;
-
-      const u=data.them[0];
-
-      if(!u.id || !u.basics?.username) return null;
-
-      const proofs=
-        (u.proofs_summary?.all || [])
-          .map(
-            p =>
-              `${p.proof_type}: ${p.nametag}`
-          );
-
-      return {
-
-        avatar:
-          u.pictures?.primary?.url || null,
-
-        title:
-          u.profile?.full_name ||
-          u.basics.username,
-
-        handle:`@${u.basics.username}`,
-
-        bio:u.profile?.bio || "",
-
-        badges:proofs.slice(0,4),
-
-        metrics:[
-          {l:"Proofs",v:proofs.length},
-          {
-            l:"Devices",
-            v:u.devices
-              ? Object.keys(u.devices).length
-              : 0
-          }
-        ],
-
-        links:[],
-
-        profileUrl:
-          `https://keybase.io/${u.basics.username}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"reddit",
-    name:"Reddit",
-    category:"Social",
-
-    url:user =>
-      `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`,
-
-    parse:data => {
-
-      if(!data?.data || data.error === 404) return null;
-
-      const u=data.data;
-
-      return {
-
-        avatar:
-          u.icon_img
-            ? u.icon_img.split("?")[0]
-            : null,
-
-        title:
-          u.subreddit?.title ||
-          u.name,
-
-        handle:`u/${u.name}`,
-
-        bio:
-          u.subreddit?.public_description || "",
-
-        badges:[
-          u.is_gold ? "Gold" : null,
-          u.is_mod ? "Moderator" : null,
-          u.has_verified_email
-            ? "Verified email"
-            : null
-        ].filter(Boolean),
-
-        metrics:[
-          {l:"Post karma",v:u.link_karma},
-          {l:"Comment karma",v:u.comment_karma},
-          {
-            l:"Since",
-            v:u.created_utc
-              ? new Date(
-                  u.created_utc * 1000
-                ).getFullYear()
-              : "—"
-          }
-        ],
-
-        links:[],
-
-        profileUrl:
-          `https://reddit.com/user/${u.name}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"pronouns_cc",
-    name:"Pronouns.cc",
-    category:"Identity",
-
-    url:user =>
-      `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`,
-
-    parse:data => {
-
-      if(
-        !data ||
-        (!data.username && !data.members)
-      ) return null;
-
-      return {
-
-        avatar:data.avatar_url,
-
-        title:data.username || "System",
-
-        handle:
-          data.id
-            ? `ID ${data.id}`
-            : "",
-
-        bio:
-          data.biography ||
-          data.description ||
-          "",
-
-        badges:
-          data.pronouns
-            ? [data.pronouns]
-            : [],
-
-        metrics:[
-          {
-            l:"Members",
-            v:data.members?.length ?? 0
-          }
-        ],
-
-        links:
-          Array.isArray(data.links)
-            ? data.links
-            : [],
-
-        profileUrl:
-          data.username
-            ? `https://pronouns.cc/p/${data.username}`
-            : null
-
-      };
-    }
-  },
-
-
-  {
-    id:"hackernews",
-    name:"Hacker News",
-    category:"Community",
-
-    url:user =>
-      `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`,
-
-    parse:data => {
-
-      if(!data?.id) return null;
-
-      return {
-
-        avatar:null,
-
-        title:data.id,
-
-        handle:
-          data.created
-            ? `since ${new Date(
-                data.created * 1000
-              ).getFullYear()}`
-            : "",
-
-        bio:data.about || "",
-
-        badges:[],
-
-        metrics:[
-          {l:"Karma",v:data.karma},
-          {
-            l:"Posts",
-            v:data.submitted?.length ?? 0
-          }
-        ],
-
-        links:[],
-
-        profileUrl:
-          `https://news.ycombinator.com/user?id=${data.id}`
-
-      };
-    }
-  },
-
-
-  {
-    id:"dev_to",
-    name:"Dev.to",
-    category:"Developer",
-
-    url:user =>
-      `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`,
-
-    parse:data => {
-
-      if(!data?.username) return null;
-
-      return {
-
-        avatar:data.profile_image,
-
-        title:data.name || data.username,
-
-        handle:`@${data.username}`,
-
-        bio:data.summary || "",
-
-        badges:[
-          data.location
-        ].filter(Boolean),
-
-        metrics:[
-          {
-            l:"Joined",
-            v:data.joined_at
-              ? data.joined_at.split(" ")[0]
-              : "—"
-          }
-        ],
-
-        links:[
-          data.website_url,
-          data.github_username
-            ? `https://github.com/${data.github_username}`
-            : null
-        ].filter(Boolean),
-
-        profileUrl:`https://dev.to/${data.username}`
-
-      };
-    }
-  }
-
-];
-
-
-/* =========================================================
-   UI
-========================================================= */
-
-const searchForm=document.getElementById("searchForm");
-const usernameInput=document.getElementById("usernameInput");
-const searchBtn=document.getElementById("searchBtn");
-
-const progressContainer=
-  document.getElementById("progressContainer");
-
-const progressBar=
-  document.getElementById("progressBar");
-
-const progressText=
-  document.getElementById("progressText");
-
-const progressPercent=
-  document.getElementById("progressPercent");
-
-const summary=document.getElementById("summary");
-const statFound=document.getElementById("statFound");
-const statNotFound=document.getElementById("statNotFound");
-const statErrors=document.getElementById("statErrors");
-
-const resultsSection=
-  document.getElementById("resultsSection");
-
-const emptyState=
-  document.getElementById("emptyState");
-
-const copySummaryBtn=
-  document.getElementById("copySummaryBtn");
-
-const jsonModal=
-  document.getElementById("jsonModal");
-
-const modalTitle=
-  document.getElementById("modalTitle");
-
-const modalJsonContent=
-  document.getElementById("modalJsonContent");
-
-const closeModalBtn=
-  document.getElementById("closeModalBtn");
-
-const copyModalJsonBtn=
-  document.getElementById("copyModalJsonBtn");
-
-const themeBtn=
-  document.getElementById("themeBtn");
-
-
-let currentResults=[];
-let currentUsername="";
-let rawModalJSON=null;
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function esc(str){
-
-  if(str === null || str === undefined){
+  if(value === null || value === undefined){
     return "";
   }
 
-  return String(str).replace(
+  return String(value).replace(
     /[&<>'"]/g,
-    t => ({
+    char => ({
       "&":"&amp;",
       "<":"&lt;",
       ">":"&gt;",
       "'":"&#39;",
       '"':"&quot;"
-    }[t] || t)
+    }[char])
   );
 }
 
 
-async function fetchDirect(url){
+/* =========================
+   NORMALIZE API RESULTS
+========================= */
 
-  const controller=new AbortController();
+function normalizeResult(result){
 
-  const timeout=setTimeout(
-    () => controller.abort(),
-    7000
-  );
+  return {
+    endpoint:{
+      id: result.id || "unknown",
+      name: result.name || result.id || "Unknown",
+      category: result.category || "Unknown"
+    },
+
+    status: result.status || "error",
+
+    raw: result.raw ?? null,
+
+    parsed: result.parsed ?? null,
+
+    httpStatus: result.httpStatus ?? null,
+
+    error: result.error || null
+  };
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+searchForm.addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+  let username = usernameInput.value.trim();
+
+  if(!username){
+    return;
+  }
+
+  /*
+    Allow users to enter @username without accidentally
+    sending the @ to services that don't expect it.
+  */
+  username = username.replace(/^@+/, "");
+
+  if(!username){
+    return;
+  }
+
+  currentUsername = username;
+  currentResults = [];
+
+  resultsSection.innerHTML = "";
+
+  summary.classList.remove("active");
+
+  searchBtn.disabled = true;
+  usernameInput.disabled = true;
+
+  progressContainer.classList.add("active");
+
+  progressBar.style.width = "10%";
+  progressPercent.textContent = "10%";
+  progressText.textContent = "Contacting Argus API…";
 
   try{
 
-    const response=await fetch(
-      url,
-      {
-        method:"GET",
-        headers:{
-          "Accept":"application/json"
-        },
-        signal:controller.signal
-      }
-    );
+    const url =
+      `${API_ENDPOINT}?username=${encodeURIComponent(username)}`;
 
-    let data=null;
+    progressBar.style.width = "35%";
+    progressPercent.textContent = "35%";
+    progressText.textContent = "Querying public sources…";
+
+    const response = await fetch(url, {
+      method:"GET",
+      headers:{
+        "Accept":"application/json"
+      },
+      cache:"no-store"
+    });
+
+    let payload = null;
 
     try{
-      data=await response.json();
-    }catch{}
-
-    return {
-      ok:response.ok,
-      status:response.status,
-      data
-    };
-
-  }finally{
-
-    clearTimeout(timeout);
-
-  }
-}
-
-
-async function queryBrowserSource(source,username){
-
-  try{
-
-    const response=
-      await fetchDirect(
-        source.url(username)
-      );
-
-    if(response.status === 404 ||
-       response.status === 410){
-
-      return {
-        id:source.id,
-        name:source.name,
-        category:source.category,
-        status:"not_found",
-        raw:response.data,
-        parsed:null
-      };
-
+      payload = await response.json();
+    }catch{
+      payload = null;
     }
 
     if(!response.ok){
 
-      return {
-        id:source.id,
-        name:source.name,
-        category:source.category,
-        status:"error",
-        raw:response.data,
-        parsed:null,
-        httpStatus:response.status,
-        browserFailed:true
-      };
-
+      throw new Error(
+        payload && payload.error
+          ? payload.error
+          : `API request failed (${response.status})`
+      );
     }
 
-    let parsed=null;
-
-    try{
-
-      parsed=
-        await source.parse(
-          response.data,
-          username
-        );
-
-    }catch{}
-
-    if(parsed){
-
-      return {
-        id:source.id,
-        name:source.name,
-        category:source.category,
-        status:"found",
-        raw:response.data,
-        parsed
-      };
-
+    if(
+      !payload ||
+      !Array.isArray(payload.results)
+    ){
+      throw new Error(
+        "The API returned an invalid response."
+      );
     }
 
-    return {
-      id:source.id,
-      name:source.name,
-      category:source.category,
-      status:"not_found",
-      raw:response.data,
-      parsed:null
-    };
+    progressBar.style.width = "80%";
+    progressPercent.textContent = "80%";
+    progressText.textContent = "Processing results…";
+
+    currentResults =
+      payload.results.map(normalizeResult);
+
+    statFound.textContent =
+      Number(payload.found || 0);
+
+    statNotFound.textContent =
+      Number(payload.notFound || 0);
+
+    statErrors.textContent =
+      Number(payload.errors || 0);
+
+    summary.classList.add("active");
+
+    renderResults(username);
+
+    progressBar.style.width = "100%";
+    progressPercent.textContent = "100%";
+    progressText.textContent = "Search complete";
+
+    setTimeout(() => {
+      progressContainer.classList.remove("active");
+    }, 400);
 
   }catch(error){
 
-    return {
-      id:source.id,
-      name:source.name,
-      category:source.category,
-      status:"error",
-      raw:null,
-      parsed:null,
-      httpStatus:null,
-      browserFailed:true,
-      browserError:error?.message || "Browser request failed"
-    };
+    progressBar.style.width = "100%";
+    progressPercent.textContent = "100%";
+    progressText.textContent = "Request failed";
 
-  }
+    resultsSection.innerHTML = `
+      <div class="api-error">
+        <b>Argus API error</b><br>
+        ${esc(error.message || "Unknown error")}
+      </div>
+    `;
 
-}
-
-
-/* =========================================================
-   SERVER FALLBACK
-========================================================= */
-
-async function queryServerFallback(username,sourceId){
-
-  const url =
-    `${API_ENDPOINT}?username=${
-      encodeURIComponent(username)
-    }&source=${
-      encodeURIComponent(sourceId)
-    }`;
-
-  const response =
-    await fetch(
-      url,
-      {
-        method:"GET",
-        headers:{
-          "Accept":"application/json"
-        }
-      }
-    );
-
-  let payload=null;
-
-  try{
-    payload=await response.json();
-  }catch{}
-
-  if(!response.ok){
-
-    throw new Error(
-      payload?.error ||
-      `Server fallback failed (${response.status})`
-    );
-
-  }
-
-  if(
-    !payload ||
-    !Array.isArray(payload.results)
-  ){
-
-    throw new Error(
-      "Invalid server response"
-    );
-
-  }
-
-  return payload.results[0] || null;
-
-}
-
-
-/* =========================================================
-   MAIN SEARCH
-========================================================= */
-
-searchForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    const username=
-      usernameInput.value.trim();
-
-    if(!username) return;
-
-    currentUsername=username;
-    currentResults=[];
-
-    resultsSection.innerHTML="";
     summary.classList.remove("active");
 
-    searchBtn.disabled=true;
-    usernameInput.disabled=true;
-
-    progressContainer.classList.add("active");
-
-    progressBar.style.width="5%";
-    progressPercent.textContent="5%";
-    progressText.textContent="Starting lookup…";
-
-    try{
-
-      /*
-       * First attempt:
-       * browser → public APIs
-       */
-
-      const directResults=
-        await Promise.all(
-          SOURCES.map(
-            source =>
-              queryBrowserSource(
-                source,
-                username
-              )
-          )
-        );
-
-
-      progressBar.style.width="55%";
-      progressPercent.textContent="55%";
-      progressText.textContent=
-        "Checking blocked sources…";
-
-
-      /*
-       * Only use Vercel for sources where
-       * the browser request failed.
-       */
-
-      const fallbackPromises=
-        directResults.map(
-          async (result,index) => {
-
-            if(
-              result.status !== "error" ||
-              !result.browserFailed
-            ){
-
-              return result;
-
-            }
-
-            const source=SOURCES[index];
-
-            try{
-
-              const fallback=
-                await queryServerFallback(
-                  username,
-                  source.id
-                );
-
-              if(fallback){
-                return fallback;
-              }
-
-            }catch{}
-
-            return result;
-
-          }
-        );
-
-
-      currentResults=
-        await Promise.all(
-          fallbackPromises
-        );
-
-
-      progressBar.style.width="100%";
-      progressPercent.textContent="100%";
-      progressText.textContent="Search complete";
-
-
-      const found=
-        currentResults.filter(
-          x => x.status==="found"
-        ).length;
-
-      const notFound=
-        currentResults.filter(
-          x => x.status==="not_found"
-        ).length;
-
-      const errors=
-        currentResults.filter(
-          x => x.status==="error"
-        ).length;
-
-
-      statFound.textContent=found;
-      statNotFound.textContent=notFound;
-      statErrors.textContent=errors;
-
-      summary.classList.add("active");
-
-      renderResults(username);
-
-
-      setTimeout(
-        () => {
-          progressContainer.classList.remove("active");
-        },
-        400
-      );
-
-
-    }catch(error){
-
-      progressBar.style.width="100%";
-      progressPercent.textContent="100%";
-      progressText.textContent="Lookup failed";
-
+    setTimeout(() => {
       progressContainer.classList.remove("active");
+    }, 500);
 
-      resultsSection.innerHTML=`
-        <div class="api-error">
-          <b>Argus lookup error</b><br>
-          ${esc(error?.message || "Unknown error")}
-        </div>
-      `;
+  }finally{
 
-      summary.classList.remove("active");
-
-    }finally{
-
-      searchBtn.disabled=false;
-      usernameInput.disabled=false;
-
-    }
+    searchBtn.disabled = false;
+    usernameInput.disabled = false;
 
   }
-);
+
+});
 
 
-/* =========================================================
-   RENDER RESULTS
-========================================================= */
+/* =========================
+   RESULTS
+========================= */
 
 function renderResults(username){
 
-  resultsSection.innerHTML="";
+  resultsSection.innerHTML = "";
 
-  const hits=
+  const hits =
     currentResults.filter(
       result =>
-        result.status==="found" &&
+        result.status === "found" &&
         result.parsed
     );
 
-  const rest=
+  const rest =
     currentResults.filter(
       result =>
-        result.status!=="found" ||
+        result.status !== "found" ||
         !result.parsed
     );
 
+  if(!currentResults.length){
+
+    resultsSection.appendChild(emptyState);
+    return;
+
+  }
 
   if(hits.length){
 
-    const title=
-      document.createElement("p");
+    const title = document.createElement("p");
 
-    title.className="group-title";
+    title.className = "group-title";
 
-    title.textContent=
-      `Matched on ${hits.length} source${
-        hits.length===1 ? "" : "s"
-      }`;
+    title.textContent =
+      `Matched on ${hits.length} source${hits.length === 1 ? "" : "s"}`;
 
-    const grid=
-      document.createElement("div");
+    const grid = document.createElement("div");
 
-    grid.className="hits";
+    grid.className = "hits";
 
-    hits.forEach(
-      item =>
-        grid.appendChild(
-          buildCard(item)
-        )
-    );
+    hits.forEach(item => {
+      grid.appendChild(buildCard(item));
+    });
 
     resultsSection.appendChild(title);
     resultsSection.appendChild(grid);
 
   }else{
 
-    const none=
-      document.createElement("div");
+    const none = document.createElement("div");
 
-    none.className="empty";
+    none.className = "empty";
 
-    none.innerHTML=
-      `<b>No public match for "${esc(username)}"</b>
-       Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
+    none.innerHTML = `
+      <b>No confirmed public match for "${esc(username)}"</b>
+      Checked ${currentResults.length} sources.
+    `;
 
     resultsSection.appendChild(none);
-
   }
-
 
   if(rest.length){
 
-    const details=
-      document.createElement("details");
+    const details = document.createElement("details");
 
-    details.className="misses";
+    details.className = "misses";
 
-    const summaryEl=
-      document.createElement("summary");
+    const summaryEl = document.createElement("summary");
 
-    summaryEl.innerHTML=
-      `<span>
+    summaryEl.innerHTML = `
+      <span>
         ${rest.length}
-        source${rest.length===1 ? "" : "s"}
+        source${rest.length === 1 ? "" : "s"}
         with no record or a blocked request
-       </span>
-       <span class="chev">›</span>`;
+      </span>
+
+      <span class="chev">›</span>
+    `;
 
     details.appendChild(summaryEl);
 
+    rest.forEach(result => {
 
-    rest.forEach(
-      result => {
+      const row = document.createElement("div");
 
-        const row=
-          document.createElement("div");
+      row.className = "miss-row";
 
-        row.className="miss-row";
+      const statusClass =
+        result.status === "error"
+          ? "er"
+          : "nf";
 
-        const statusClass=
-          result.status==="error"
-            ? "er"
-            : "nf";
+      let statusText;
 
-        let statusText="no record";
+      if(result.status === "error"){
 
-        if(result.status==="error"){
-
-          statusText=
-            result.httpStatus
-              ? `error ${result.httpStatus}`
-              : "blocked / errored";
-
+        if(result.httpStatus === 403){
+          statusText = "blocked · 403";
+        }else if(result.httpStatus){
+          statusText = `error · ${result.httpStatus}`;
+        }else{
+          statusText = "blocked / errored";
         }
 
-        row.innerHTML=
-          `<span class="n">
-             ${esc(result.name || result.endpoint?.name)}
-           </span>
-           <span class="s ${statusClass}">
-             ${esc(statusText)}
-           </span>`;
+      }else{
 
-        details.appendChild(row);
+        statusText = "no record";
 
       }
-    );
+
+      row.innerHTML = `
+        <span class="n">
+          ${esc(result.endpoint.name)}
+        </span>
+
+        <span class="s ${statusClass}">
+          ${esc(statusText)}
+        </span>
+      `;
+
+      details.appendChild(row);
+
+    });
 
     resultsSection.appendChild(details);
-
   }
-
 }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+/* =========================
+   PROFILE CARD
+========================= */
 
 function buildCard(item){
 
-  const p=item.parsed || {};
+  const p = item.parsed || {};
 
-  const card=
-    document.createElement("div");
+  const card = document.createElement("div");
 
-  card.className="card";
+  card.className = "card";
 
-  const firstLetter=
+  const firstLetter =
     String(
       p.title ||
       p.handle ||
+      item.endpoint.name ||
       "?"
-    ).charAt(0).toUpperCase();
-
-
-  const head=
-    document.createElement("div");
-
-  head.className="card-head";
-
-
-  const identity=
-    document.createElement("div");
-
-  identity.className="card-id";
-
-
-  if(p.avatar){
-
-    const img=
-      document.createElement("img");
-
-    img.className="avatar";
-    img.src=p.avatar;
-    img.alt="";
-    img.loading="lazy";
-
-    img.onerror=() => {
-
-      const fallback=
-        document.createElement("div");
-
-      fallback.className="avatar-fallback";
-      fallback.textContent=firstLetter;
-
-      img.replaceWith(fallback);
-
-    };
-
-    identity.appendChild(img);
-
-  }else{
-
-    const fallback=
-      document.createElement("div");
-
-    fallback.className="avatar-fallback";
-    fallback.textContent=firstLetter;
-
-    identity.appendChild(fallback);
-
-  }
-
-
-  const src=
-    document.createElement("div");
-
-  src.className="card-src";
-
-  src.innerHTML=
-    `<div class="name">
-       ${esc(item.name || item.endpoint?.name || "")}
-     </div>
-     <div class="cat">
-       ${esc(item.category || item.endpoint?.category || "")}
-     </div>`;
-
-  identity.appendChild(src);
-
-
-  const inspect=
-    document.createElement("button");
-
-  inspect.className="inspect-btn";
-  inspect.title="View raw response";
-  inspect.ariaLabel="View raw response";
-  inspect.textContent="{ }";
-
-
-  head.appendChild(identity);
-  head.appendChild(inspect);
-
-
-  card.appendChild(head);
-
-
-  const title=
-    document.createElement("div");
-
-  title.className="card-title";
-  title.textContent=p.title || "";
-
-  card.appendChild(title);
-
-
-  const handle=
-    document.createElement("div");
-
-  handle.className="card-handle";
-  handle.textContent=p.handle || "";
-
-  card.appendChild(handle);
-
-
-  if(p.bio){
-
-    const bio=
-      document.createElement("div");
-
-    bio.className="card-bio";
-    bio.textContent=p.bio;
-
-    card.appendChild(bio);
-
-  }
-
-
-  if(Array.isArray(p.badges) && p.badges.length){
-
-    const badges=
-      document.createElement("div");
-
-    badges.className="badges";
-
-    p.badges
-      .filter(Boolean)
-      .forEach(
-        badge => {
-
-          const el=
-            document.createElement("span");
-
-          el.className="badge";
-          el.textContent=String(badge);
-
-          badges.appendChild(el);
-
-        }
-      );
-
-    card.appendChild(badges);
-
-  }
-
-
-  if(Array.isArray(p.metrics) && p.metrics.length){
-
-    const metrics=
-      document.createElement("div");
-
-    metrics.className="metrics";
-
-    p.metrics.forEach(
-      metric => {
-
-        const el=
-          document.createElement("div");
-
-        el.className="metric";
-
-        el.innerHTML=
-          `<div class="v">
-             ${esc(metric.v ?? "—")}
-           </div>
-           <div class="l">
-             ${esc(metric.l || "")}
-           </div>`;
-
-        metrics.appendChild(el);
-
-      }
-    );
-
-    card.appendChild(metrics);
-
-  }
-
-
-  if(Array.isArray(p.clubs) && p.clubs.length){
-
-    const clubs=
-      document.createElement("div");
-
-    clubs.className="clublist";
-
-    p.clubs.forEach(
-      club => {
-
-        const a=
-          document.createElement("a");
-
-        a.href=club.url || "#";
-        a.target="_blank";
-        a.rel="noopener noreferrer";
-
-        if(club.icon){
-
-          const img=
-            document.createElement("img");
-
-          img.src=club.icon;
-          img.alt="";
-          img.loading="lazy";
-
-          a.appendChild(img);
-
-        }
-
-        a.appendChild(
-          document.createTextNode(
-            club.name || "Club"
+    )
+      .charAt(0)
+      .toUpperCase();
+
+  const avatarHTML = p.avatar
+    ? `
+      <img
+        class="avatar"
+        src="${esc(p.avatar)}"
+        alt=""
+        loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      >
+      <div class="avatar-fallback" style="display:none;">
+        ${esc(firstLetter)}
+      </div>
+    `
+    : `
+      <div class="avatar-fallback">
+        ${esc(firstLetter)}
+      </div>
+    `;
+
+  const badges =
+    Array.isArray(p.badges)
+      ? p.badges
+          .filter(Boolean)
+          .map(
+            badge => `
+              <span class="badge">
+                ${esc(String(badge))}
+              </span>
+            `
           )
-        );
+          .join("")
+      : "";
 
-        clubs.appendChild(a);
+  const metrics =
+    Array.isArray(p.metrics)
+      ? p.metrics
+          .map(
+            metric => `
+              <div class="metric">
 
+                <div class="v">
+                  ${esc(String(metric.v ?? "—"))}
+                </div>
+
+                <div class="l">
+                  ${esc(metric.l || "")}
+                </div>
+
+              </div>
+            `
+          )
+          .join("")
+      : "";
+
+  const clubs =
+    Array.isArray(p.clubs) && p.clubs.length
+      ? `
+        <div class="clublist">
+
+          ${p.clubs
+            .slice(0,4)
+            .map(
+              club => `
+                <a
+                  href="${esc(club.url || "#")}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  ${
+                    club.icon
+                      ? `
+                        <img
+                          src="${esc(club.icon)}"
+                          alt=""
+                          loading="lazy"
+                        >
+                      `
+                      : ""
+                  }
+
+                  ${esc(club.name || "Club")}
+
+                </a>
+              `
+            )
+            .join("")}
+
+        </div>
+      `
+      : "";
+
+  const links =
+    Array.isArray(p.links)
+      ? p.links.filter(Boolean).slice(0,4)
+      : [];
+
+  const linkBadges =
+    links.length
+      ? `
+        <div class="badges">
+          ${links.map(
+            link => `
+              <a
+                class="badge"
+                href="${esc(link)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ${esc(link)}
+              </a>
+            `
+          ).join("")}
+        </div>
+      `
+      : "";
+
+  card.innerHTML = `
+
+    <div class="card-head">
+
+      <div class="card-id">
+
+        ${avatarHTML}
+
+        <div class="card-src">
+
+          <div class="name">
+            ${esc(item.endpoint.name)}
+          </div>
+
+          <div class="cat">
+            ${esc(item.endpoint.category)}
+          </div>
+
+        </div>
+
+      </div>
+
+      <button
+        class="inspect-btn"
+        title="View raw response"
+        aria-label="View raw response"
+      >
+        { }
+      </button>
+
+    </div>
+
+    <div class="card-title">
+      ${esc(p.title || "")}
+    </div>
+
+    <div class="card-handle">
+      ${esc(p.handle || "")}
+    </div>
+
+    ${
+      p.bio
+        ? `
+          <div class="card-bio">
+            ${esc(p.bio)}
+          </div>
+        `
+        : ""
+    }
+
+    ${
+      badges
+        ? `
+          <div class="badges">
+            ${badges}
+          </div>
+        `
+        : ""
+    }
+
+    ${
+      metrics
+        ? `
+          <div class="metrics">
+            ${metrics}
+          </div>
+        `
+        : ""
+    }
+
+    ${clubs}
+
+    ${linkBadges}
+
+    <div class="card-foot">
+
+      <span class="id mono">
+        ${esc(item.endpoint.id)}
+      </span>
+
+      ${
+        p.profileUrl
+          ? `
+            <a
+              class="open"
+              href="${esc(p.profileUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open profile
+            </a>
+          `
+          : ""
       }
-    );
 
-    card.appendChild(clubs);
+    </div>
+  `;
 
-  }
+  card
+    .querySelector(".inspect-btn")
+    .addEventListener("click", () => {
 
+      modalTitle.textContent =
+        `${item.endpoint.name} — raw response`;
 
-  const foot=
-    document.createElement("div");
-
-  foot.className="card-foot";
-
-
-  const id=
-    document.createElement("span");
-
-  id.className="id mono";
-  id.textContent=
-    item.id ||
-    item.endpoint?.id ||
-    "";
-
-  foot.appendChild(id);
-
-
-  if(p.profileUrl){
-
-    const open=
-      document.createElement("a");
-
-    open.className="open";
-    open.href=p.profileUrl;
-    open.target="_blank";
-    open.rel="noopener noreferrer";
-    open.textContent="Open profile";
-
-    foot.appendChild(open);
-
-  }
-
-
-  card.appendChild(foot);
-
-
-  inspect.addEventListener(
-    "click",
-    () => {
-
-      modalTitle.textContent=
-        `${item.name || item.endpoint?.name || "Source"} — raw response`;
-
-      rawModalJSON=
+      rawModalJSON =
         item.raw || {
           status:"No payload"
         };
 
-      modalJsonContent.textContent=
+      modalJsonContent.textContent =
         JSON.stringify(
           rawModalJSON,
           null,
@@ -2327,241 +1544,219 @@ function buildCard(item){
 
       jsonModal.classList.add("open");
 
-    }
-  );
-
+    });
 
   return card;
-
 }
 
 
-/* =========================================================
+/* =========================
    COPY RESULTS
-========================================================= */
+========================= */
 
-copySummaryBtn.addEventListener(
-  "click",
-  async () => {
+copySummaryBtn.addEventListener("click", async () => {
 
-    const hits=
-      currentResults.filter(
-        result =>
-          result.status==="found" &&
-          result.parsed
-      );
-
-    if(!hits.length) return;
-
-
-    let text=
-      `Argus OSINT report — ${currentUsername}\n\n`;
-
-
-    hits.forEach(
-      item => {
-
-        const p=item.parsed;
-
-        text+=
-          `${item.name || item.endpoint?.name} (${
-            p.handle || ""
-          })\n`;
-
-        if(p.title)
-          text+=`Name: ${p.title}\n`;
-
-        if(p.bio)
-          text+=`Bio: ${p.bio}\n`;
-
-        if(
-          Array.isArray(p.badges) &&
-          p.badges.length
-        )
-          text+=
-            `Badges: ${p.badges.join(", ")}\n`;
-
-        if(
-          Array.isArray(p.metrics)
-        ){
-
-          p.metrics.forEach(
-            metric => {
-
-              text+=
-                `${metric.l}: ${metric.v}\n`;
-
-            }
-          );
-
-        }
-
-        if(p.profileUrl)
-          text+=`URL: ${p.profileUrl}\n`;
-
-        text+="\n";
-
-      }
+  const hits =
+    currentResults.filter(
+      result =>
+        result.status === "found" &&
+        result.parsed
     );
 
+  if(!hits.length){
+    return;
+  }
 
-    try{
+  let text =
+    `Argus OSINT report — ${currentUsername}\n\n`;
 
-      await navigator.clipboard.writeText(text);
+  hits.forEach(item => {
 
-      const old=
-        copySummaryBtn.textContent;
+    const p = item.parsed;
 
-      copySummaryBtn.textContent="Copied";
+    text +=
+      `${item.endpoint.name} (${p.handle || ""})\n`;
 
-      setTimeout(
-        () =>
-          copySummaryBtn.textContent=old,
-        1500
-      );
-
-    }catch{
-
-      copySummaryBtn.textContent="Copy failed";
-
-      setTimeout(
-        () =>
-          copySummaryBtn.textContent="Copy results",
-        1500
-      );
-
+    if(p.title){
+      text += `Name: ${p.title}\n`;
     }
 
+    if(p.bio){
+      text += `Bio: ${p.bio}\n`;
+    }
+
+    if(
+      Array.isArray(p.badges) &&
+      p.badges.length
+    ){
+      text +=
+        `Badges: ${p.badges.join(", ")}\n`;
+    }
+
+    if(
+      Array.isArray(p.metrics) &&
+      p.metrics.length
+    ){
+      p.metrics.forEach(metric => {
+        text +=
+          `${metric.l}: ${metric.v}\n`;
+      });
+    }
+
+    if(p.profileUrl){
+      text +=
+        `URL: ${p.profileUrl}\n`;
+    }
+
+    text += "\n";
+
+  });
+
+  try{
+
+    await navigator.clipboard.writeText(text);
+
+    const old = copySummaryBtn.textContent;
+
+    copySummaryBtn.textContent = "Copied";
+
+    setTimeout(() => {
+      copySummaryBtn.textContent = old;
+    },1500);
+
+  }catch{
+
+    copySummaryBtn.textContent = "Copy failed";
+
+    setTimeout(() => {
+      copySummaryBtn.textContent = "Copy results";
+    },1500);
+
   }
-);
+
+});
 
 
-/* =========================================================
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
-closeModalBtn.addEventListener(
-  "click",
-  () =>
-    jsonModal.classList.remove("open")
-);
+closeModalBtn.addEventListener("click", () => {
+  jsonModal.classList.remove("open");
+});
 
-jsonModal.addEventListener(
-  "click",
-  event => {
+jsonModal.addEventListener("click", event => {
 
-    if(event.target===jsonModal){
-      jsonModal.classList.remove("open");
-    }
+  if(event.target === jsonModal){
+    jsonModal.classList.remove("open");
+  }
+
+});
+
+document.addEventListener("keydown", event => {
+
+  if(event.key === "Escape"){
+    jsonModal.classList.remove("open");
+  }
+
+});
+
+copyModalJsonBtn.addEventListener("click", async () => {
+
+  if(!rawModalJSON){
+    return;
+  }
+
+  try{
+
+    await navigator.clipboard.writeText(
+      JSON.stringify(
+        rawModalJSON,
+        null,
+        2
+      )
+    );
+
+    const old =
+      copyModalJsonBtn.textContent;
+
+    copyModalJsonBtn.textContent = "Copied";
+
+    setTimeout(() => {
+      copyModalJsonBtn.textContent = old;
+    },1500);
+
+  }catch{
+
+    copyModalJsonBtn.textContent = "Copy failed";
+
+    setTimeout(() => {
+      copyModalJsonBtn.textContent = "Copy JSON";
+    },1500);
 
   }
-);
 
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key==="Escape"){
-      jsonModal.classList.remove("open");
-    }
-
-  }
-);
+});
 
 
-copyModalJsonBtn.addEventListener(
-  "click",
-  async () => {
-
-    if(!rawModalJSON) return;
-
-    try{
-
-      await navigator.clipboard.writeText(
-        JSON.stringify(
-          rawModalJSON,
-          null,
-          2
-        )
-      );
-
-      const old=
-        copyModalJsonBtn.textContent;
-
-      copyModalJsonBtn.textContent="Copied";
-
-      setTimeout(
-        () =>
-          copyModalJsonBtn.textContent=old,
-        1500
-      );
-
-    }catch{
-
-      copyModalJsonBtn.textContent="Copy failed";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
+/* =========================
    THEME
-========================================================= */
+========================= */
 
 (function initTheme(){
 
-  const prefersLight=
+  const saved =
+    localStorage.getItem("argus-theme");
+
+  const prefersLight =
     window.matchMedia(
       "(prefers-color-scheme: light)"
     ).matches;
 
-  const initial=
-    prefersLight
-      ? "light"
-      : "dark";
+  const initial =
+    saved ||
+    (prefersLight ? "light" : "dark");
 
   document.documentElement.setAttribute(
     "data-theme",
     initial
   );
 
-  themeBtn.textContent=
-    initial==="light"
+  themeBtn.textContent =
+    initial === "light"
       ? "Dark mode"
       : "Light mode";
 
 })();
 
+themeBtn.addEventListener("click", () => {
 
-themeBtn.addEventListener(
-  "click",
-  () => {
-
-    const current=
-      document.documentElement.getAttribute(
-        "data-theme"
-      );
-
-    const next=
-      current==="light"
-        ? "dark"
-        : "light";
-
-    document.documentElement.setAttribute(
-      "data-theme",
-      next
+  const current =
+    document.documentElement.getAttribute(
+      "data-theme"
     );
 
-    themeBtn.textContent=
-      next==="light"
-        ? "Dark mode"
-        : "Light mode";
+  const next =
+    current === "light"
+      ? "dark"
+      : "light";
 
-  }
-);
+  document.documentElement.setAttribute(
+    "data-theme",
+    next
+  );
 
+  localStorage.setItem(
+    "argus-theme",
+    next
+  );
+
+  themeBtn.textContent =
+    next === "light"
+      ? "Dark mode"
+      : "Light mode";
+
+});
 </script>
 
 </body>
