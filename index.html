@@ -3,12 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Argus OSINT — public profile lookup</title>
+
+<!-- ================= SEO ================= -->
+
+<title>Argus — Concurrent Profile OSINT Search Engine</title>
+
+<meta name="description" content="Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis.">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+
+<link rel="canonical" href="https://argusosint-ten.vercel.app/">
+
+<!-- ================= OPEN GRAPH ================= -->
+
+<meta property="og:title" content="Argus — OSINT Search Engine">
+<meta property="og:description" content="Concurrent profile search engine for OSINT metadata.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://argusosint-ten.vercel.app/">
+<meta property="og:site_name" content="Argus OSINT">
+<meta property="og:image" content="https://argusosint-ten.vercel.app/logo.png">
+<meta property="og:image:alt" content="Argus OSINT logo">
+
+<!-- ================= TWITTER / X ================= -->
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Argus — OSINT Search Engine">
+<meta name="twitter:description" content="Concurrent profile search engine for OSINT metadata.">
+<meta name="twitter:image" content="https://argusosint-ten.vercel.app/logo.png">
+
+<!-- ================= THEME / ICON ================= -->
+
+<meta name="theme-color" content="#12151a">
+<meta name="application-name" content="Argus OSINT">
+
+<link rel="icon" type="image/png" href="/logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="/logo.png" />
 
 <style>
 :root{
@@ -1135,24 +1167,43 @@ details.misses[open] summary .chev{
 
 <header>
   <div class="wrap header-row">
+
     <div class="brand">
-      <img src="logo.png" class="brand-logo" alt="Argus OSINT logo">
+
+      <img
+        src="logo.png"
+        class="brand-logo"
+        alt="Argus OSINT logo"
+      >
+
       <div class="brand-text">
         <span class="name">Argus OSINT</span>
         <span class="tag">public profile lookup</span>
       </div>
+
     </div>
-    <button class="theme-btn" id="themeBtn">Light mode</button>
+
+    <button
+      class="theme-btn"
+      id="themeBtn">
+      Light mode
+    </button>
+
   </div>
 </header>
 
 <main class="wrap">
 
 <section class="search-card">
+
   <h1>Look up a handle</h1>
-  <p class="sub">Search for publicly available profile information and explore matching accounts.</p>
+
+  <p class="sub">
+    Search for publicly available profile information and explore matching accounts.
+  </p>
 
   <form id="searchForm">
+
     <input
       type="text"
       id="usernameInput"
@@ -1160,51 +1211,141 @@ details.misses[open] summary .chev{
       required
       autocomplete="off"
     >
-    <button type="submit" id="searchBtn">Check</button>
+
+    <button
+      type="submit"
+      id="searchBtn">
+      Check
+    </button>
+
   </form>
 
-  <div class="progress" id="progressContainer">
+  <div
+    class="progress"
+    id="progressContainer">
+
     <div class="progress-line">
-      <span id="progressText">Querying sources…</span>
-      <span id="progressPercent">0%</span>
+
+      <span id="progressText">
+        Querying sources…
+      </span>
+
+      <span id="progressPercent">
+        0%
+      </span>
+
     </div>
+
     <div class="progress-track">
-      <div class="progress-fill" id="progressBar"></div>
+
+      <div
+        class="progress-fill"
+        id="progressBar">
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
-<div class="summary" id="summary">
-  <span><span class="dot" style="background:var(--ok)"></span><b id="statFound">0</b> matched</span>
-  <span><span class="dot" style="background:var(--faint)"></span><b id="statNotFound">0</b> no record</span>
-  <span><span class="dot" style="background:var(--err)"></span><b id="statErrors">0</b> blocked / errored</span>
-  <button class="copy-btn" id="copySummaryBtn">Copy results</button>
+<div
+  class="summary"
+  id="summary">
+
+  <span>
+    <span
+      class="dot"
+      style="background:var(--ok)">
+    </span>
+
+    <b id="statFound">0</b>
+    matched
+  </span>
+
+  <span>
+    <span
+      class="dot"
+      style="background:var(--faint)">
+    </span>
+
+    <b id="statNotFound">0</b>
+    no record
+  </span>
+
+  <span>
+    <span
+      class="dot"
+      style="background:var(--err)">
+    </span>
+
+    <b id="statErrors">0</b>
+    blocked / errored
+  </span>
+
+  <button
+    class="copy-btn"
+    id="copySummaryBtn">
+    Copy results
+  </button>
+
 </div>
 
-<section class="group" id="resultsSection">
-  <div class="empty" id="emptyState">
+<section
+  class="group"
+  id="resultsSection">
+
+  <div
+    class="empty"
+    id="emptyState">
+
     <b>No lookup run yet</b>
+
     Enter a handle above and press Check to search for public profiles.
+
   </div>
+
 </section>
 
 </main>
 
-<div class="modal-bg" id="jsonModal">
+<div
+  class="modal-bg"
+  id="jsonModal">
+
   <div class="modal">
+
     <div class="modal-head">
-      <h3 id="modalTitle">Raw response</h3>
-      <button id="closeModalBtn">✕</button>
+
+      <h3 id="modalTitle">
+        Raw response
+      </h3>
+
+      <button id="closeModalBtn">
+        ✕
+      </button>
+
     </div>
 
     <div class="modal-body">
-      <pre id="modalJsonContent" style="margin:0;"></pre>
+
+      <pre
+        id="modalJsonContent"
+        style="margin:0;">
+      </pre>
+
     </div>
 
     <div class="modal-foot">
-      <button id="copyModalJsonBtn">Copy JSON</button>
+
+      <button id="copyModalJsonBtn">
+        Copy JSON
+      </button>
+
     </div>
+
   </div>
+
 </div>
 
 <script>
@@ -1219,40 +1360,86 @@ const TARGET_ENDPOINTS = [
     category:'Identity',
 
     fetch:async user =>
-      fetchUrl(`https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || !data.profiles) return null;
 
-      const en=data.profiles.en || Object.values(data.profiles)[0];
-      if(!en) return null;
+      if(!data || !data.profiles)
+        return null;
 
-      const names=(en.names||[])
-        .map(n=>typeof n==='string'?n:n.value||n.name)
-        .filter(Boolean);
+      const en =
+        data.profiles.en ||
+        Object.values(data.profiles)[0];
 
-      const pronouns=(en.pronouns||[])
-        .map(p=>typeof p==='string'?p:p.value||p.pronoun)
-        .filter(Boolean);
+      if(!en)
+        return null;
 
-      const links=(en.links||[])
-        .map(l=>typeof l==='string'?l:l.href||l.link)
-        .filter(Boolean);
+      const names =
+        (en.names || [])
+          .map(n =>
+            typeof n === 'string'
+              ? n
+              : n.value || n.name
+          )
+          .filter(Boolean);
+
+      const pronouns =
+        (en.pronouns || [])
+          .map(p =>
+            typeof p === 'string'
+              ? p
+              : p.value || p.pronoun
+          )
+          .filter(Boolean);
+
+      const links =
+        (en.links || [])
+          .map(l =>
+            typeof l === 'string'
+              ? l
+              : l.href || l.link
+          )
+          .filter(Boolean);
 
       return {
-        avatar:data.avatar||null,
-        title:names[0]||data.username,
-        handle:`@${data.username}`,
-        bio:en.bio||'',
-        badges:pronouns,
+
+        avatar:data.avatar || null,
+
+        title:
+          names[0] ||
+          data.username,
+
+        handle:
+          `@${data.username}`,
+
+        bio:
+          en.bio || '',
+
+        badges:
+          pronouns,
+
         metrics:[
-          {l:'Names',v:names.length},
-          {l:'Pronouns',v:pronouns.length}
+          {
+            l:'Names',
+            v:names.length
+          },
+          {
+            l:'Pronouns',
+            v:pronouns.length
+          }
         ],
+
         links,
-        profileUrl:`https://pronouns.page/@${data.username}`
+
+        profileUrl:
+          `https://pronouns.page/@${data.username}`
+
       };
+
     }
+
   },
 
   {
@@ -1261,59 +1448,151 @@ const TARGET_ENDPOINTS = [
     category:'Gaming',
 
     fetch:async user=>{
-      const base=`https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
-      const profileRes=await fetchUrl(base);
 
-      if(profileRes.status!==200) return profileRes;
+      const base =
+        `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
 
-      const [statsRes,clubsRes]=await Promise.allSettled([
-        fetchUrl(`${base}/stats`),
-        fetchUrl(`${base}/clubs`)
-      ]);
+      const profileRes =
+        await fetchUrl(base);
+
+      if(profileRes.status !== 200)
+        return profileRes;
+
+      const [
+        statsRes,
+        clubsRes
+      ] =
+        await Promise.allSettled([
+
+          fetchUrl(`${base}/stats`),
+
+          fetchUrl(`${base}/clubs`)
+
+        ]);
 
       return {
+
         status:200,
+
         data:{
-          profile:profileRes.data,
-          stats:statsRes.status==='fulfilled' &&
-            statsRes.value.status===200 ? statsRes.value.data:null,
-          clubs:clubsRes.status==='fulfilled' &&
-            clubsRes.value.status===200 ? clubsRes.value.data.clubs:[]
+
+          profile:
+            profileRes.data,
+
+          stats:
+            statsRes.status === 'fulfilled' &&
+            statsRes.value.status === 200
+              ? statsRes.value.data
+              : null,
+
+          clubs:
+            clubsRes.status === 'fulfilled' &&
+            clubsRes.value.status === 200
+              ? clubsRes.value.data.clubs
+              : []
+
         }
+
       };
+
     },
 
     parse:payload=>{
-      if(!payload || !payload.profile || !payload.profile.username) return null;
 
-      const p=payload.profile;
-      const s=payload.stats||{};
-      const clubs=payload.clubs||[];
+      if(
+        !payload ||
+        !payload.profile ||
+        !payload.profile.username
+      )
+        return null;
+
+      const p =
+        payload.profile;
+
+      const s =
+        payload.stats || {};
+
+      const clubs =
+        payload.clubs || [];
 
       return {
+
         avatar:p.avatar,
-        title:p.name||p.username,
-        handle:`@${p.username}`,
-        bio:`Joined ${new Date(p.joined*1000).toLocaleDateString()} · last online ${new Date(p.last_online*1000).toLocaleDateString()}`,
+
+        title:
+          p.name ||
+          p.username,
+
+        handle:
+          `@${p.username}`,
+
+        bio:
+          `Joined ${new Date(p.joined*1000).toLocaleDateString()} · last online ${new Date(p.last_online*1000).toLocaleDateString()}`,
+
         badges:[
-          p.title?`Title: ${p.title}`:null,
+          p.title
+            ? `Title: ${p.title}`
+            : null,
+
           p.location
+
         ].filter(Boolean),
+
         metrics:[
-          {l:'Blitz',v:s.chess_blitz?s.chess_blitz.last.rating:'—'},
-          {l:'Rapid',v:s.chess_rapid?s.chess_rapid.last.rating:'—'},
-          {l:'Bullet',v:s.chess_bullet?s.chess_bullet.last.rating:'—'},
-          {l:'Followers',v:p.followers}
+
+          {
+            l:'Blitz',
+            v:
+              s.chess_blitz
+                ? s.chess_blitz.last.rating
+                : '—'
+          },
+
+          {
+            l:'Rapid',
+            v:
+              s.chess_rapid
+                ? s.chess_rapid.last.rating
+                : '—'
+          },
+
+          {
+            l:'Bullet',
+            v:
+              s.chess_bullet
+                ? s.chess_bullet.last.rating
+                : '—'
+          },
+
+          {
+            l:'Followers',
+            v:p.followers
+          }
+
         ],
-        clubs:clubs.slice(0,4).map(c=>({
-          name:c.name,
-          icon:c.icon,
-          url:c.url
-        })),
-        links:[p.url],
-        profileUrl:p.url
+
+        clubs:
+          clubs
+            .slice(0,4)
+            .map(c=>({
+
+              name:c.name,
+              icon:c.icon,
+              url:c.url
+
+            })),
+
+        links:[
+          p.url
+        ],
+
+        profileUrl:
+          p.url
+
       };
+
     }
+
   },
 
   {
@@ -1322,32 +1601,96 @@ const TARGET_ENDPOINTS = [
     category:'Gaming',
 
     fetch:async user =>
-      fetchUrl(`https://lichess.org/api/user/${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://lichess.org/api/user/${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || data.error || !data.id) return null;
 
-      const perf=data.perfs||{};
+      if(
+        !data ||
+        data.error ||
+        !data.id
+      )
+        return null;
+
+      const perf =
+        data.perfs || {};
 
       return {
+
         avatar:null,
-        title:data.username,
-        handle:data.title?`[${data.title}] @${data.id}`:`@${data.id}`,
-        bio:data.bio||'',
+
+        title:
+          data.username,
+
+        handle:
+          data.title
+            ? `[${data.title}] @${data.id}`
+            : `@${data.id}`,
+
+        bio:
+          data.bio || '',
+
         badges:[
-          data.online?'Online':'Offline',
-          data.patron?'Patron':null
+          data.online
+            ? 'Online'
+            : 'Offline',
+
+          data.patron
+            ? 'Patron'
+            : null
+
         ].filter(Boolean),
+
         metrics:[
-          {l:'Blitz',v:perf.blitz?perf.blitz.rating:'—'},
-          {l:'Rapid',v:perf.rapid?perf.rapid.rating:'—'},
-          {l:'Puzzles',v:perf.puzzle?perf.puzzle.rating:'—'},
-          {l:'Games',v:data.count?data.count.all:0}
+
+          {
+            l:'Blitz',
+            v:
+              perf.blitz
+                ? perf.blitz.rating
+                : '—'
+          },
+
+          {
+            l:'Rapid',
+            v:
+              perf.rapid
+                ? perf.rapid.rating
+                : '—'
+          },
+
+          {
+            l:'Puzzles',
+            v:
+              perf.puzzle
+                ? perf.puzzle.rating
+                : '—'
+          },
+
+          {
+            l:'Games',
+            v:
+              data.count
+                ? data.count.all
+                : 0
+          }
+
         ],
-        links:[data.url],
-        profileUrl:data.url||`https://lichess.org/@/${data.username}`
+
+        links:[
+          data.url
+        ],
+
+        profileUrl:
+          data.url ||
+          `https://lichess.org/@/${data.username}`
+
       };
+
     }
+
   },
 
   {
@@ -1356,31 +1699,74 @@ const TARGET_ENDPOINTS = [
     category:'Developer',
 
     fetch:async user =>
-      fetchUrl(`https://api.github.com/users/${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://api.github.com/users/${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || data.message==='Not Found' || !data.login) return null;
+
+      if(
+        !data ||
+        data.message === 'Not Found' ||
+        !data.login
+      )
+        return null;
 
       return {
-        avatar:data.avatar_url,
-        title:data.name||data.login,
-        handle:`@${data.login}`,
-        bio:data.bio||'',
+
+        avatar:
+          data.avatar_url,
+
+        title:
+          data.name ||
+          data.login,
+
+        handle:
+          `@${data.login}`,
+
+        bio:
+          data.bio || '',
+
         badges:[
           data.company,
           data.location
         ].filter(Boolean),
+
         metrics:[
-          {l:'Repos',v:data.public_repos},
-          {l:'Followers',v:data.followers},
-          {l:'Gists',v:data.public_gists}
+
+          {
+            l:'Repos',
+            v:data.public_repos
+          },
+
+          {
+            l:'Followers',
+            v:data.followers
+          },
+
+          {
+            l:'Gists',
+            v:data.public_gists
+          }
+
         ],
-        links:data.blog?[
-          data.blog.startsWith('http')?data.blog:`https://${data.blog}`
-        ]:[],
-        profileUrl:data.html_url
+
+        links:
+          data.blog
+            ? [
+                data.blog.startsWith('http')
+                  ? data.blog
+                  : `https://${data.blog}`
+              ]
+            : [],
+
+        profileUrl:
+          data.html_url
+
       };
+
     }
+
   },
 
   {
@@ -1389,29 +1775,73 @@ const TARGET_ENDPOINTS = [
     category:'Identity',
 
     fetch:async user =>
-      fetchUrl(`https://en.gravatar.com/${encodeURIComponent(user)}.json`),
+      fetchUrl(
+        `https://en.gravatar.com/${encodeURIComponent(user)}.json`
+      ),
 
     parse:data=>{
-      if(!data || !data.entry || !data.entry[0]) return null;
 
-      const e=data.entry[0];
-      const urls=(e.urls||[]).map(u=>u.value);
+      if(
+        !data ||
+        !data.entry ||
+        !data.entry[0]
+      )
+        return null;
+
+      const e =
+        data.entry[0];
+
+      const urls =
+        (e.urls || [])
+          .map(u=>u.value);
 
       return {
-        avatar:e.thumbnailUrl,
-        title:e.displayName||e.preferredUsername,
-        handle:`@${e.preferredUsername}`,
-        bio:e.aboutMe||'',
-        badges:[e.currentLocation].filter(Boolean),
+
+        avatar:
+          e.thumbnailUrl,
+
+        title:
+          e.displayName ||
+          e.preferredUsername,
+
+        handle:
+          `@${e.preferredUsername}`,
+
+        bio:
+          e.aboutMe || '',
+
+        badges:[
+          e.currentLocation
+        ].filter(Boolean),
+
         metrics:[
-          {l:'Accounts',v:e.accounts?e.accounts.length:0},
-          {l:'URLs',v:urls.length}
+
+          {
+            l:'Accounts',
+            v:
+              e.accounts
+                ? e.accounts.length
+                : 0
+          },
+
+          {
+            l:'URLs',
+            v:urls.length
+          }
+
         ],
-        links:urls,
-        profileUrl:e.profileUrl||
+
+        links:
+          urls,
+
+        profileUrl:
+          e.profileUrl ||
           `https://gravatar.com/${e.preferredUsername}`
+
       };
+
     }
+
   },
 
   {
@@ -1420,48 +1850,87 @@ const TARGET_ENDPOINTS = [
     category:'Security',
 
     fetch:async user =>
-      fetchUrl(`https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || !data.them || !data.them[0]) return null;
 
-      const u=data.them[0];
+      if(
+        !data ||
+        !data.them ||
+        !data.them[0]
+      )
+        return null;
 
-      if(!u.id) return null;
+      const u =
+        data.them[0];
 
-      const proofs=(
-        u.proofs_summary?
-        u.proofs_summary.all||[]:[]
-      ).map(p=>`${p.proof_type}: ${p.nametag}`);
+      if(!u.id)
+        return null;
+
+      const proofs =
+        (
+          u.proofs_summary
+            ? u.proofs_summary.all || []
+            : []
+        )
+        .map(
+          p =>
+            `${p.proof_type}: ${p.nametag}`
+        );
 
       return {
-        avatar:u.pictures &&
-          u.pictures.primary?
-          u.pictures.primary.url:null,
 
-        title:u.profile?
-          u.profile.full_name||u.basics.username:
-          u.basics.username,
+        avatar:
+          u.pictures &&
+          u.pictures.primary
+            ? u.pictures.primary.url
+            : null,
 
-        handle:`@${u.basics.username}`,
+        title:
+          u.profile
+            ? u.profile.full_name ||
+              u.basics.username
+            : u.basics.username,
 
-        bio:u.profile?u.profile.bio:'',
+        handle:
+          `@${u.basics.username}`,
 
-        badges:proofs.slice(0,4),
+        bio:
+          u.profile
+            ? u.profile.bio
+            : '',
+
+        badges:
+          proofs.slice(0,4),
 
         metrics:[
-          {l:'Proofs',v:proofs.length},
+
+          {
+            l:'Proofs',
+            v:proofs.length
+          },
+
           {
             l:'Devices',
-            v:u.devices?Object.keys(u.devices).length:0
+            v:
+              u.devices
+                ? Object.keys(u.devices).length
+                : 0
           }
+
         ],
 
         links:[],
 
-        profileUrl:`https://keybase.io/${u.basics.username}`
+        profileUrl:
+          `https://keybase.io/${u.basics.username}`
+
       };
+
     }
+
   },
 
   {
@@ -1470,43 +1939,90 @@ const TARGET_ENDPOINTS = [
     category:'Social',
 
     fetch:async user =>
-      fetchUrl(`https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`),
+      fetchUrl(
+        `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`
+      ),
 
     parse:data=>{
-      if(!data || !data.data || data.error===404) return null;
 
-      const u=data.data;
+      if(
+        !data ||
+        !data.data ||
+        data.error === 404
+      )
+        return null;
+
+      const u =
+        data.data;
 
       return {
-        avatar:u.icon_img?u.icon_img.split('?')[0]:null,
-        title:u.subreddit?
-          u.subreddit.title||u.name:
-          u.name,
 
-        handle:`u/${u.name}`,
+        avatar:
+          u.icon_img
+            ? u.icon_img.split('?')[0]
+            : null,
 
-        bio:u.subreddit?
-          u.subreddit.public_description:'',
+        title:
+          u.subreddit
+            ? u.subreddit.title ||
+              u.name
+            : u.name,
+
+        handle:
+          `u/${u.name}`,
+
+        bio:
+          u.subreddit
+            ? u.subreddit.public_description
+            : '',
 
         badges:[
-          u.is_gold?'Gold':null,
-          u.is_mod?'Moderator':null,
-          u.has_verified_email?'Verified email':null
+
+          u.is_gold
+            ? 'Gold'
+            : null,
+
+          u.is_mod
+            ? 'Moderator'
+            : null,
+
+          u.has_verified_email
+            ? 'Verified email'
+            : null
+
         ].filter(Boolean),
 
         metrics:[
-          {l:'Post karma',v:u.link_karma},
-          {l:'Comment karma',v:u.comment_karma},
+
+          {
+            l:'Post karma',
+            v:u.link_karma
+          },
+
+          {
+            l:'Comment karma',
+            v:u.comment_karma
+          },
+
           {
             l:'Since',
-            v:new Date(u.created_utc*1000).getFullYear()
+            v:
+              new Date(
+                u.created_utc*1000
+              ).getFullYear()
           }
+
         ],
 
         links:[],
-        profileUrl:`https://reddit.com/user/${u.name}`
+
+        profileUrl:
+          `https://reddit.com/user/${u.name}`
+
       };
+
     }
+
   },
 
   {
@@ -1515,27 +2031,67 @@ const TARGET_ENDPOINTS = [
     category:'Identity',
 
     fetch:async user =>
-      fetchUrl(`https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || (!data.username && !data.members)) return null;
+
+      if(
+        !data ||
+        (
+          !data.username &&
+          !data.members
+        )
+      )
+        return null;
 
       return {
-        avatar:data.avatar_url,
-        title:data.username||'System',
-        handle:data.id?`ID ${data.id}`:'',
-        bio:data.biography||data.description||'',
-        badges:data.pronouns?[data.pronouns]:[],
+
+        avatar:
+          data.avatar_url,
+
+        title:
+          data.username ||
+          'System',
+
+        handle:
+          data.id
+            ? `ID ${data.id}`
+            : '',
+
+        bio:
+          data.biography ||
+          data.description ||
+          '',
+
+        badges:
+          data.pronouns
+            ? [data.pronouns]
+            : [],
+
         metrics:[
+
           {
             l:'Members',
-            v:data.members?data.members.length:0
+            v:
+              data.members
+                ? data.members.length
+                : 0
           }
+
         ],
-        links:data.links||[],
-        profileUrl:`https://pronouns.cc/p/${data.username}`
+
+        links:
+          data.links || [],
+
+        profileUrl:
+          `https://pronouns.cc/p/${data.username}`
+
       };
+
     }
+
   },
 
   {
@@ -1544,28 +2100,59 @@ const TARGET_ENDPOINTS = [
     category:'Community',
 
     fetch:async user =>
-      fetchUrl(`https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`),
+      fetchUrl(
+        `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`
+      ),
 
     parse:data=>{
-      if(!data || !data.id) return null;
+
+      if(
+        !data ||
+        !data.id
+      )
+        return null;
 
       return {
+
         avatar:null,
-        title:data.id,
-        handle:`since ${new Date(data.created*1000).getFullYear()}`,
-        bio:data.about||'',
+
+        title:
+          data.id,
+
+        handle:
+          `since ${new Date(data.created*1000).getFullYear()}`,
+
+        bio:
+          data.about || '',
+
         badges:[],
+
         metrics:[
-          {l:'Karma',v:data.karma},
+
+          {
+            l:'Karma',
+            v:data.karma
+          },
+
           {
             l:'Posts',
-            v:data.submitted?data.submitted.length:0
+            v:
+              data.submitted
+                ? data.submitted.length
+                : 0
           }
+
         ],
+
         links:[],
-        profileUrl:`https://news.ycombinator.com/user?id=${data.id}`
+
+        profileUrl:
+          `https://news.ycombinator.com/user?id=${data.id}`
+
       };
+
     }
+
   },
 
   {
@@ -1574,32 +2161,66 @@ const TARGET_ENDPOINTS = [
     category:'Developer',
 
     fetch:async user =>
-      fetchUrl(`https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`),
+      fetchUrl(
+        `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`
+      ),
 
     parse:data=>{
-      if(!data || !data.username) return null;
+
+      if(
+        !data ||
+        !data.username
+      )
+        return null;
 
       return {
-        avatar:data.profile_image,
-        title:data.name||data.username,
-        handle:`@${data.username}`,
-        bio:data.summary||'',
-        badges:[data.location].filter(Boolean),
+
+        avatar:
+          data.profile_image,
+
+        title:
+          data.name ||
+          data.username,
+
+        handle:
+          `@${data.username}`,
+
+        bio:
+          data.summary || '',
+
+        badges:[
+          data.location
+        ].filter(Boolean),
+
         metrics:[
+
           {
             l:'Joined',
-            v:data.joined_at?
-              data.joined_at.split(' ')[0]:'—'
+            v:
+              data.joined_at
+                ? data.joined_at.split(' ')[0]
+                : '—'
           }
+
         ],
+
         links:[
+
           data.website_url,
-          data.github_username?
-            `https://github.com/${data.github_username}`:null
+
+          data.github_username
+            ? `https://github.com/${data.github_username}`
+            : null
+
         ].filter(Boolean),
-        profileUrl:`https://dev.to/${data.username}`
+
+        profileUrl:
+          `https://dev.to/${data.username}`
+
       };
+
     }
+
   }
 
 ];
@@ -1610,32 +2231,41 @@ async function fetchUrl(url){
 
   try{
 
-    const res=await fetch(
-      `/api/proxy?url=${encodeURIComponent(url)}`,
-      {
-        headers:{
-          'Accept':'application/json'
+    const res =
+      await fetch(
+        `/api/proxy?url=${encodeURIComponent(url)}`,
+        {
+          headers:{
+            'Accept':'application/json'
+          }
         }
-      }
-    );
+      );
 
     if(!res.ok){
+
       return {
         status:res.status,
         data:null
       };
+
     }
 
     return {
+
       status:200,
-      data:await res.json()
+
+      data:
+        await res.json()
+
     };
 
   }catch(err){
 
     return {
+
       status:'blocked',
       data:null
+
     };
 
   }
@@ -1644,29 +2274,56 @@ async function fetchUrl(url){
 
 /* ================= UI ================= */
 
-const searchForm=document.getElementById('searchForm');
-const usernameInput=document.getElementById('usernameInput');
-const searchBtn=document.getElementById('searchBtn');
+const searchForm =
+  document.getElementById('searchForm');
 
-const progressContainer=document.getElementById('progressContainer');
-const progressBar=document.getElementById('progressBar');
-const progressText=document.getElementById('progressText');
-const progressPercent=document.getElementById('progressPercent');
+const usernameInput =
+  document.getElementById('usernameInput');
 
-const summary=document.getElementById('summary');
+const searchBtn =
+  document.getElementById('searchBtn');
 
-const statFound=document.getElementById('statFound');
-const statNotFound=document.getElementById('statNotFound');
-const statErrors=document.getElementById('statErrors');
+const progressContainer =
+  document.getElementById('progressContainer');
 
-const resultsSection=document.getElementById('resultsSection');
-const emptyState=document.getElementById('emptyState');
+const progressBar =
+  document.getElementById('progressBar');
 
-const copySummaryBtn=document.getElementById('copySummaryBtn');
+const progressText =
+  document.getElementById('progressText');
 
-const jsonModal=document.getElementById('jsonModal');
-const modalTitle=document.getElementById('modalTitle');
-const modalJsonContent=document.getElementById('modalJsonContent');
+const progressPercent =
+  document.getElementById('progressPercent');
+
+const summary =
+  document.getElementById('summary');
+
+const statFound =
+  document.getElementById('statFound');
+
+const statNotFound =
+  document.getElementById('statNotFound');
+
+const statErrors =
+  document.getElementById('statErrors');
+
+const resultsSection =
+  document.getElementById('resultsSection');
+
+const emptyState =
+  document.getElementById('emptyState');
+
+const copySummaryBtn =
+  document.getElementById('copySummaryBtn');
+
+const jsonModal =
+  document.getElementById('jsonModal');
+
+const modalTitle =
+  document.getElementById('modalTitle');
+
+const modalJsonContent =
+  document.getElementById('modalJsonContent');
 
 let currentResults=[];
 let rawModalJSON=null;
@@ -1675,127 +2332,167 @@ let rawModalJSON=null;
 
 function esc(str){
 
-  if(typeof str!=='string') return str;
+  if(typeof str !== 'string')
+    return str;
 
   return str.replace(
     /[&<>'"]/g,
     t=>({
+
       '&':'&amp;',
       '<':'&lt;',
       '>':'&gt;',
       "'":'&#39;',
       '"':'&quot;'
-    }[t]||t)
+
+    }[t] || t)
   );
 
 }
 
 /* ================= SEARCH ================= */
 
-searchForm.addEventListener('submit',async e=>{
+searchForm.addEventListener(
+  'submit',
+  async e=>{
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const username=usernameInput.value.trim();
+    const username =
+      usernameInput.value.trim();
 
-  if(!username) return;
+    if(!username)
+      return;
 
-  currentResults=[];
+    currentResults=[];
 
-  resultsSection.innerHTML='';
+    resultsSection.innerHTML='';
 
-  summary.classList.remove('active');
+    summary.classList.remove('active');
 
-  progressContainer.classList.add('active');
+    progressContainer.classList.add('active');
 
-  searchBtn.disabled=true;
+    searchBtn.disabled=true;
 
-  progressBar.style.width='0%';
+    progressBar.style.width='0%';
 
-  progressPercent.textContent='0%';
+    progressPercent.textContent='0%';
 
-  progressText.textContent='Querying sources…';
+    progressText.textContent=
+      'Querying sources…';
 
-  let completed=0;
-  let found=0;
-  let notFound=0;
-  let errored=0;
+    let completed=0;
+    let found=0;
+    let notFound=0;
+    let errored=0;
 
-  await Promise.allSettled(
+    await Promise.allSettled(
 
-    TARGET_ENDPOINTS.map(async endpoint=>{
+      TARGET_ENDPOINTS.map(
+        async endpoint=>{
 
-      const res=await endpoint.fetch(username);
+          const res =
+            await endpoint.fetch(username);
 
-      let result={
-        endpoint,
-        status:'error',
-        raw:res.data,
-        parsed:null
-      };
+          let result={
 
-      if(res.status===200 && res.data){
+            endpoint,
 
-        const parsed=endpoint.parse(res.data);
+            status:'error',
 
-        if(parsed){
+            raw:res.data,
 
-          result.status='found';
-          result.parsed=parsed;
-          found++;
+            parsed:null
 
-        }else{
+          };
 
-          result.status='not_found';
-          notFound++;
+          if(
+            res.status === 200 &&
+            res.data
+          ){
+
+            const parsed =
+              endpoint.parse(res.data);
+
+            if(parsed){
+
+              result.status='found';
+
+              result.parsed=parsed;
+
+              found++;
+
+            }else{
+
+              result.status='not_found';
+
+              notFound++;
+
+            }
+
+          }else if(
+            res.status === 404
+          ){
+
+            result.status='not_found';
+
+            notFound++;
+
+          }else{
+
+            result.status='error';
+
+            errored++;
+
+          }
+
+          completed++;
+
+          const pct =
+            Math.round(
+              (
+                completed /
+                TARGET_ENDPOINTS.length
+              ) * 100
+            );
+
+          progressBar.style.width =
+            pct+'%';
+
+          progressPercent.textContent =
+            pct+'%';
+
+          progressText.textContent =
+            completed ===
+            TARGET_ENDPOINTS.length
+              ? 'Search complete'
+              : `Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
+
+          currentResults.push(result);
 
         }
+      )
 
-      }else if(res.status===404){
+    );
 
-        result.status='not_found';
-        notFound++;
+    progressContainer.classList.remove(
+      'active'
+    );
 
-      }else{
+    searchBtn.disabled=false;
 
-        result.status='error';
-        errored++;
+    statFound.textContent=found;
 
-      }
+    statNotFound.textContent=notFound;
 
-      completed++;
+    statErrors.textContent=errored;
 
-      const pct=Math.round(
-        (completed/TARGET_ENDPOINTS.length)*100
-      );
+    summary.classList.add('active');
 
-      progressBar.style.width=pct+'%';
-      progressPercent.textContent=pct+'%';
+    renderResults(username);
 
-      progressText.textContent=
-        completed===TARGET_ENDPOINTS.length
-        ?'Search complete'
-        :`Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
-
-      currentResults.push(result);
-
-    })
-
-  );
-
-  progressContainer.classList.remove('active');
-
-  searchBtn.disabled=false;
-
-  statFound.textContent=found;
-  statNotFound.textContent=notFound;
-  statErrors.textContent=errored;
-
-  summary.classList.add('active');
-
-  renderResults(username);
-
-});
+  }
+);
 
 /* ================= RESULTS ================= */
 
@@ -1803,17 +2500,24 @@ function renderResults(username){
 
   resultsSection.innerHTML='';
 
-  const hits=currentResults.filter(
-    r=>r.status==='found'
-  );
+  const hits =
+    currentResults.filter(
+      r=>r.status==='found'
+    );
 
-  const rest=currentResults.filter(
-    r=>r.status!=='found'
-  );
+  const rest =
+    currentResults.filter(
+      r=>r.status!=='found'
+    );
 
-  if(hits.length===0 && rest.length===0){
+  if(
+    hits.length === 0 &&
+    rest.length === 0
+  ){
 
-    resultsSection.appendChild(emptyState);
+    resultsSection.appendChild(
+      emptyState
+    );
 
     return;
 
@@ -1821,38 +2525,45 @@ function renderResults(username){
 
   if(hits.length){
 
-    const title=document.createElement('p');
+    const title =
+      document.createElement('p');
 
     title.className='group-title';
 
-    title.textContent=
+    title.textContent =
       `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
 
-    const grid=document.createElement('div');
+    const grid =
+      document.createElement('div');
 
     grid.className='hits';
 
-    hits.forEach((item,index)=>{
+    hits.forEach(
+      (item,index)=>{
 
-      const card=buildCard(item);
+        const card =
+          buildCard(item);
 
-      card.style.animationDelay=
-        `${index*70}ms`;
+        card.style.animationDelay =
+          `${index*70}ms`;
 
-      grid.appendChild(card);
+        grid.appendChild(card);
 
-    });
+      }
+    );
 
     resultsSection.appendChild(title);
+
     resultsSection.appendChild(grid);
 
   }else{
 
-    const none=document.createElement('div');
+    const none =
+      document.createElement('div');
 
     none.className='empty';
 
-    none.innerHTML=
+    none.innerHTML =
       `<b>No public match for "${esc(username)}"</b>
        Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
 
@@ -1862,36 +2573,41 @@ function renderResults(username){
 
   if(rest.length){
 
-    const details=document.createElement('details');
+    const details =
+      document.createElement('details');
 
     details.className='misses';
 
-    const summaryEl=document.createElement('summary');
+    const summaryEl =
+      document.createElement('summary');
 
-    summaryEl.innerHTML=
+    summaryEl.innerHTML =
       `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
        <span class="chev">›</span>`;
 
     details.appendChild(summaryEl);
 
-    rest.forEach((r,index)=>{
+    rest.forEach(
+      (r,index)=>{
 
-      const row=document.createElement('div');
+        const row =
+          document.createElement('div');
 
-      row.className='miss-row';
+        row.className='miss-row';
 
-      row.style.animationDelay=
-        `${index*35}ms`;
+        row.style.animationDelay =
+          `${index*35}ms`;
 
-      row.innerHTML=
-        `<span class="n">${esc(r.endpoint.name)}</span>
-         <span class="s ${r.status==='error'?'er':'nf'}">
-         ${r.status==='error'?'blocked':'no record'}
-         </span>`;
+        row.innerHTML =
+          `<span class="n">${esc(r.endpoint.name)}</span>
+           <span class="s ${r.status==='error'?'er':'nf'}">
+           ${r.status==='error'?'blocked':'no record'}
+           </span>`;
 
-      details.appendChild(row);
+        details.appendChild(row);
 
-    });
+      }
+    );
 
     resultsSection.appendChild(details);
 
@@ -1903,55 +2619,88 @@ function renderResults(username){
 
 function buildCard(item){
 
-  const p=item.parsed;
+  const p =
+    item.parsed;
 
-  const card=document.createElement('div');
+  const card =
+    document.createElement('div');
 
   card.className='card';
 
-  const avatarHTML=p.avatar
-    ?`<img class="avatar"
-          src="${esc(p.avatar)}"
-          alt=""
-          onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title||'?').charAt(0).toUpperCase())}</div>'">`
-    :`<div class="avatar-fallback">
-       ${esc((p.title||'?').charAt(0).toUpperCase())}
-      </div>`;
+  const avatarHTML =
+    p.avatar
 
-  const badges=(p.badges||[])
-    .filter(Boolean)
-    .map(b=>
-      `<span class="badge">${esc(String(b))}</span>`
-    )
-    .join('');
+      ? `<img
+           class="avatar"
+           src="${esc(p.avatar)}"
+           alt=""
+           onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title||'?').charAt(0).toUpperCase())}</div>'">`
 
-  const metrics=(p.metrics||[])
-    .map(m=>
-      `<div class="metric">
-        <div class="v">${esc(String(m.v))}</div>
-        <div class="l">${esc(m.l)}</div>
-       </div>`
-    )
-    .join('');
+      : `<div class="avatar-fallback">
+           ${esc(
+             (p.title||'?')
+               .charAt(0)
+               .toUpperCase()
+           )}
+         </div>`;
 
-  const clubs=(p.clubs||[]).length
+  const badges =
+    (p.badges || [])
+      .filter(Boolean)
+      .map(
+        b =>
+          `<span class="badge">
+            ${esc(String(b))}
+           </span>`
+      )
+      .join('');
 
-    ?`<div class="clublist">
-       ${p.clubs.map(c=>
-        `<a href="${esc(c.url)}"
-            target="_blank"
-            rel="noopener">
-          ${c.icon?
-            `<img src="${esc(c.icon)}" alt="">`
-            :''}
-          ${esc(c.name)}
-        </a>`
-       ).join('')}
-      </div>`
+  const metrics =
+    (p.metrics || [])
+      .map(
+        m =>
+          `<div class="metric">
 
-    :'';
+             <div class="v">
+               ${esc(String(m.v))}
+             </div>
 
-  card.innerHTML=`
+             <div class="l">
+               ${esc(m.l)}
+             </div>
+
+           </div>`
+      )
+      .join('');
+
+  const clubs =
+    (p.clubs || []).length
+
+      ? `<div class="clublist">
+
+           ${p.clubs.map(
+             c =>
+               `<a
+                  href="${esc(c.url)}"
+                  target="_blank"
+                  rel="noopener">
+
+                  ${c.icon
+                    ? `<img
+                         src="${esc(c.icon)}"
+                         alt="">`
+                    : ''}
+
+                  ${esc(c.name)}
+
+                </a>`
+           ).join('')}
+
+         </div>`
+
+      : '';
+
+  card.innerHTML = `
 
     <div class="card-head">
 
@@ -1983,21 +2732,36 @@ function buildCard(item){
     </div>
 
     <div class="card-title">
-      ${esc(p.title||'')}
+      ${esc(p.title || '')}
     </div>
 
     <div class="card-handle">
-      ${esc(p.handle||'')}
+      ${esc(p.handle || '')}
     </div>
 
-    ${p.bio?
-      `<div class="card-bio">${esc(p.bio)}</div>`:''}
+    ${
+      p.bio
+        ? `<div class="card-bio">
+             ${esc(p.bio)}
+           </div>`
+        : ''
+    }
 
-    ${badges?
-      `<div class="badges">${badges}</div>`:''}
+    ${
+      badges
+        ? `<div class="badges">
+             ${badges}
+           </div>`
+        : ''
+    }
 
-    ${metrics?
-      `<div class="metrics">${metrics}</div>`:''}
+    ${
+      metrics
+        ? `<div class="metrics">
+             ${metrics}
+           </div>`
+        : ''
+    }
 
     ${clubs}
 
@@ -2007,13 +2771,17 @@ function buildCard(item){
         ${esc(item.endpoint.id)}
       </span>
 
-      ${p.profileUrl?
-        `<a class="open"
-            href="${esc(p.profileUrl)}"
-            target="_blank"
-            rel="noopener">
-          Open profile
-        </a>`:''}
+      ${
+        p.profileUrl
+          ? `<a
+               class="open"
+               href="${esc(p.profileUrl)}"
+               target="_blank"
+               rel="noopener">
+               Open profile
+             </a>`
+          : ''
+      }
 
     </div>
 
@@ -2021,20 +2789,30 @@ function buildCard(item){
 
   card
     .querySelector('.inspect-btn')
-    .addEventListener('click',()=>{
+    .addEventListener(
+      'click',
+      ()=>{
 
-      modalTitle.textContent=
-        `${item.endpoint.name} — raw response`;
+        modalTitle.textContent =
+          `${item.endpoint.name} — raw response`;
 
-      rawModalJSON=
-        item.raw||{status:'No payload'};
+        rawModalJSON =
+          item.raw ||
+          {
+            status:'No payload'
+          };
 
-      modalJsonContent.textContent=
-        JSON.stringify(rawModalJSON,null,2);
+        modalJsonContent.textContent =
+          JSON.stringify(
+            rawModalJSON,
+            null,
+            2
+          );
 
-      jsonModal.classList.add('open');
+        jsonModal.classList.add('open');
 
-    });
+      }
+    );
 
   return card;
 
@@ -2042,150 +2820,199 @@ function buildCard(item){
 
 /* ================= COPY RESULTS ================= */
 
-copySummaryBtn.addEventListener('click',()=>{
+copySummaryBtn.addEventListener(
+  'click',
+  ()=>{
 
-  const hits=currentResults.filter(
-    r=>r.status==='found'
-  );
+    const hits =
+      currentResults.filter(
+        r=>r.status==='found'
+      );
 
-  if(!hits.length) return;
+    if(!hits.length)
+      return;
 
-  let text=
-    `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
+    let text =
+      `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
 
-  hits.forEach(i=>{
+    hits.forEach(i=>{
 
-    const p=i.parsed;
+      const p =
+        i.parsed;
 
-    text+=
-      `${i.endpoint.name} (${p.handle})\n`;
+      text +=
+        `${i.endpoint.name} (${p.handle})\n`;
 
-    if(p.title)
-      text+=`Name: ${p.title}\n`;
+      if(p.title)
+        text +=
+          `Name: ${p.title}\n`;
 
-    if(p.bio)
-      text+=`Bio: ${p.bio}\n`;
+      if(p.bio)
+        text +=
+          `Bio: ${p.bio}\n`;
 
-    text+=`URL: ${p.profileUrl}\n\n`;
+      text +=
+        `URL: ${p.profileUrl}\n\n`;
 
-  });
+    });
 
-  navigator.clipboard.writeText(text).then(()=>{
+    navigator.clipboard
+      .writeText(text)
+      .then(()=>{
 
-    const old=copySummaryBtn.textContent;
+        const old =
+          copySummaryBtn.textContent;
 
-    copySummaryBtn.textContent='Copied';
+        copySummaryBtn.textContent =
+          'Copied';
 
-    setTimeout(()=>{
-      copySummaryBtn.textContent=old;
-    },1500);
+        setTimeout(
+          ()=>{
+            copySummaryBtn.textContent=old;
+          },
+          1500
+        );
 
-  });
+      });
 
-});
+  }
+);
 
 /* ================= MODAL ================= */
 
 document
   .getElementById('closeModalBtn')
-  .addEventListener('click',()=>{
+  .addEventListener(
+    'click',
+    ()=>{
+      jsonModal.classList.remove('open');
+    }
+  );
 
-    jsonModal.classList.remove('open');
+jsonModal.addEventListener(
+  'click',
+  e=>{
 
-  });
+    if(e.target === jsonModal)
+      jsonModal.classList.remove('open');
 
-jsonModal.addEventListener('click',e=>{
-
-  if(e.target===jsonModal)
-    jsonModal.classList.remove('open');
-
-});
+  }
+);
 
 document
   .getElementById('copyModalJsonBtn')
-  .addEventListener('click',()=>{
+  .addEventListener(
+    'click',
+    ()=>{
 
-    if(!rawModalJSON) return;
+      if(!rawModalJSON)
+        return;
 
-    navigator.clipboard
-      .writeText(
-        JSON.stringify(rawModalJSON,null,2)
-      )
-      .then(()=>{
+      navigator.clipboard
+        .writeText(
+          JSON.stringify(
+            rawModalJSON,
+            null,
+            2
+          )
+        )
+        .then(()=>{
 
-        const btn=
-          document.getElementById(
-            'copyModalJsonBtn'
+          const btn =
+            document.getElementById(
+              'copyModalJsonBtn'
+            );
+
+          const old =
+            btn.textContent;
+
+          btn.textContent =
+            'Copied';
+
+          setTimeout(
+            ()=>{
+              btn.textContent=old;
+            },
+            1500
           );
 
-        const old=btn.textContent;
+        });
 
-        btn.textContent='Copied';
-
-        setTimeout(()=>{
-          btn.textContent=old;
-        },1500);
-
-      });
-
-  });
+    }
+  );
 
 /* ================= ESC CLOSE MODAL ================= */
 
-document.addEventListener('keydown',e=>{
+document.addEventListener(
+  'keydown',
+  e=>{
 
-  if(e.key==='Escape')
-    jsonModal.classList.remove('open');
+    if(e.key === 'Escape')
+      jsonModal.classList.remove('open');
 
-});
+  }
+);
 
 /* ================= THEME ================= */
 
-const themeBtn=
-  document.getElementById('themeBtn');
+const themeBtn =
+  document.getElementById(
+    'themeBtn'
+  );
 
 (function initTheme(){
 
-  const prefersLight=
+  const prefersLight =
     window.matchMedia(
       '(prefers-color-scheme: light)'
     ).matches;
 
-  const initial=
-    prefersLight?'light':'dark';
+  const initial =
+    prefersLight
+      ? 'light'
+      : 'dark';
 
   document.documentElement
-    .setAttribute('data-theme',initial);
+    .setAttribute(
+      'data-theme',
+      initial
+    );
 
-  themeBtn.textContent=
-    initial==='light'
-      ?'Dark mode'
-      :'Light mode';
+  themeBtn.textContent =
+    initial === 'light'
+      ? 'Dark mode'
+      : 'Light mode';
 
 })();
 
-themeBtn.addEventListener('click',()=>{
+themeBtn.addEventListener(
+  'click',
+  ()=>{
 
-  const current=
+    const current =
+      document.documentElement
+        .getAttribute('data-theme');
+
+    const next =
+      current === 'light'
+        ? 'dark'
+        : 'light';
+
     document.documentElement
-      .getAttribute('data-theme');
+      .setAttribute(
+        'data-theme',
+        next
+      );
 
-  const next=
-    current==='light'
-      ?'dark'
-      :'light';
+    themeBtn.textContent =
+      next === 'light'
+        ? 'Dark mode'
+        : 'Light mode';
 
-  document.documentElement
-    .setAttribute('data-theme',next);
-
-  themeBtn.textContent=
-    next==='light'
-      ?'Dark mode'
-      :'Light mode';
-
-});
+  }
+);
 
 </script>
 
 </body>
-   </html>
+  </html>
