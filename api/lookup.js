@@ -1,64 +1,166 @@
 // api/lookup.js
 
-/*
- * Argus OSINT
- * Hybrid fallback API
- *
- * The frontend normally queries public APIs directly.
- * This endpoint is used when a browser request fails because
- * of CORS, browser restrictions, or another client-side issue.
- */
-
 const ENDPOINTS = [
+
+  /* =====================================================
+     PRONOUNS.PAGE
+     Current v3 API:
+     /profile/get/{username}
+  ===================================================== */
 
   {
     id: "pronouns_page",
     name: "Pronouns.page",
     category: "Identity",
 
-    url: user =>
-      `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://en.pronouns.page/api/public/v3/profile/get/${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (!data || !data.profiles) return null;
+      if(
+        !data ||
+        data.error === true ||
+        !data.username
+      ){
+        return null;
+      }
 
-      const en =
-        data.profiles.en ||
-        Object.values(data.profiles)[0];
+      const profiles =
+        Array.isArray(data.profiles)
+          ? data.profiles
+          : [];
 
-      if (!en) return null;
+      /*
+        Prefer English profile, then the first accessible
+        profile returned by the API.
+      */
+      const profile =
+        profiles.find(
+          p => p && p.locale === "en"
+        ) ||
+        profiles.find(
+          p => p && p.access !== false
+        ) ||
+        profiles[0] ||
+        null;
+
+      if(!profile){
+        return null;
+      }
 
       const names =
-        (en.names || [])
-          .map(n =>
-            typeof n === "string"
-              ? n
-              : n?.value || n?.name
-          )
-          .filter(Boolean);
+        Array.isArray(profile.names)
+          ? profile.names
+              .map(name => {
+
+                if(typeof name === "string"){
+                  return name;
+                }
+
+                return name &&
+                  (
+                    name.value ||
+                    name.name
+                  );
+
+              })
+              .filter(Boolean)
+          : [];
 
       const pronouns =
-        (en.pronouns || [])
-          .map(p =>
-            typeof p === "string"
-              ? p
-              : p?.value || p?.pronoun
-          )
-          .filter(Boolean);
+        Array.isArray(profile.pronouns)
+          ? profile.pronouns
+              .map(pronoun => {
+
+                if(typeof pronoun === "string"){
+                  return pronoun;
+                }
+
+                if(
+                  pronoun &&
+                  typeof pronoun.value === "string"
+                ){
+
+                  /*
+                    v3 may return:
+                    https://en.pronouns.page/he&they
+
+                    Convert that into something readable.
+                  */
+                  const value =
+                    pronoun.value;
+
+                  const match =
+                    value.match(
+                      /\/([^/]+)$/
+                    );
+
+                  if(match){
+                    return match[1]
+                      .replace(/&/g, " / ");
+                  }
+
+                  return value;
+                }
+
+                return null;
+
+              })
+              .filter(Boolean)
+          : [];
 
       const links =
-        (en.links || [])
-          .map(l =>
-            typeof l === "string"
-              ? l
-              : l?.href || l?.link
-          )
-          .filter(Boolean);
+        Array.isArray(profile.links)
+          ? profile.links
+              .filter(Boolean)
+          : [];
+
+      const flags =
+        Array.isArray(profile.flags)
+          ? profile.flags
+              .filter(Boolean)
+          : [];
+
+      const badges = [
+        ...pronouns,
+        ...flags.slice(0,4)
+      ].filter(Boolean);
+
+      const metrics = [
+
+        {
+          l: "Names",
+          v: names.length
+        },
+
+        {
+          l: "Pronouns",
+          v: pronouns.length
+        },
+
+        {
+          l: "Links",
+          v: links.length
+        }
+
+      ];
+
+      if(
+        profile.age !== null &&
+        profile.age !== undefined
+      ){
+        metrics.push({
+          l: "Age",
+          v: profile.age
+        });
+      }
 
       return {
 
-        avatar: data.avatar || null,
+        avatar:
+          data.avatar || null,
 
         title:
           names[0] ||
@@ -68,26 +170,17 @@ const ENDPOINTS = [
           `@${data.username}`,
 
         bio:
-          en.bio || "",
+          profile.description ||
+          "",
 
-        badges:
-          pronouns,
+        badges,
 
-        metrics: [
-          {
-            l: "Names",
-            v: names.length
-          },
-          {
-            l: "Pronouns",
-            v: pronouns.length
-          }
-        ],
+        metrics,
 
         links,
 
         profileUrl:
-          `https://pronouns.page/@${data.username}`
+          `https://en.pronouns.page/@${data.username}`
 
       };
 
@@ -95,20 +188,25 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     CHESS.COM
+  ===================================================== */
+
   {
     id: "chess_com",
     name: "Chess.com",
     category: "Gaming",
 
-    url: user =>
-      `https://api.chess.com/pub/player/${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://api.chess.com/pub/player/${encodeURIComponent(user)}`
+    ],
 
     parse: async (profile, user) => {
 
-      if (
+      if(
         !profile ||
         !profile.username
-      ) {
+      ){
         return null;
       }
 
@@ -118,9 +216,13 @@ const ENDPOINTS = [
       const results =
         await Promise.allSettled([
 
-          fetchJSON(`${base}/stats`),
+          fetchJSON(
+            `${base}/stats`
+          ),
 
-          fetchJSON(`${base}/clubs`)
+          fetchJSON(
+            `${base}/clubs`
+          )
 
         ]);
 
@@ -168,6 +270,7 @@ const ENDPOINTS = [
           }`,
 
         badges: [
+
           profile.title
             ? `Title: ${profile.title}`
             : null,
@@ -181,22 +284,31 @@ const ENDPOINTS = [
           {
             l: "Blitz",
             v:
-              stats?.chess_blitz?.last?.rating ??
-              "—"
+              stats &&
+              stats.chess_blitz &&
+              stats.chess_blitz.last
+                ? stats.chess_blitz.last.rating
+                : "—"
           },
 
           {
             l: "Rapid",
             v:
-              stats?.chess_rapid?.last?.rating ??
-              "—"
+              stats &&
+              stats.chess_rapid &&
+              stats.chess_rapid.last
+                ? stats.chess_rapid.last.rating
+                : "—"
           },
 
           {
             l: "Bullet",
             v:
-              stats?.chess_bullet?.last?.rating ??
-              "—"
+              stats &&
+              stats.chess_bullet &&
+              stats.chess_bullet.last
+                ? stats.chess_bullet.last.rating
+                : "—"
           },
 
           {
@@ -208,11 +320,13 @@ const ENDPOINTS = [
         ],
 
         clubs:
-          clubs.slice(0, 4).map(c => ({
-            name: c.name,
-            icon: c.icon,
-            url: c.url
-          })),
+          clubs
+            .slice(0,4)
+            .map(c => ({
+              name:c.name,
+              icon:c.icon,
+              url:c.url
+            })),
 
         links:
           profile.url
@@ -229,21 +343,26 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     LICHESS
+  ===================================================== */
+
   {
     id: "lichess",
     name: "Lichess",
     category: "Gaming",
 
-    url: user =>
-      `https://lichess.org/api/user/${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://lichess.org/api/user/${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         data.error ||
         !data.id
-      ) {
+      ){
         return null;
       }
 
@@ -252,7 +371,7 @@ const ENDPOINTS = [
 
       return {
 
-        avatar: null,
+        avatar:null,
 
         title:
           data.username,
@@ -266,6 +385,7 @@ const ENDPOINTS = [
           data.bio || "",
 
         badges: [
+
           data.online
             ? "Online"
             : "Offline",
@@ -279,31 +399,35 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Blitz",
+            l:"Blitz",
             v:
-              perf.blitz?.rating ??
-              "—"
+              perf.blitz
+                ? perf.blitz.rating
+                : "—"
           },
 
           {
-            l: "Rapid",
+            l:"Rapid",
             v:
-              perf.rapid?.rating ??
-              "—"
+              perf.rapid
+                ? perf.rapid.rating
+                : "—"
           },
 
           {
-            l: "Puzzles",
+            l:"Puzzles",
             v:
-              perf.puzzle?.rating ??
-              "—"
+              perf.puzzle
+                ? perf.puzzle.rating
+                : "—"
           },
 
           {
-            l: "Games",
+            l:"Games",
             v:
-              data.count?.all ??
-              0
+              data.count
+                ? data.count.all
+                : 0
           }
 
         ],
@@ -323,21 +447,26 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     GITHUB
+  ===================================================== */
+
   {
     id: "github",
     name: "GitHub",
     category: "Developer",
 
-    url: user =>
-      `https://api.github.com/users/${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://api.github.com/users/${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         data.message === "Not Found" ||
         !data.login
-      ) {
+      ){
         return null;
       }
 
@@ -364,18 +493,18 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Repos",
-            v: data.public_repos
+            l:"Repos",
+            v:data.public_repos
           },
 
           {
-            l: "Followers",
-            v: data.followers
+            l:"Followers",
+            v:data.followers
           },
 
           {
-            l: "Gists",
-            v: data.public_gists
+            l:"Gists",
+            v:data.public_gists
           }
 
         ],
@@ -398,21 +527,26 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     GRAVATAR
+  ===================================================== */
+
   {
     id: "gravatar",
     name: "Gravatar",
     category: "Identity",
 
-    url: user =>
-      `https://en.gravatar.com/${encodeURIComponent(user)}.json`,
+    urls: user => [
+      `https://en.gravatar.com/${encodeURIComponent(user)}.json`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
-        !data.entry ||
+        !Array.isArray(data.entry) ||
         !data.entry[0]
-      ) {
+      ){
         return null;
       }
 
@@ -420,21 +554,26 @@ const ENDPOINTS = [
         data.entry[0];
 
       const urls =
-        (e.urls || [])
-          .map(u => u.value)
-          .filter(Boolean);
+        Array.isArray(e.urls)
+          ? e.urls
+              .map(u => u && u.value)
+              .filter(Boolean)
+          : [];
 
       return {
 
         avatar:
-          e.thumbnailUrl,
+          e.thumbnailUrl || null,
 
         title:
           e.displayName ||
-          e.preferredUsername,
+          e.preferredUsername ||
+          "",
 
         handle:
-          `@${e.preferredUsername}`,
+          e.preferredUsername
+            ? `@${e.preferredUsername}`
+            : "",
 
         bio:
           e.aboutMe || "",
@@ -446,16 +585,16 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Accounts",
+            l:"Accounts",
             v:
-              e.accounts?.length ??
-              0
+              Array.isArray(e.accounts)
+                ? e.accounts.length
+                : 0
           },
 
           {
-            l: "URLs",
-            v:
-              urls.length
+            l:"URLs",
+            v:urls.length
           }
 
         ],
@@ -465,7 +604,11 @@ const ENDPOINTS = [
 
         profileUrl:
           e.profileUrl ||
-          `https://gravatar.com/${e.preferredUsername}`
+          (
+            e.preferredUsername
+              ? `https://gravatar.com/${e.preferredUsername}`
+              : null
+          )
 
       };
 
@@ -473,80 +616,92 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     KEYBASE
+  ===================================================== */
+
   {
     id: "keybase",
     name: "Keybase",
     category: "Security",
 
-    url: user =>
-      `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
-        !data.them ||
+        !Array.isArray(data.them) ||
         !data.them[0]
-      ) {
+      ){
         return null;
       }
 
       const u =
         data.them[0];
 
-      if (
-        !u.id ||
-        !u.basics ||
-        !u.basics.username
-      ) {
+      if(!u.id){
         return null;
       }
 
+      const basics =
+        u.basics || {};
+
+      const profile =
+        u.profile || {};
+
       const proofs =
-        (
-          u.proofs_summary
-            ? u.proofs_summary.all || []
-            : []
+        u.proofs_summary &&
+        Array.isArray(
+          u.proofs_summary.all
         )
-        .map(
-          p =>
-            `${p.proof_type}: ${p.nametag}`
-        );
+          ? u.proofs_summary.all
+              .map(
+                p =>
+                  p &&
+                  p.proof_type &&
+                  p.nametag
+                    ? `${p.proof_type}: ${p.nametag}`
+                    : null
+              )
+              .filter(Boolean)
+          : [];
 
       return {
 
         avatar:
-          u.pictures?.primary?.url ||
-          null,
+          u.pictures &&
+          u.pictures.primary
+            ? u.pictures.primary.url
+            : null,
 
         title:
-          u.profile
-            ? (
-                u.profile.full_name ||
-                u.basics.username
-              )
-            : u.basics.username,
+          profile.full_name ||
+          basics.username ||
+          "",
 
         handle:
-          `@${u.basics.username}`,
-
-        bio:
-          u.profile
-            ? u.profile.bio || ""
+          basics.username
+            ? `@${basics.username}`
             : "",
 
+        bio:
+          profile.bio || "",
+
         badges:
-          proofs.slice(0, 4),
+          proofs.slice(0,4),
 
         metrics: [
 
           {
-            l: "Proofs",
-            v: proofs.length
+            l:"Proofs",
+            v:proofs.length
           },
 
           {
-            l: "Devices",
+            l:"Devices",
             v:
               u.devices
                 ? Object.keys(u.devices).length
@@ -555,10 +710,12 @@ const ENDPOINTS = [
 
         ],
 
-        links: [],
+        links:[],
 
         profileUrl:
-          `https://keybase.io/${u.basics.username}`
+          basics.username
+            ? `https://keybase.io/${basics.username}`
+            : null
 
       };
 
@@ -566,28 +723,43 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     REDDIT
+     
+     Reddit frequently returns 403 to cloud/serverless
+     IPs. We try multiple public endpoints.
+  ===================================================== */
+
   {
     id: "reddit",
     name: "Reddit",
     category: "Social",
 
-    url: user =>
-      `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`,
+    urls: user => [
+
+      `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json?raw_json=1`,
+
+      `https://old.reddit.com/user/${encodeURIComponent(user)}/about.json?raw_json=1`,
+
+      `https://www.reddit.com/u/${encodeURIComponent(user)}/about.json?raw_json=1`
+
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         !data.data ||
-        data.error === 404
-      ) {
+        !data.data.name
+      ){
         return null;
       }
 
       const u =
         data.data;
 
-      if (!u.name) return null;
+      const subreddit =
+        u.subreddit || {};
 
       return {
 
@@ -597,25 +769,18 @@ const ENDPOINTS = [
             : null,
 
         title:
-          u.subreddit
-            ? (
-                u.subreddit.title ||
-                u.name
-              )
-            : u.name,
+          subreddit.title ||
+          u.name,
 
         handle:
           `u/${u.name}`,
 
         bio:
-          u.subreddit
-            ? (
-                u.subreddit.public_description ||
-                ""
-              )
-            : "",
+          subreddit.public_description ||
+          "",
 
         badges: [
+
           u.is_gold
             ? "Gold"
             : null,
@@ -633,17 +798,17 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Post karma",
-            v: u.link_karma
+            l:"Post karma",
+            v:u.link_karma ?? "—"
           },
 
           {
-            l: "Comment karma",
-            v: u.comment_karma
+            l:"Comment karma",
+            v:u.comment_karma ?? "—"
           },
 
           {
-            l: "Since",
+            l:"Since",
             v:
               u.created_utc
                 ? new Date(
@@ -654,10 +819,10 @@ const ENDPOINTS = [
 
         ],
 
-        links: [],
+        links:[],
 
         profileUrl:
-          `https://reddit.com/user/${u.name}`
+          `https://www.reddit.com/user/${u.name}`
 
       };
 
@@ -665,30 +830,35 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     PRONOUNS.CC
+  ===================================================== */
+
   {
     id: "pronouns_cc",
     name: "Pronouns.cc",
     category: "Identity",
 
-    url: user =>
-      `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         (
           !data.username &&
           !data.members
         )
-      ) {
+      ){
         return null;
       }
 
       return {
 
         avatar:
-          data.avatar_url,
+          data.avatar_url || null,
 
         title:
           data.username ||
@@ -712,9 +882,9 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Members",
+            l:"Members",
             v:
-              data.members
+              Array.isArray(data.members)
                 ? data.members.length
                 : 0
           }
@@ -737,26 +907,31 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     HACKER NEWS
+  ===================================================== */
+
   {
     id: "hackernews",
     name: "Hacker News",
     category: "Community",
 
-    url: user =>
-      `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`,
+    urls: user => [
+      `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         !data.id
-      ) {
+      ){
         return null;
       }
 
       return {
 
-        avatar: null,
+        avatar:null,
 
         title:
           data.id,
@@ -771,29 +946,29 @@ const ENDPOINTS = [
         bio:
           data.about || "",
 
-        badges: [],
+        badges:[],
 
         metrics: [
 
           {
-            l: "Karma",
-            v: data.karma
+            l:"Karma",
+            v:data.karma ?? "—"
           },
 
           {
-            l: "Posts",
+            l:"Posts",
             v:
-              data.submitted
+              Array.isArray(data.submitted)
                 ? data.submitted.length
                 : 0
           }
 
         ],
 
-        links: [],
+        links:[],
 
         profileUrl:
-          `https://news.ycombinator.com/user?id=${data.id}`
+          `https://news.ycombinator.com/user?id=${encodeURIComponent(data.id)}`
 
       };
 
@@ -801,27 +976,32 @@ const ENDPOINTS = [
   },
 
 
+  /* =====================================================
+     DEV.TO
+  ===================================================== */
+
   {
     id: "dev_to",
     name: "Dev.to",
     category: "Developer",
 
-    url: user =>
-      `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`,
+    urls: user => [
+      `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`
+    ],
 
     parse: data => {
 
-      if (
+      if(
         !data ||
         !data.username
-      ) {
+      ){
         return null;
       }
 
       return {
 
         avatar:
-          data.profile_image,
+          data.profile_image || null,
 
         title:
           data.name ||
@@ -840,7 +1020,7 @@ const ENDPOINTS = [
         metrics: [
 
           {
-            l: "Joined",
+            l:"Joined",
             v:
               data.joined_at
                 ? data.joined_at.split(" ")[0]
@@ -870,11 +1050,11 @@ const ENDPOINTS = [
 ];
 
 
-// ---------------------------------------------------------
-// Fetch JSON with timeout
-// ---------------------------------------------------------
+/* =========================================================
+   FETCH JSON
+========================================================= */
 
-async function fetchJSON(url) {
+async function fetchJSON(url, options = {}){
 
   const controller =
     new AbortController();
@@ -882,55 +1062,88 @@ async function fetchJSON(url) {
   const timeout =
     setTimeout(
       () => controller.abort(),
-      7000
+      options.timeout || 10000
     );
 
-  try {
+  try{
+
+    const headers = {
+
+      "Accept":
+        "application/json, text/plain, */*",
+
+      "User-Agent":
+        "Argus-OSINT/1.0 (+public-profile-lookup)"
+
+    };
+
+    if(options.headers){
+      Object.assign(
+        headers,
+        options.headers
+      );
+    }
 
     const response =
       await fetch(
         url,
         {
-          method: "GET",
-
-          headers: {
-            "Accept": "application/json",
-            "User-Agent":
-              "Mozilla/5.0 (compatible; ArgusOSINT/1.0)"
-          },
-
-          signal: controller.signal
+          method:"GET",
+          headers,
+          signal:controller.signal,
+          redirect:"follow"
         }
       );
 
     let data = null;
 
-    try {
-      data = await response.json();
-    } catch {
+    try{
+
+      data =
+        await response.json();
+
+    }catch{
+
       data = null;
+
     }
 
     return {
-      status: response.status,
-      data
+
+      status:
+        response.status,
+
+      data,
+
+      error:
+        null
+
     };
 
-  } catch (error) {
+  }catch(error){
 
     return {
-      status: "blocked",
-      data: null,
+
+      status:
+        "blocked",
+
+      data:
+        null,
+
       error:
-        error?.name === "AbortError"
+        error &&
+        error.name === "AbortError"
           ? "Request timed out"
           : (
-              error?.message ||
-              "Request failed"
+              error &&
+              error.message
+                ? error.message
+                : "Request failed"
             )
+
     };
 
-  } finally {
+  }finally{
 
     clearTimeout(timeout);
 
@@ -939,27 +1152,87 @@ async function fetchJSON(url) {
 }
 
 
-// ---------------------------------------------------------
-// Find endpoint
-// ---------------------------------------------------------
+/* =========================================================
+   FETCH WITH FALLBACK URLS
+========================================================= */
 
-function getEndpoint(sourceId) {
+async function fetchEndpoint(endpoint, username){
 
-  if (!sourceId) return null;
+  const urls =
+    endpoint.urls(username);
 
-  return ENDPOINTS.find(
-    endpoint =>
-      endpoint.id === sourceId
-  ) || null;
+  let lastResponse = null;
+
+  for(const url of urls){
+
+    const response =
+      await fetchJSON(
+        url,
+        endpoint.id === "reddit"
+          ? {
+              timeout:8000,
+
+              headers:{
+                "Accept":
+                  "application/json",
+
+                "User-Agent":
+                  "ArgusOSINT/1.0"
+              }
+            }
+          : {
+              timeout:10000
+            }
+      );
+
+    lastResponse = response;
+
+    /*
+      Stop immediately on successful response.
+    */
+    if(
+      response.status >= 200 &&
+      response.status < 300
+    ){
+      return response;
+    }
+
+    /*
+      404/410 means the profile itself is not there.
+      No point trying fallback URLs.
+    */
+    if(
+      response.status === 404 ||
+      response.status === 410
+    ){
+      return response;
+    }
+
+    /*
+      For Reddit, try the next public endpoint after 403.
+      For other services, retry only through their supplied
+      URL list.
+    */
+  }
+
+  return lastResponse || {
+    status:"blocked",
+    data:null,
+    error:"No response"
+  };
 
 }
 
 
-// ---------------------------------------------------------
-// Handler
-// ---------------------------------------------------------
+/* =========================================================
+   VERCEL SERVERLESS FUNCTION
+========================================================= */
 
-export default async function handler(req, res) {
+export default async function handler(req, res){
+
+  /* -----------------------------
+     CORS
+  ----------------------------- */
 
   res.setHeader(
     "Access-Control-Allow-Origin",
@@ -973,117 +1246,125 @@ export default async function handler(req, res) {
 
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Content-Type"
+    "Content-Type, Accept"
   );
 
   res.setHeader(
     "Cache-Control",
-    "no-store"
+    "no-store, max-age=0"
   );
 
 
+  /* -----------------------------
+     OPTIONS
+  ----------------------------- */
+
   if(req.method === "OPTIONS"){
 
-    return res.status(204).end();
+    return res
+      .status(204)
+      .end();
 
   }
 
+
+  /* -----------------------------
+     GET ONLY
+  ----------------------------- */
 
   if(req.method !== "GET"){
 
-    return res.status(405).json({
-      error:"Method not allowed"
-    });
+    return res
+      .status(405)
+      .json({
+        error:"Method not allowed"
+      });
 
   }
 
 
-  const username =
+  /* -----------------------------
+     USERNAME
+  ----------------------------- */
+
+  let username =
     String(
-      req.query?.username || ""
+      req.query.username || ""
     ).trim();
+
+  /*
+    Accept @username from the UI,
+    but remove it before querying APIs.
+  */
+  username =
+    username.replace(/^@+/, "");
 
 
   if(!username){
 
-    return res.status(400).json({
-      error:"Missing username"
-    });
+    return res
+      .status(400)
+      .json({
+        error:"Missing username"
+      });
 
   }
 
 
   if(username.length > 100){
 
-    return res.status(400).json({
-      error:"Username is too long"
-    });
-
-  }
-
-
-  /*
-   * If ?source=github is supplied,
-   * query only that source.
-   *
-   * This is what the hybrid frontend uses
-   * when its browser request fails.
-   */
-
-  const sourceId =
-    String(
-      req.query?.source || ""
-    ).trim();
-
-
-  let endpointsToQuery;
-
-
-  if(sourceId){
-
-    const endpoint=
-      getEndpoint(sourceId);
-
-    if(!endpoint){
-
-      return res.status(400).json({
-        error:"Unknown source",
-        source:sourceId
+    return res
+      .status(400)
+      .json({
+        error:"Username is too long"
       });
 
-    }
+  }
 
-    endpointsToQuery=[endpoint];
 
-  }else{
+  /* -----------------------------
+     BASIC VALIDATION
+  ----------------------------- */
 
-    /*
-     * Direct requests to /api/lookup without
-     * a source still work as a complete fallback.
-     */
+  if(
+    /[\r\n]/.test(username)
+  ){
 
-    endpointsToQuery=ENDPOINTS;
+    return res
+      .status(400)
+      .json({
+        error:"Invalid username"
+      });
 
   }
 
 
-  const settled =
+  /* -----------------------------
+     RUN ALL SOURCES
+  ----------------------------- */
+
+  const results =
     await Promise.allSettled(
 
-      endpointsToQuery.map(
+      ENDPOINTS.map(
         async endpoint => {
 
           const response =
-            await fetchJSON(
-              endpoint.url(username)
+            await fetchEndpoint(
+              endpoint,
+              username
             );
 
+          let parsed = null;
 
-          let parsed=null;
-
-
+          /*
+            Only attempt parsing when an HTTP
+            success response was received.
+          */
           if(
-            response.status === 200 &&
+            typeof response.status === "number" &&
+            response.status >= 200 &&
+            response.status < 300 &&
             response.data
           ){
 
@@ -1095,54 +1376,39 @@ export default async function handler(req, res) {
                   username
                 );
 
-            }catch{
+            }catch(error){
 
-              parsed=null;
+              parsed = null;
 
             }
 
           }
 
 
+          /* -------------------------
+             FOUND
+          ------------------------- */
+
           if(parsed){
 
             return {
 
-              id:endpoint.id,
+              id:
+                endpoint.id,
 
-              name:endpoint.name,
+              name:
+                endpoint.name,
 
-              category:endpoint.category,
+              category:
+                endpoint.category,
 
-              status:"found",
+              status:
+                "found",
 
-              raw:response.data,
+              raw:
+                response.data,
 
-              parsed
-
-            };
-
-          }
-
-
-          if(
-            response.status === 404 ||
-            response.status === 410
-          ){
-
-            return {
-
-              id:endpoint.id,
-
-              name:endpoint.name,
-
-              category:endpoint.category,
-
-              status:"not_found",
-
-              raw:response.data,
-
-              parsed:null,
+              parsed,
 
               httpStatus:
                 response.status
@@ -1152,26 +1418,72 @@ export default async function handler(req, res) {
           }
 
 
+          /* -------------------------
+             NOT FOUND
+          ------------------------- */
+
+          if(
+            response.status === 404 ||
+            response.status === 410
+          ){
+
+            return {
+
+              id:
+                endpoint.id,
+
+              name:
+                endpoint.name,
+
+              category:
+                endpoint.category,
+
+              status:
+                "not_found",
+
+              raw:
+                response.data,
+
+              parsed:
+                null,
+
+              httpStatus:
+                response.status
+
+            };
+
+          }
+
+
+          /* -------------------------
+             BLOCKED / ERROR
+          ------------------------- */
+
           return {
 
-            id:endpoint.id,
+            id:
+              endpoint.id,
 
-            name:endpoint.name,
+            name:
+              endpoint.name,
 
-            category:endpoint.category,
+            category:
+              endpoint.category,
 
-            status:"error",
+            status:
+              "error",
 
-            raw:response.data,
+            raw:
+              response.data,
 
-            parsed:null,
+            parsed:
+              null,
 
             httpStatus:
               response.status,
 
             error:
-              response.error ||
-              null
+              response.error || null
 
           };
 
@@ -1181,9 +1493,13 @@ export default async function handler(req, res) {
     );
 
 
+  /* -----------------------------
+     NORMALIZE PROMISE RESULTS
+  ----------------------------- */
+
   const output =
-    settled.map(
-      (result,index) => {
+    results.map(
+      (result, index) => {
 
         if(
           result.status === "fulfilled"
@@ -1193,32 +1509,43 @@ export default async function handler(req, res) {
 
         }
 
-
-        const endpoint=
-          endpointsToQuery[index];
-
+        const endpoint =
+          ENDPOINTS[index];
 
         return {
 
-          id:endpoint?.id || "unknown",
+          id:
+            endpoint
+              ? endpoint.id
+              : "unknown",
 
-          name:endpoint?.name || "Unknown",
+          name:
+            endpoint
+              ? endpoint.name
+              : "Unknown",
 
           category:
-            endpoint?.category ||
-            "Unknown",
+            endpoint
+              ? endpoint.category
+              : "Unknown",
 
-          status:"error",
+          status:
+            "error",
 
-          raw:null,
+          raw:
+            null,
 
-          parsed:null,
+          parsed:
+            null,
 
-          httpStatus:null,
+          httpStatus:
+            null,
 
           error:
-            result.reason?.message ||
-            "Request failed"
+            result.reason &&
+            result.reason.message
+              ? result.reason.message
+              : "Unknown error"
 
         };
 
@@ -1226,29 +1553,51 @@ export default async function handler(req, res) {
     );
 
 
-  return res.status(200).json({
+  /* -----------------------------
+     COUNTS
+  ----------------------------- */
 
-    username,
+  const found =
+    output.filter(
+      item =>
+        item.status === "found"
+    ).length;
 
-    checked:output.length,
+  const notFound =
+    output.filter(
+      item =>
+        item.status === "not_found"
+    ).length;
 
-    found:
-      output.filter(
-        x => x.status === "found"
-      ).length,
+  const errors =
+    output.filter(
+      item =>
+        item.status === "error"
+    ).length;
 
-    notFound:
-      output.filter(
-        x => x.status === "not_found"
-      ).length,
 
-    errors:
-      output.filter(
-        x => x.status === "error"
-      ).length,
+  /* -----------------------------
+     RESPONSE
+  ----------------------------- */
 
-    results:output
+  return res
+    .status(200)
+    .json({
 
-  });
+      username,
 
-        }
+      checked:
+        output.length,
+
+      found,
+
+      notFound,
+
+      errors,
+
+      results:
+        output
+
+    });
+
+    }
