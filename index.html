@@ -8,41 +8,134 @@
 
 <title>Argus — Concurrent Profile OSINT Search Engine</title>
 
-<meta name="description" content="Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis.">
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow">
+<meta
+  name="description"
+  content="Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis."
+>
 
-<link rel="canonical" href="https://argusosint-ten.vercel.app/">
+<meta
+  name="robots"
+  content="index, follow"
+>
+
+<meta
+  name="googlebot"
+  content="index, follow"
+>
+
+<link
+  rel="canonical"
+  href="https://osint-argus.vercel.app/"
+>
 
 <!-- ================= OPEN GRAPH ================= -->
 
-<meta property="og:title" content="Argus — OSINT Search Engine">
-<meta property="og:description" content="Concurrent profile search engine for OSINT metadata.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://argusosint-ten.vercel.app/">
-<meta property="og:site_name" content="Argus OSINT">
-<meta property="og:image" content="https://argusosint-ten.vercel.app/logo.png">
-<meta property="og:image:alt" content="Argus OSINT logo">
+<meta
+  property="og:title"
+  content="Argus — OSINT Search Engine"
+>
+
+<meta
+  property="og:description"
+  content="Concurrent profile search engine for OSINT metadata and linked identity analysis."
+>
+
+<meta
+  property="og:type"
+  content="website"
+>
+
+<meta
+  property="og:url"
+  content="https://osint-argus.vercel.app/"
+>
+
+<meta
+  property="og:site_name"
+  content="Argus OSINT"
+>
+
+<meta
+  property="og:image"
+  content="https://osint-argus.vercel.app/logo.png"
+>
+
+<meta
+  property="og:image:alt"
+  content="Argus OSINT logo"
+>
+
+<meta
+  property="og:image:type"
+  content="image/png"
+>
 
 <!-- ================= TWITTER / X ================= -->
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Argus — OSINT Search Engine">
-<meta name="twitter:description" content="Concurrent profile search engine for OSINT metadata.">
-<meta name="twitter:image" content="https://argusosint-ten.vercel.app/logo.png">
+<meta
+  name="twitter:card"
+  content="summary"
+>
 
-<!-- ================= THEME / ICON ================= -->
+<meta
+  name="twitter:title"
+  content="Argus — OSINT Search Engine"
+>
 
-<meta name="theme-color" content="#12151a">
-<meta name="application-name" content="Argus OSINT">
+<meta
+  name="twitter:description"
+  content="Concurrent profile search engine for OSINT metadata and linked identity analysis."
+>
 
-<link rel="icon" type="image/png" href="/logo.png">
+<meta
+  name="twitter:image"
+  content="https://osint-argus.vercel.app/logo.png"
+>
+
+<meta
+  name="twitter:image:alt"
+  content="Argus OSINT logo"
+>
+
+<!-- ================= STRUCTURED DATA ================= -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Argus OSINT",
+  "alternateName": "Argus",
+  "url": "https://osint-argus.vercel.app/",
+  "description": "Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis.",
+  "image": "https://osint-argus.vercel.app/logo.png"
+}
+</script>
+
+<!-- ================= ICONS ================= -->
+
+<link
+  rel="icon"
+  type="image/png"
+  href="https://osint-argus.vercel.app/logo.png"
+>
+
+<link
+  rel="apple-touch-icon"
+  href="https://osint-argus.vercel.app/logo.png"
+>
+
+<!-- ================= FONTS ================= -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
 
 <style>
+
 :root{
   --bg:#12151a;
   --surface:#1a1e25;
@@ -97,7 +190,9 @@
   --shadow:0 10px 30px rgba(20,30,50,.08);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
 
 html{
   margin:0;
@@ -133,9 +228,18 @@ body::before{
   mask-image:linear-gradient(to bottom,black,transparent 75%);
 }
 
-.mono{font-family:'IBM Plex Mono',monospace}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
+.mono{
+  font-family:'IBM Plex Mono',monospace
+}
+
+a{
+  color:var(--accent);
+  text-decoration:none
+}
+
+a:hover{
+  text-decoration:underline
+}
 
 .wrap{
   width:100%;
@@ -180,8 +284,14 @@ header{
 }
 
 @keyframes brandIn{
-  from{opacity:0;transform:translateX(-18px)}
-  to{opacity:1;transform:translateX(0)}
+  from{
+    opacity:0;
+    transform:translateX(-18px)
+  }
+  to{
+    opacity:1;
+    transform:translateX(0)
+  }
 }
 
 .brand-logo{
@@ -201,8 +311,14 @@ header{
 }
 
 @keyframes logoIn{
-  from{opacity:0;transform:scale(.7) rotate(-8deg)}
-  to{opacity:1;transform:scale(1) rotate(0)}
+  from{
+    opacity:0;
+    transform:scale(.7) rotate(-8deg)
+  }
+  to{
+    opacity:1;
+    transform:scale(1) rotate(0)
+  }
 }
 
 .brand-text{
@@ -256,7 +372,9 @@ header{
   transform:translateY(-1px);
 }
 
-.theme-btn:active{transform:scale(.96)}
+.theme-btn:active{
+  transform:scale(.96)
+}
 
 /* ================= MAIN ================= */
 
@@ -289,7 +407,12 @@ main{
   top:0;
   width:35%;
   height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    transparent
+  );
   animation:scanline 4s ease-in-out infinite;
 }
 
@@ -299,15 +422,32 @@ main{
 }
 
 @keyframes scanline{
-  0%{left:-35%;opacity:0}
-  15%{opacity:1}
-  45%{left:105%;opacity:0}
-  100%{left:105%;opacity:0}
+  0%{
+    left:-35%;
+    opacity:0
+  }
+  15%{
+    opacity:1
+  }
+  45%{
+    left:105%;
+    opacity:0
+  }
+  100%{
+    left:105%;
+    opacity:0
+  }
 }
 
 @keyframes cardIn{
-  from{opacity:0;transform:translateY(18px) scale(.985)}
-  to{opacity:1;transform:translateY(0) scale(1)}
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.985)
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1)
+  }
 }
 
 .search-card h1{
@@ -351,7 +491,9 @@ input[type="text"]{
 input[type="text"]:focus{
   outline:none;
   border-color:var(--accent);
-  box-shadow:0 0 0 3px var(--accent-dim),0 5px 20px var(--accent-dim);
+  box-shadow:
+    0 0 0 3px var(--accent-dim),
+    0 5px 20px var(--accent-dim);
   transform:translateY(-1px);
 }
 
@@ -389,7 +531,13 @@ button[type="submit"]::after{
   left:-100%;
   width:70%;
   height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.25),
+      transparent
+    );
   transform:skewX(-20deg);
 }
 
@@ -414,8 +562,12 @@ button[type="submit"]:disabled{
 }
 
 @keyframes buttonShine{
-  from{left:-100%}
-  to{left:140%}
+  from{
+    left:-100%
+  }
+  to{
+    left:140%
+  }
 }
 
 /* ================= PROGRESS ================= */
@@ -470,8 +622,14 @@ button[type="submit"]:disabled{
 }
 
 @keyframes pulseDot{
-  from{opacity:.45;transform:scale(.8)}
-  to{opacity:1;transform:scale(1.2)}
+  from{
+    opacity:.45;
+    transform:scale(.8)
+  }
+  to{
+    opacity:1;
+    transform:scale(1.2)
+  }
 }
 
 /* ================= SUMMARY ================= */
@@ -487,7 +645,9 @@ button[type="submit"]:disabled{
   animation:fadeUp .4s ease both;
 }
 
-.summary.active{display:flex}
+.summary.active{
+  display:flex
+}
 
 .summary b{
   color:var(--text);
@@ -507,8 +667,14 @@ button[type="submit"]:disabled{
 }
 
 @keyframes dotPulse{
-  0%,100%{transform:scale(1);opacity:1}
-  50%{transform:scale(1.5);opacity:.6}
+  0%,100%{
+    transform:scale(1);
+    opacity:1
+  }
+  50%{
+    transform:scale(1.5);
+    opacity:.6
+  }
 }
 
 .summary .copy-btn{
@@ -533,7 +699,9 @@ button[type="submit"]:disabled{
 
 /* ================= GROUPS ================= */
 
-section.group{margin-bottom:30px}
+section.group{
+  margin-bottom:30px
+}
 
 .group-title{
   font-size:13px;
@@ -568,15 +736,22 @@ section.group{margin-bottom:30px}
 }
 
 @keyframes emptyIn{
-  from{opacity:0;transform:scale(.97)}
-  to{opacity:1;transform:scale(1)}
+  from{
+    opacity:0;
+    transform:scale(.97)
+  }
+  to{
+    opacity:1;
+    transform:scale(1)
+  }
 }
 
 /* ================= RESULTS ================= */
 
 .hits{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  grid-template-columns:
+    repeat(auto-fit,minmax(min(300px,100%),1fr));
   gap:12px;
 }
 
@@ -744,7 +919,8 @@ section.group{margin-bottom:30px}
 
 .metrics{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+  grid-template-columns:
+    repeat(auto-fit,minmax(70px,1fr));
   gap:6px;
   margin-bottom:10px;
 }
@@ -860,7 +1036,9 @@ details.misses summary:hover{
   color:var(--text);
 }
 
-details.misses summary::-webkit-details-marker{display:none}
+details.misses summary::-webkit-details-marker{
+  display:none
+}
 
 details.misses summary .chev{
   transition:transform .25s ease;
@@ -881,7 +1059,9 @@ details.misses[open] summary .chev{
   animation:rowIn .3s ease both;
 }
 
-.miss-row .n{color:var(--muted)}
+.miss-row .n{
+  color:var(--muted)
+}
 
 .miss-row .s{
   font-family:'IBM Plex Mono',monospace;
@@ -901,8 +1081,14 @@ details.misses[open] summary .chev{
 }
 
 @keyframes rowIn{
-  from{opacity:0;transform:translateX(-5px)}
-  to{opacity:1;transform:translateX(0)}
+  from{
+    opacity:0;
+    transform:translateX(-5px)
+  }
+  to{
+    opacity:1;
+    transform:translateX(0)
+  }
 }
 
 /* ================= MODAL ================= */
@@ -940,13 +1126,23 @@ details.misses[open] summary .chev{
 }
 
 @keyframes modalBgIn{
-  from{opacity:0}
-  to{opacity:1}
+  from{
+    opacity:0
+  }
+  to{
+    opacity:1
+  }
 }
 
 @keyframes modalIn{
-  from{opacity:0;transform:scale(.94) translateY(12px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
+  from{
+    opacity:0;
+    transform:scale(.94) translateY(12px)
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0)
+  }
 }
 
 .modal-head{
@@ -1012,16 +1208,25 @@ details.misses[open] summary .chev{
   border-color:var(--faint);
 }
 
-.hidden{display:none!important}
+.hidden{
+  display:none!important
+}
 
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
+  from{
+    opacity:0;
+    transform:translateY(8px)
+  }
+  to{
+    opacity:1;
+    transform:translateY(0)
+  }
 }
 
 /* ================= RESPONSIVE ================= */
 
 @media(max-width:700px){
+
   .wrap{
     padding-left:14px;
     padding-right:14px;
@@ -1064,6 +1269,7 @@ details.misses[open] summary .chev{
 }
 
 @media(max-width:430px){
+
   .wrap{
     padding-left:12px;
     padding-right:12px;
@@ -1131,6 +1337,7 @@ details.misses[open] summary .chev{
 }
 
 @media(max-width:340px){
+
   .brand-logo{
     width:36px;
     height:36px;
@@ -1151,6 +1358,7 @@ details.misses[open] summary .chev{
 /* ================= REDUCED MOTION ================= */
 
 @media(prefers-reduced-motion:reduce){
+
   *,
   *::before,
   *::after{
@@ -1160,6 +1368,7 @@ details.misses[open] summary .chev{
     transition-duration:.001ms!important;
   }
 }
+
 </style>
 </head>
 
@@ -1171,9 +1380,11 @@ details.misses[open] summary .chev{
     <div class="brand">
 
       <img
-        src="logo.png"
+        src="https://osint-argus.vercel.app/logo.png"
         class="brand-logo"
         alt="Argus OSINT logo"
+        width="62"
+        height="62"
       >
 
       <div class="brand-text">
@@ -1185,7 +1396,9 @@ details.misses[open] summary .chev{
 
     <button
       class="theme-btn"
-      id="themeBtn">
+      id="themeBtn"
+      type="button"
+    >
       Light mode
     </button>
 
@@ -1199,7 +1412,8 @@ details.misses[open] summary .chev{
   <h1>Look up a handle</h1>
 
   <p class="sub">
-    Search for publicly available profile information and explore matching accounts.
+    Search for publicly available profile information
+    and explore matching accounts.
   </p>
 
   <form id="searchForm">
@@ -1214,7 +1428,8 @@ details.misses[open] summary .chev{
 
     <button
       type="submit"
-      id="searchBtn">
+      id="searchBtn"
+    >
       Check
     </button>
 
@@ -1222,7 +1437,8 @@ details.misses[open] summary .chev{
 
   <div
     class="progress"
-    id="progressContainer">
+    id="progressContainer"
+  >
 
     <div class="progress-line">
 
@@ -1240,8 +1456,8 @@ details.misses[open] summary .chev{
 
       <div
         class="progress-fill"
-        id="progressBar">
-      </div>
+        id="progressBar"
+      ></div>
 
     </div>
 
@@ -1251,13 +1467,14 @@ details.misses[open] summary .chev{
 
 <div
   class="summary"
-  id="summary">
+  id="summary"
+>
 
   <span>
     <span
       class="dot"
-      style="background:var(--ok)">
-    </span>
+      style="background:var(--ok)"
+    ></span>
 
     <b id="statFound">0</b>
     matched
@@ -1266,8 +1483,8 @@ details.misses[open] summary .chev{
   <span>
     <span
       class="dot"
-      style="background:var(--faint)">
-    </span>
+      style="background:var(--faint)"
+    ></span>
 
     <b id="statNotFound">0</b>
     no record
@@ -1276,8 +1493,8 @@ details.misses[open] summary .chev{
   <span>
     <span
       class="dot"
-      style="background:var(--err)">
-    </span>
+      style="background:var(--err)"
+    ></span>
 
     <b id="statErrors">0</b>
     blocked / errored
@@ -1285,7 +1502,9 @@ details.misses[open] summary .chev{
 
   <button
     class="copy-btn"
-    id="copySummaryBtn">
+    id="copySummaryBtn"
+    type="button"
+  >
     Copy results
   </button>
 
@@ -1293,15 +1512,18 @@ details.misses[open] summary .chev{
 
 <section
   class="group"
-  id="resultsSection">
+  id="resultsSection"
+>
 
   <div
     class="empty"
-    id="emptyState">
+    id="emptyState"
+  >
 
     <b>No lookup run yet</b>
 
-    Enter a handle above and press Check to search for public profiles.
+    Enter a handle above and press Check
+    to search for public profiles.
 
   </div>
 
@@ -1311,7 +1533,8 @@ details.misses[open] summary .chev{
 
 <div
   class="modal-bg"
-  id="jsonModal">
+  id="jsonModal"
+>
 
   <div class="modal">
 
@@ -1321,7 +1544,10 @@ details.misses[open] summary .chev{
         Raw response
       </h3>
 
-      <button id="closeModalBtn">
+      <button
+        id="closeModalBtn"
+        type="button"
+      >
         ✕
       </button>
 
@@ -1331,14 +1557,17 @@ details.misses[open] summary .chev{
 
       <pre
         id="modalJsonContent"
-        style="margin:0;">
-      </pre>
+        style="margin:0;"
+      ></pre>
 
     </div>
 
     <div class="modal-foot">
 
-      <button id="copyModalJsonBtn">
+      <button
+        id="copyModalJsonBtn"
+        type="button"
+      >
         Copy JSON
       </button>
 
@@ -1376,36 +1605,33 @@ const TARGET_ENDPOINTS = [
       if(!en)
         return null;
 
-      const names =
-        (en.names || [])
-          .map(n =>
-            typeof n === 'string'
-              ? n
-              : n.value || n.name
-          )
-          .filter(Boolean);
+      const names=(en.names||[])
+        .map(n=>
+          typeof n==='string'
+            ?n
+            :n.value||n.name
+        )
+        .filter(Boolean);
 
-      const pronouns =
-        (en.pronouns || [])
-          .map(p =>
-            typeof p === 'string'
-              ? p
-              : p.value || p.pronoun
-          )
-          .filter(Boolean);
+      const pronouns=(en.pronouns||[])
+        .map(p=>
+          typeof p==='string'
+            ?p
+            :p.value||p.pronoun
+        )
+        .filter(Boolean);
 
-      const links =
-        (en.links || [])
-          .map(l =>
-            typeof l === 'string'
-              ? l
-              : l.href || l.link
-          )
-          .filter(Boolean);
+      const links=(en.links||[])
+        .map(l=>
+          typeof l==='string'
+            ?l
+            :l.href||l.link
+        )
+        .filter(Boolean);
 
       return {
 
-        avatar:data.avatar || null,
+        avatar:data.avatar||null,
 
         title:
           names[0] ||
@@ -1415,7 +1641,7 @@ const TARGET_ENDPOINTS = [
           `@${data.username}`,
 
         bio:
-          en.bio || '',
+          en.bio||'',
 
         badges:
           pronouns,
@@ -1455,7 +1681,7 @@ const TARGET_ENDPOINTS = [
       const profileRes =
         await fetchUrl(base);
 
-      if(profileRes.status !== 200)
+      if(profileRes.status!==200)
         return profileRes;
 
       const [
@@ -1480,16 +1706,16 @@ const TARGET_ENDPOINTS = [
             profileRes.data,
 
           stats:
-            statsRes.status === 'fulfilled' &&
-            statsRes.value.status === 200
-              ? statsRes.value.data
-              : null,
+            statsRes.status==='fulfilled' &&
+            statsRes.value.status===200
+              ?statsRes.value.data
+              :null,
 
           clubs:
-            clubsRes.status === 'fulfilled' &&
-            clubsRes.value.status === 200
-              ? clubsRes.value.data.clubs
-              : []
+            clubsRes.status==='fulfilled' &&
+            clubsRes.value.status===200
+              ?clubsRes.value.data.clubs
+              :[]
 
         }
 
@@ -1506,14 +1732,9 @@ const TARGET_ENDPOINTS = [
       )
         return null;
 
-      const p =
-        payload.profile;
-
-      const s =
-        payload.stats || {};
-
-      const clubs =
-        payload.clubs || [];
+      const p=payload.profile;
+      const s=payload.stats||{};
+      const clubs=payload.clubs||[];
 
       return {
 
@@ -1527,15 +1748,21 @@ const TARGET_ENDPOINTS = [
           `@${p.username}`,
 
         bio:
-          `Joined ${new Date(p.joined*1000).toLocaleDateString()} · last online ${new Date(p.last_online*1000).toLocaleDateString()}`,
+          `Joined ${
+            new Date(
+              p.joined*1000
+            ).toLocaleDateString()
+          } · last online ${
+            new Date(
+              p.last_online*1000
+            ).toLocaleDateString()
+          }`,
 
         badges:[
           p.title
-            ? `Title: ${p.title}`
-            : null,
-
+            ?`Title: ${p.title}`
+            :null,
           p.location
-
         ].filter(Boolean),
 
         metrics:[
@@ -1544,24 +1771,24 @@ const TARGET_ENDPOINTS = [
             l:'Blitz',
             v:
               s.chess_blitz
-                ? s.chess_blitz.last.rating
-                : '—'
+                ?s.chess_blitz.last.rating
+                :'—'
           },
 
           {
             l:'Rapid',
             v:
               s.chess_rapid
-                ? s.chess_rapid.last.rating
-                : '—'
+                ?s.chess_rapid.last.rating
+                :'—'
           },
 
           {
             l:'Bullet',
             v:
               s.chess_bullet
-                ? s.chess_bullet.last.rating
-                : '—'
+                ?s.chess_bullet.last.rating
+                :'—'
           },
 
           {
@@ -1572,15 +1799,13 @@ const TARGET_ENDPOINTS = [
         ],
 
         clubs:
-          clubs
-            .slice(0,4)
-            .map(c=>({
+          clubs.slice(0,4).map(c=>({
 
-              name:c.name,
-              icon:c.icon,
-              url:c.url
+            name:c.name,
+            icon:c.icon,
+            url:c.url
 
-            })),
+          })),
 
         links:[
           p.url
@@ -1615,7 +1840,7 @@ const TARGET_ENDPOINTS = [
         return null;
 
       const perf =
-        data.perfs || {};
+        data.perfs||{};
 
       return {
 
@@ -1626,20 +1851,20 @@ const TARGET_ENDPOINTS = [
 
         handle:
           data.title
-            ? `[${data.title}] @${data.id}`
-            : `@${data.id}`,
+            ?`[${data.title}] @${data.id}`
+            :`@${data.id}`,
 
         bio:
-          data.bio || '',
+          data.bio||'',
 
         badges:[
           data.online
-            ? 'Online'
-            : 'Offline',
+            ?'Online'
+            :'Offline',
 
           data.patron
-            ? 'Patron'
-            : null
+            ?'Patron'
+            :null
 
         ].filter(Boolean),
 
@@ -1649,32 +1874,32 @@ const TARGET_ENDPOINTS = [
             l:'Blitz',
             v:
               perf.blitz
-                ? perf.blitz.rating
-                : '—'
+                ?perf.blitz.rating
+                :'—'
           },
 
           {
             l:'Rapid',
             v:
               perf.rapid
-                ? perf.rapid.rating
-                : '—'
+                ?perf.rapid.rating
+                :'—'
           },
 
           {
             l:'Puzzles',
             v:
               perf.puzzle
-                ? perf.puzzle.rating
-                : '—'
+                ?perf.puzzle.rating
+                :'—'
           },
 
           {
             l:'Games',
             v:
               data.count
-                ? data.count.all
-                : 0
+                ?data.count.all
+                :0
           }
 
         ],
@@ -1707,7 +1932,7 @@ const TARGET_ENDPOINTS = [
 
       if(
         !data ||
-        data.message === 'Not Found' ||
+        data.message==='Not Found' ||
         !data.login
       )
         return null;
@@ -1725,7 +1950,7 @@ const TARGET_ENDPOINTS = [
           `@${data.login}`,
 
         bio:
-          data.bio || '',
+          data.bio||'',
 
         badges:[
           data.company,
@@ -1753,12 +1978,12 @@ const TARGET_ENDPOINTS = [
 
         links:
           data.blog
-            ? [
-                data.blog.startsWith('http')
-                  ? data.blog
-                  : `https://${data.blog}`
-              ]
-            : [],
+            ?[
+              data.blog.startsWith('http')
+                ?data.blog
+                :`https://${data.blog}`
+            ]
+            :[],
 
         profileUrl:
           data.html_url
@@ -1788,11 +2013,10 @@ const TARGET_ENDPOINTS = [
       )
         return null;
 
-      const e =
-        data.entry[0];
+      const e=data.entry[0];
 
-      const urls =
-        (e.urls || [])
+      const urls=
+        (e.urls||[])
           .map(u=>u.value);
 
       return {
@@ -1808,7 +2032,7 @@ const TARGET_ENDPOINTS = [
           `@${e.preferredUsername}`,
 
         bio:
-          e.aboutMe || '',
+          e.aboutMe||'',
 
         badges:[
           e.currentLocation
@@ -1820,8 +2044,8 @@ const TARGET_ENDPOINTS = [
             l:'Accounts',
             v:
               e.accounts
-                ? e.accounts.length
-                : 0
+                ?e.accounts.length
+                :0
           },
 
           {
@@ -1863,44 +2087,42 @@ const TARGET_ENDPOINTS = [
       )
         return null;
 
-      const u =
-        data.them[0];
+      const u=data.them[0];
 
       if(!u.id)
         return null;
 
-      const proofs =
-        (
-          u.proofs_summary
-            ? u.proofs_summary.all || []
-            : []
-        )
-        .map(
-          p =>
-            `${p.proof_type}: ${p.nametag}`
-        );
+      const proofs=(
+
+        u.proofs_summary
+          ?u.proofs_summary.all||[]
+          :[]
+
+      ).map(
+        p=>`${p.proof_type}: ${p.nametag}`
+      );
 
       return {
 
         avatar:
           u.pictures &&
           u.pictures.primary
-            ? u.pictures.primary.url
-            : null,
+            ?u.pictures.primary.url
+            :null,
 
         title:
           u.profile
-            ? u.profile.full_name ||
+            ?u.profile.full_name ||
               u.basics.username
-            : u.basics.username,
+            :u.basics.username,
 
         handle:
           `@${u.basics.username}`,
 
         bio:
           u.profile
-            ? u.profile.bio
-            : '',
+            ?u.profile.bio
+            :'',
 
         badges:
           proofs.slice(0,4),
@@ -1916,8 +2138,8 @@ const TARGET_ENDPOINTS = [
             l:'Devices',
             v:
               u.devices
-                ? Object.keys(u.devices).length
-                : 0
+                ?Object.keys(u.devices).length
+                :0
           }
 
         ],
@@ -1948,47 +2170,46 @@ const TARGET_ENDPOINTS = [
       if(
         !data ||
         !data.data ||
-        data.error === 404
+        data.error===404
       )
         return null;
 
-      const u =
-        data.data;
+      const u=data.data;
 
       return {
 
         avatar:
           u.icon_img
-            ? u.icon_img.split('?')[0]
-            : null,
+            ?u.icon_img.split('?')[0]
+            :null,
 
         title:
           u.subreddit
-            ? u.subreddit.title ||
+            ?u.subreddit.title ||
               u.name
-            : u.name,
+            :u.name,
 
         handle:
           `u/${u.name}`,
 
         bio:
           u.subreddit
-            ? u.subreddit.public_description
-            : '',
+            ?u.subreddit.public_description
+            :'',
 
         badges:[
 
           u.is_gold
-            ? 'Gold'
-            : null,
+            ?'Gold'
+            :null,
 
           u.is_mod
-            ? 'Moderator'
-            : null,
+            ?'Moderator'
+            :null,
 
           u.has_verified_email
-            ? 'Verified email'
-            : null
+            ?'Verified email'
+            :null
 
         ].filter(Boolean),
 
@@ -2039,10 +2260,7 @@ const TARGET_ENDPOINTS = [
 
       if(
         !data ||
-        (
-          !data.username &&
-          !data.members
-        )
+        (!data.username && !data.members)
       )
         return null;
 
@@ -2057,8 +2275,8 @@ const TARGET_ENDPOINTS = [
 
         handle:
           data.id
-            ? `ID ${data.id}`
-            : '',
+            ?`ID ${data.id}`
+            :'',
 
         bio:
           data.biography ||
@@ -2067,8 +2285,8 @@ const TARGET_ENDPOINTS = [
 
         badges:
           data.pronouns
-            ? [data.pronouns]
-            : [],
+            ?[data.pronouns]
+            :[],
 
         metrics:[
 
@@ -2076,14 +2294,14 @@ const TARGET_ENDPOINTS = [
             l:'Members',
             v:
               data.members
-                ? data.members.length
-                : 0
+                ?data.members.length
+                :0
           }
 
         ],
 
         links:
-          data.links || [],
+          data.links||[],
 
         profileUrl:
           `https://pronouns.cc/p/${data.username}`
@@ -2120,10 +2338,14 @@ const TARGET_ENDPOINTS = [
           data.id,
 
         handle:
-          `since ${new Date(data.created*1000).getFullYear()}`,
+          `since ${
+            new Date(
+              data.created*1000
+            ).getFullYear()
+          }`,
 
         bio:
-          data.about || '',
+          data.about||'',
 
         badges:[],
 
@@ -2138,8 +2360,8 @@ const TARGET_ENDPOINTS = [
             l:'Posts',
             v:
               data.submitted
-                ? data.submitted.length
-                : 0
+                ?data.submitted.length
+                :0
           }
 
         ],
@@ -2186,7 +2408,7 @@ const TARGET_ENDPOINTS = [
           `@${data.username}`,
 
         bio:
-          data.summary || '',
+          data.summary||'',
 
         badges:[
           data.location
@@ -2198,8 +2420,8 @@ const TARGET_ENDPOINTS = [
             l:'Joined',
             v:
               data.joined_at
-                ? data.joined_at.split(' ')[0]
-                : '—'
+                ?data.joined_at.split(' ')[0]
+                :'—'
           }
 
         ],
@@ -2209,8 +2431,8 @@ const TARGET_ENDPOINTS = [
           data.website_url,
 
           data.github_username
-            ? `https://github.com/${data.github_username}`
-            : null
+            ?`https://github.com/${data.github_username}`
+            :null
 
         ].filter(Boolean),
 
@@ -2231,15 +2453,14 @@ async function fetchUrl(url){
 
   try{
 
-    const res =
-      await fetch(
-        `/api/proxy?url=${encodeURIComponent(url)}`,
-        {
-          headers:{
-            'Accept':'application/json'
-          }
+    const res=await fetch(
+      `/api/proxy?url=${encodeURIComponent(url)}`,
+      {
+        headers:{
+          'Accept':'application/json'
         }
-      );
+      }
+    );
 
     if(!res.ok){
 
@@ -2274,55 +2495,55 @@ async function fetchUrl(url){
 
 /* ================= UI ================= */
 
-const searchForm =
+const searchForm=
   document.getElementById('searchForm');
 
-const usernameInput =
+const usernameInput=
   document.getElementById('usernameInput');
 
-const searchBtn =
+const searchBtn=
   document.getElementById('searchBtn');
 
-const progressContainer =
+const progressContainer=
   document.getElementById('progressContainer');
 
-const progressBar =
+const progressBar=
   document.getElementById('progressBar');
 
-const progressText =
+const progressText=
   document.getElementById('progressText');
 
-const progressPercent =
+const progressPercent=
   document.getElementById('progressPercent');
 
-const summary =
+const summary=
   document.getElementById('summary');
 
-const statFound =
+const statFound=
   document.getElementById('statFound');
 
-const statNotFound =
+const statNotFound=
   document.getElementById('statNotFound');
 
-const statErrors =
+const statErrors=
   document.getElementById('statErrors');
 
-const resultsSection =
+const resultsSection=
   document.getElementById('resultsSection');
 
-const emptyState =
+const emptyState=
   document.getElementById('emptyState');
 
-const copySummaryBtn =
+const copySummaryBtn=
   document.getElementById('copySummaryBtn');
 
-const jsonModal =
+const jsonModal=
   document.getElementById('jsonModal');
 
-const modalTitle =
+const modalTitle=
   document.getElementById('modalTitle');
 
-const modalJsonContent =
+const modalJsonContent=
   document.getElementById('modalJsonContent');
 
 let currentResults=[];
@@ -2332,20 +2553,18 @@ let rawModalJSON=null;
 
 function esc(str){
 
-  if(typeof str !== 'string')
+  if(typeof str!=='string')
     return str;
 
   return str.replace(
     /[&<>'"]/g,
     t=>({
-
       '&':'&amp;',
       '<':'&lt;',
       '>':'&gt;',
       "'":'&#39;',
       '"':'&quot;'
-
-    }[t] || t)
+    }[t]||t)
   );
 
 }
@@ -2358,7 +2577,7 @@ searchForm.addEventListener(
 
     e.preventDefault();
 
-    const username =
+    const username=
       usernameInput.value.trim();
 
     if(!username)
@@ -2391,7 +2610,7 @@ searchForm.addEventListener(
       TARGET_ENDPOINTS.map(
         async endpoint=>{
 
-          const res =
+          const res=
             await endpoint.fetch(username);
 
           let result={
@@ -2407,11 +2626,11 @@ searchForm.addEventListener(
           };
 
           if(
-            res.status === 200 &&
+            res.status===200 &&
             res.data
           ){
 
-            const parsed =
+            const parsed=
               endpoint.parse(res.data);
 
             if(parsed){
@@ -2431,7 +2650,7 @@ searchForm.addEventListener(
             }
 
           }else if(
-            res.status === 404
+            res.status===404
           ){
 
             result.status='not_found';
@@ -2448,25 +2667,24 @@ searchForm.addEventListener(
 
           completed++;
 
-          const pct =
+          const pct=
             Math.round(
-              (
-                completed /
-                TARGET_ENDPOINTS.length
-              ) * 100
+              (completed/TARGET_ENDPOINTS.length)*100
             );
 
-          progressBar.style.width =
+          progressBar.style.width=
             pct+'%';
 
-          progressPercent.textContent =
+          progressPercent.textContent=
             pct+'%';
 
-          progressText.textContent =
-            completed ===
+          progressText.textContent=
+            completed===
             TARGET_ENDPOINTS.length
-              ? 'Search complete'
-              : `Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
+
+              ?'Search complete'
+
+              :`Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
 
           currentResults.push(result);
 
@@ -2475,9 +2693,7 @@ searchForm.addEventListener(
 
     );
 
-    progressContainer.classList.remove(
-      'active'
-    );
+    progressContainer.classList.remove('active');
 
     searchBtn.disabled=false;
 
@@ -2500,19 +2716,19 @@ function renderResults(username){
 
   resultsSection.innerHTML='';
 
-  const hits =
+  const hits=
     currentResults.filter(
       r=>r.status==='found'
     );
 
-  const rest =
+  const rest=
     currentResults.filter(
       r=>r.status!=='found'
     );
 
   if(
-    hits.length === 0 &&
-    rest.length === 0
+    hits.length===0 &&
+    rest.length===0
   ){
 
     resultsSection.appendChild(
@@ -2525,15 +2741,15 @@ function renderResults(username){
 
   if(hits.length){
 
-    const title =
+    const title=
       document.createElement('p');
 
     title.className='group-title';
 
-    title.textContent =
+    title.textContent=
       `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
 
-    const grid =
+    const grid=
       document.createElement('div');
 
     grid.className='hits';
@@ -2541,10 +2757,10 @@ function renderResults(username){
     hits.forEach(
       (item,index)=>{
 
-        const card =
+        const card=
           buildCard(item);
 
-        card.style.animationDelay =
+        card.style.animationDelay=
           `${index*70}ms`;
 
         grid.appendChild(card);
@@ -2558,12 +2774,12 @@ function renderResults(username){
 
   }else{
 
-    const none =
+    const none=
       document.createElement('div');
 
     none.className='empty';
 
-    none.innerHTML =
+    none.innerHTML=
       `<b>No public match for "${esc(username)}"</b>
        Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
 
@@ -2573,15 +2789,15 @@ function renderResults(username){
 
   if(rest.length){
 
-    const details =
+    const details=
       document.createElement('details');
 
     details.className='misses';
 
-    const summaryEl =
+    const summaryEl=
       document.createElement('summary');
 
-    summaryEl.innerHTML =
+    summaryEl.innerHTML=
       `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
        <span class="chev">›</span>`;
 
@@ -2590,15 +2806,15 @@ function renderResults(username){
     rest.forEach(
       (r,index)=>{
 
-        const row =
+        const row=
           document.createElement('div');
 
         row.className='miss-row';
 
-        row.style.animationDelay =
+        row.style.animationDelay=
           `${index*35}ms`;
 
-        row.innerHTML =
+        row.innerHTML=
           `<span class="n">${esc(r.endpoint.name)}</span>
            <span class="s ${r.status==='error'?'er':'nf'}">
            ${r.status==='error'?'blocked':'no record'}
@@ -2619,88 +2835,75 @@ function renderResults(username){
 
 function buildCard(item){
 
-  const p =
-    item.parsed;
+  const p=item.parsed;
 
-  const card =
+  const card=
     document.createElement('div');
 
   card.className='card';
 
-  const avatarHTML =
+  const avatarHTML=
     p.avatar
 
-      ? `<img
-           class="avatar"
-           src="${esc(p.avatar)}"
-           alt=""
-           onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title||'?').charAt(0).toUpperCase())}</div>'">`
+      ?`<img
+          class="avatar"
+          src="${esc(p.avatar)}"
+          alt=""
+          onerror="this.outerHTML='<div class=avatar-fallback>${esc(
+            (p.title||'?').charAt(0).toUpperCase()
+          )}</div>'"
+        >`
 
-      : `<div class="avatar-fallback">
-           ${esc(
-             (p.title||'?')
-               .charAt(0)
-               .toUpperCase()
-           )}
-         </div>`;
+      :`<div class="avatar-fallback">
+          ${esc(
+            (p.title||'?').charAt(0).toUpperCase()
+          )}
+        </div>`;
 
-  const badges =
-    (p.badges || [])
+  const badges=
+    (p.badges||[])
       .filter(Boolean)
       .map(
-        b =>
-          `<span class="badge">
-            ${esc(String(b))}
-           </span>`
+        b=>
+          `<span class="badge">${esc(String(b))}</span>`
       )
       .join('');
 
-  const metrics =
-    (p.metrics || [])
+  const metrics=
+    (p.metrics||[])
       .map(
-        m =>
+        m=>
           `<div class="metric">
-
-             <div class="v">
-               ${esc(String(m.v))}
-             </div>
-
-             <div class="l">
-               ${esc(m.l)}
-             </div>
-
+            <div class="v">${esc(String(m.v))}</div>
+            <div class="l">${esc(m.l)}</div>
            </div>`
       )
       .join('');
 
-  const clubs =
-    (p.clubs || []).length
+  const clubs=
+    (p.clubs||[]).length
 
-      ? `<div class="clublist">
-
-           ${p.clubs.map(
-             c =>
-               `<a
+      ?`<div class="clublist">
+          ${p.clubs.map(
+            c=>
+              `<a
                   href="${esc(c.url)}"
                   target="_blank"
-                  rel="noopener">
+                  rel="noopener"
+                >
+                ${
+                  c.icon
+                    ?`<img src="${esc(c.icon)}" alt="">`
+                    :''
+                }
+                ${esc(c.name)}
+              </a>`
+          ).join('')}
+        </div>`
 
-                  ${c.icon
-                    ? `<img
-                         src="${esc(c.icon)}"
-                         alt="">`
-                    : ''}
+      :'';
 
-                  ${esc(c.name)}
-
-                </a>`
-           ).join('')}
-
-         </div>`
-
-      : '';
-
-  card.innerHTML = `
+  card.innerHTML=`
 
     <div class="card-head">
 
@@ -2725,42 +2928,44 @@ function buildCard(item){
       <button
         class="inspect-btn"
         title="View raw response"
-        aria-label="View raw response">
+        aria-label="View raw response"
+        type="button"
+      >
         { }
       </button>
 
     </div>
 
     <div class="card-title">
-      ${esc(p.title || '')}
+      ${esc(p.title||'')}
     </div>
 
     <div class="card-handle">
-      ${esc(p.handle || '')}
+      ${esc(p.handle||'')}
     </div>
 
     ${
       p.bio
-        ? `<div class="card-bio">
-             ${esc(p.bio)}
-           </div>`
-        : ''
+        ?`<div class="card-bio">
+            ${esc(p.bio)}
+          </div>`
+        :''
     }
 
     ${
       badges
-        ? `<div class="badges">
-             ${badges}
-           </div>`
-        : ''
+        ?`<div class="badges">
+            ${badges}
+          </div>`
+        :''
     }
 
     ${
       metrics
-        ? `<div class="metrics">
-             ${metrics}
-           </div>`
-        : ''
+        ?`<div class="metrics">
+            ${metrics}
+          </div>`
+        :''
     }
 
     ${clubs}
@@ -2773,14 +2978,17 @@ function buildCard(item){
 
       ${
         p.profileUrl
-          ? `<a
-               class="open"
-               href="${esc(p.profileUrl)}"
-               target="_blank"
-               rel="noopener">
-               Open profile
-             </a>`
-          : ''
+
+          ?`<a
+              class="open"
+              href="${esc(p.profileUrl)}"
+              target="_blank"
+              rel="noopener"
+            >
+              Open profile
+            </a>`
+
+          :''
       }
 
     </div>
@@ -2793,16 +3001,16 @@ function buildCard(item){
       'click',
       ()=>{
 
-        modalTitle.textContent =
+        modalTitle.textContent=
           `${item.endpoint.name} — raw response`;
 
-        rawModalJSON =
+        rawModalJSON=
           item.raw ||
           {
             status:'No payload'
           };
 
-        modalJsonContent.textContent =
+        modalJsonContent.textContent=
           JSON.stringify(
             rawModalJSON,
             null,
@@ -2824,7 +3032,7 @@ copySummaryBtn.addEventListener(
   'click',
   ()=>{
 
-    const hits =
+    const hits=
       currentResults.filter(
         r=>r.status==='found'
       );
@@ -2832,26 +3040,25 @@ copySummaryBtn.addEventListener(
     if(!hits.length)
       return;
 
-    let text =
+    let text=
       `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
 
     hits.forEach(i=>{
 
-      const p =
-        i.parsed;
+      const p=i.parsed;
 
-      text +=
+      text+=
         `${i.endpoint.name} (${p.handle})\n`;
 
       if(p.title)
-        text +=
+        text+=
           `Name: ${p.title}\n`;
 
       if(p.bio)
-        text +=
+        text+=
           `Bio: ${p.bio}\n`;
 
-      text +=
+      text+=
         `URL: ${p.profileUrl}\n\n`;
 
     });
@@ -2860,15 +3067,16 @@ copySummaryBtn.addEventListener(
       .writeText(text)
       .then(()=>{
 
-        const old =
+        const old=
           copySummaryBtn.textContent;
 
-        copySummaryBtn.textContent =
+        copySummaryBtn.textContent=
           'Copied';
 
         setTimeout(
           ()=>{
-            copySummaryBtn.textContent=old;
+            copySummaryBtn.textContent=
+              old;
           },
           1500
         );
@@ -2885,7 +3093,9 @@ document
   .addEventListener(
     'click',
     ()=>{
+
       jsonModal.classList.remove('open');
+
     }
   );
 
@@ -2893,7 +3103,7 @@ jsonModal.addEventListener(
   'click',
   e=>{
 
-    if(e.target === jsonModal)
+    if(e.target===jsonModal)
       jsonModal.classList.remove('open');
 
   }
@@ -2918,20 +3128,21 @@ document
         )
         .then(()=>{
 
-          const btn =
+          const btn=
             document.getElementById(
               'copyModalJsonBtn'
             );
 
-          const old =
+          const old=
             btn.textContent;
 
-          btn.textContent =
+          btn.textContent=
             'Copied';
 
           setTimeout(
             ()=>{
-              btn.textContent=old;
+              btn.textContent=
+                old;
             },
             1500
           );
@@ -2947,7 +3158,7 @@ document.addEventListener(
   'keydown',
   e=>{
 
-    if(e.key === 'Escape')
+    if(e.key==='Escape')
       jsonModal.classList.remove('open');
 
   }
@@ -2955,22 +3166,20 @@ document.addEventListener(
 
 /* ================= THEME ================= */
 
-const themeBtn =
-  document.getElementById(
-    'themeBtn'
-  );
+const themeBtn=
+  document.getElementById('themeBtn');
 
 (function initTheme(){
 
-  const prefersLight =
+  const prefersLight=
     window.matchMedia(
       '(prefers-color-scheme: light)'
     ).matches;
 
-  const initial =
+  const initial=
     prefersLight
-      ? 'light'
-      : 'dark';
+      ?'light'
+      :'dark';
 
   document.documentElement
     .setAttribute(
@@ -2978,10 +3187,10 @@ const themeBtn =
       initial
     );
 
-  themeBtn.textContent =
-    initial === 'light'
-      ? 'Dark mode'
-      : 'Light mode';
+  themeBtn.textContent=
+    initial==='light'
+      ?'Dark mode'
+      :'Light mode';
 
 })();
 
@@ -2989,14 +3198,14 @@ themeBtn.addEventListener(
   'click',
   ()=>{
 
-    const current =
+    const current=
       document.documentElement
         .getAttribute('data-theme');
 
-    const next =
-      current === 'light'
-        ? 'dark'
-        : 'light';
+    const next=
+      current==='light'
+        ?'dark'
+        :'light';
 
     document.documentElement
       .setAttribute(
@@ -3004,10 +3213,10 @@ themeBtn.addEventListener(
         next
       );
 
-    themeBtn.textContent =
-      next === 'light'
-        ? 'Dark mode'
-        : 'Light mode';
+    themeBtn.textContent=
+      next==='light'
+        ?'Dark mode'
+        :'Light mode';
 
   }
 );
