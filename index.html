@@ -2441,23 +2441,3 @@ themeBtn.addEventListener(
 
 </body>
 </html>
-
-What changed
-
-- Theme button can no longer overlap the brand.
-- Header now uses "flex: 1"/"flex-shrink" correctly.
-- The theme button has a fixed minimum width and never wraps its text.
-- Logo scales automatically:
-  - Desktop: 72px
-  - Tablet: 60px
-  - Phone: 48px
-  - Very small phones: 42px
-- “Argus OSINT” scales down on very narrow screens.
-- The subtitle automatically disappears when space is limited.
-- Search input/button become full-width on phones.
-- Cards are forced to a single column on small screens.
-- Long usernames, IDs, club names, metrics, etc. now use proper overflow handling instead of pushing other elements around.
-- Modal sizing is also adapted for small screens.
-- The page has "overflow-x:hidden" so accidental horizontal overflow won't change the apparent layout width.
-
-The important fix is that the header now treats the logo/brand and theme button as two independent areas, so one cannot visually run into the other regardless of screen width.
