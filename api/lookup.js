@@ -1,5 +1,14 @@
 // api/lookup.js
 
+/*
+ * Argus OSINT
+ * Hybrid fallback API
+ *
+ * The frontend normally queries public APIs directly.
+ * This endpoint is used when a browser request fails because
+ * of CORS, browser restrictions, or another client-side issue.
+ */
+
 const ENDPOINTS = [
 
   {
@@ -25,7 +34,7 @@ const ENDPOINTS = [
           .map(n =>
             typeof n === "string"
               ? n
-              : n.value || n.name
+              : n?.value || n?.name
           )
           .filter(Boolean);
 
@@ -34,7 +43,7 @@ const ENDPOINTS = [
           .map(p =>
             typeof p === "string"
               ? p
-              : p.value || p.pronoun
+              : p?.value || p?.pronoun
           )
           .filter(Boolean);
 
@@ -43,7 +52,7 @@ const ENDPOINTS = [
           .map(l =>
             typeof l === "string"
               ? l
-              : l.href || l.link
+              : l?.href || l?.link
           )
           .filter(Boolean);
 
@@ -144,12 +153,17 @@ const ENDPOINTS = [
           `@${profile.username}`,
 
         bio:
-          `Joined ${profile.joined
-            ? new Date(profile.joined * 1000).toLocaleDateString()
-            : "—"
+          `Joined ${
+            profile.joined
+              ? new Date(
+                  profile.joined * 1000
+                ).toLocaleDateString()
+              : "—"
           } · last online ${
             profile.last_online
-              ? new Date(profile.last_online * 1000).toLocaleDateString()
+              ? new Date(
+                  profile.last_online * 1000
+                ).toLocaleDateString()
               : "—"
           }`,
 
@@ -167,31 +181,22 @@ const ENDPOINTS = [
           {
             l: "Blitz",
             v:
-              stats &&
-              stats.chess_blitz &&
-              stats.chess_blitz.last
-                ? stats.chess_blitz.last.rating
-                : "—"
+              stats?.chess_blitz?.last?.rating ??
+              "—"
           },
 
           {
             l: "Rapid",
             v:
-              stats &&
-              stats.chess_rapid &&
-              stats.chess_rapid.last
-                ? stats.chess_rapid.last.rating
-                : "—"
+              stats?.chess_rapid?.last?.rating ??
+              "—"
           },
 
           {
             l: "Bullet",
             v:
-              stats &&
-              stats.chess_bullet &&
-              stats.chess_bullet.last
-                ? stats.chess_bullet.last.rating
-                : "—"
+              stats?.chess_bullet?.last?.rating ??
+              "—"
           },
 
           {
@@ -276,33 +281,29 @@ const ENDPOINTS = [
           {
             l: "Blitz",
             v:
-              perf.blitz
-                ? perf.blitz.rating
-                : "—"
+              perf.blitz?.rating ??
+              "—"
           },
 
           {
             l: "Rapid",
             v:
-              perf.rapid
-                ? perf.rapid.rating
-                : "—"
+              perf.rapid?.rating ??
+              "—"
           },
 
           {
             l: "Puzzles",
             v:
-              perf.puzzle
-                ? perf.puzzle.rating
-                : "—"
+              perf.puzzle?.rating ??
+              "—"
           },
 
           {
             l: "Games",
             v:
-              data.count
-                ? data.count.all
-                : 0
+              data.count?.all ??
+              0
           }
 
         ],
@@ -447,14 +448,14 @@ const ENDPOINTS = [
           {
             l: "Accounts",
             v:
-              e.accounts
-                ? e.accounts.length
-                : 0
+              e.accounts?.length ??
+              0
           },
 
           {
             l: "URLs",
-            v: urls.length
+            v:
+              urls.length
           }
 
         ],
@@ -493,7 +494,13 @@ const ENDPOINTS = [
       const u =
         data.them[0];
 
-      if (!u.id) return null;
+      if (
+        !u.id ||
+        !u.basics ||
+        !u.basics.username
+      ) {
+        return null;
+      }
 
       const proofs =
         (
@@ -509,15 +516,15 @@ const ENDPOINTS = [
       return {
 
         avatar:
-          u.pictures &&
-          u.pictures.primary
-            ? u.pictures.primary.url
-            : null,
+          u.pictures?.primary?.url ||
+          null,
 
         title:
           u.profile
-            ? u.profile.full_name ||
-              u.basics.username
+            ? (
+                u.profile.full_name ||
+                u.basics.username
+              )
             : u.basics.username,
 
         handle:
@@ -580,6 +587,8 @@ const ENDPOINTS = [
       const u =
         data.data;
 
+      if (!u.name) return null;
+
       return {
 
         avatar:
@@ -589,8 +598,10 @@ const ENDPOINTS = [
 
         title:
           u.subreddit
-            ? u.subreddit.title ||
-              u.name
+            ? (
+                u.subreddit.title ||
+                u.name
+              )
             : u.name,
 
         handle:
@@ -598,7 +609,10 @@ const ENDPOINTS = [
 
         bio:
           u.subreddit
-            ? u.subreddit.public_description || ""
+            ? (
+                u.subreddit.public_description ||
+                ""
+              )
             : "",
 
         badges: [
@@ -663,7 +677,10 @@ const ENDPOINTS = [
 
       if (
         !data ||
-        (!data.username && !data.members)
+        (
+          !data.username &&
+          !data.members
+        )
       ) {
         return null;
       }
@@ -745,9 +762,11 @@ const ENDPOINTS = [
           data.id,
 
         handle:
-          `since ${new Date(
-            data.created * 1000
-          ).getFullYear()}`,
+          data.created
+            ? `since ${new Date(
+                data.created * 1000
+              ).getFullYear()}`
+            : "",
 
         bio:
           data.about || "",
@@ -851,9 +870,9 @@ const ENDPOINTS = [
 ];
 
 
-// ------------------------------------
-// Fetch JSON safely
-// ------------------------------------
+// ---------------------------------------------------------
+// Fetch JSON with timeout
+// ---------------------------------------------------------
 
 async function fetchJSON(url) {
 
@@ -863,7 +882,7 @@ async function fetchJSON(url) {
   const timeout =
     setTimeout(
       () => controller.abort(),
-      10000
+      7000
     );
 
   try {
@@ -876,7 +895,8 @@ async function fetchJSON(url) {
 
           headers: {
             "Accept": "application/json",
-            "User-Agent": "Argus-OSINT/1.0"
+            "User-Agent":
+              "Mozilla/5.0 (compatible; ArgusOSINT/1.0)"
           },
 
           signal: controller.signal
@@ -901,7 +921,13 @@ async function fetchJSON(url) {
     return {
       status: "blocked",
       data: null,
-      error: error.message
+      error:
+        error?.name === "AbortError"
+          ? "Request timed out"
+          : (
+              error?.message ||
+              "Request failed"
+            )
     };
 
   } finally {
@@ -913,13 +939,28 @@ async function fetchJSON(url) {
 }
 
 
-// ------------------------------------
-// Vercel serverless function
-// ------------------------------------
+// ---------------------------------------------------------
+// Find endpoint
+// ---------------------------------------------------------
+
+function getEndpoint(sourceId) {
+
+  if (!sourceId) return null;
+
+  return ENDPOINTS.find(
+    endpoint =>
+      endpoint.id === sourceId
+  ) || null;
+
+}
+
+
+// ---------------------------------------------------------
+// Handler
+// ---------------------------------------------------------
 
 export default async function handler(req, res) {
 
-  // CORS
   res.setHeader(
     "Access-Control-Allow-Origin",
     "*"
@@ -935,18 +976,23 @@ export default async function handler(req, res) {
     "Content-Type"
   );
 
+  res.setHeader(
+    "Cache-Control",
+    "no-store"
+  );
 
-  if (req.method === "OPTIONS") {
+
+  if(req.method === "OPTIONS"){
 
     return res.status(204).end();
 
   }
 
 
-  if (req.method !== "GET") {
+  if(req.method !== "GET"){
 
     return res.status(405).json({
-      error: "Method not allowed"
+      error:"Method not allowed"
     });
 
   }
@@ -954,33 +1000,77 @@ export default async function handler(req, res) {
 
   const username =
     String(
-      req.query.username || ""
+      req.query?.username || ""
     ).trim();
 
 
-  if (!username) {
+  if(!username){
 
     return res.status(400).json({
-      error: "Missing username"
+      error:"Missing username"
     });
 
   }
 
 
-  if (username.length > 100) {
+  if(username.length > 100){
 
     return res.status(400).json({
-      error: "Username is too long"
+      error:"Username is too long"
     });
 
   }
 
 
-  // Run all primary API requests in parallel.
-  const results =
+  /*
+   * If ?source=github is supplied,
+   * query only that source.
+   *
+   * This is what the hybrid frontend uses
+   * when its browser request fails.
+   */
+
+  const sourceId =
+    String(
+      req.query?.source || ""
+    ).trim();
+
+
+  let endpointsToQuery;
+
+
+  if(sourceId){
+
+    const endpoint=
+      getEndpoint(sourceId);
+
+    if(!endpoint){
+
+      return res.status(400).json({
+        error:"Unknown source",
+        source:sourceId
+      });
+
+    }
+
+    endpointsToQuery=[endpoint];
+
+  }else{
+
+    /*
+     * Direct requests to /api/lookup without
+     * a source still work as a complete fallback.
+     */
+
+    endpointsToQuery=ENDPOINTS;
+
+  }
+
+
+  const settled =
     await Promise.allSettled(
 
-      ENDPOINTS.map(
+      endpointsToQuery.map(
         async endpoint => {
 
           const response =
@@ -989,15 +1079,15 @@ export default async function handler(req, res) {
             );
 
 
-          let parsed = null;
+          let parsed=null;
 
 
-          if (
+          if(
             response.status === 200 &&
             response.data
-          ) {
+          ){
 
-            try {
+            try{
 
               parsed =
                 await endpoint.parse(
@@ -1005,28 +1095,28 @@ export default async function handler(req, res) {
                   username
                 );
 
-            } catch {
+            }catch{
 
-              parsed = null;
+              parsed=null;
 
             }
 
           }
 
 
-          if (parsed) {
+          if(parsed){
 
             return {
 
-              id: endpoint.id,
+              id:endpoint.id,
 
-              name: endpoint.name,
+              name:endpoint.name,
 
-              category: endpoint.category,
+              category:endpoint.category,
 
-              status: "found",
+              status:"found",
 
-              raw: response.data,
+              raw:response.data,
 
               parsed
 
@@ -1035,24 +1125,27 @@ export default async function handler(req, res) {
           }
 
 
-          if (
+          if(
             response.status === 404 ||
             response.status === 410
-          ) {
+          ){
 
             return {
 
-              id: endpoint.id,
+              id:endpoint.id,
 
-              name: endpoint.name,
+              name:endpoint.name,
 
-              category: endpoint.category,
+              category:endpoint.category,
 
-              status: "not_found",
+              status:"not_found",
 
-              raw: response.data,
+              raw:response.data,
 
-              parsed: null
+              parsed:null,
+
+              httpStatus:
+                response.status
 
             };
 
@@ -1061,20 +1154,24 @@ export default async function handler(req, res) {
 
           return {
 
-            id: endpoint.id,
+            id:endpoint.id,
 
-            name: endpoint.name,
+            name:endpoint.name,
 
-            category: endpoint.category,
+            category:endpoint.category,
 
-            status: "error",
+            status:"error",
 
-            raw: response.data,
+            raw:response.data,
 
-            parsed: null,
+            parsed:null,
 
             httpStatus:
-              response.status
+              response.status,
+
+            error:
+              response.error ||
+              null
 
           };
 
@@ -1085,28 +1182,43 @@ export default async function handler(req, res) {
 
 
   const output =
-    results.map(
-      result => {
+    settled.map(
+      (result,index) => {
 
-        if (
+        if(
           result.status === "fulfilled"
-        ) {
+        ){
+
           return result.value;
+
         }
+
+
+        const endpoint=
+          endpointsToQuery[index];
+
 
         return {
 
-          id: "unknown",
+          id:endpoint?.id || "unknown",
 
-          name: "Unknown",
+          name:endpoint?.name || "Unknown",
 
-          category: "Unknown",
+          category:
+            endpoint?.category ||
+            "Unknown",
 
-          status: "error",
+          status:"error",
 
-          raw: null,
+          raw:null,
 
-          parsed: null
+          parsed:null,
+
+          httpStatus:null,
+
+          error:
+            result.reason?.message ||
+            "Request failed"
 
         };
 
@@ -1118,8 +1230,7 @@ export default async function handler(req, res) {
 
     username,
 
-    checked:
-      output.length,
+    checked:output.length,
 
     found:
       output.filter(
@@ -1136,8 +1247,8 @@ export default async function handler(req, res) {
         x => x.status === "error"
       ).length,
 
-    results: output
+    results:output
 
   });
 
-               }
+        }
