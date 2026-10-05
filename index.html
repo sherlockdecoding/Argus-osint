@@ -61,9 +61,12 @@
     --err-dim:rgba(192,67,60,.08);
   }
 
-  *{box-sizing:border-box;}
+  *{
+    box-sizing:border-box;
+  }
 
-  html,body{
+  html,
+  body{
     margin:0;
     background:var(--bg);
     color:var(--text);
@@ -95,6 +98,10 @@
     padding:0 20px;
   }
 
+  /* =========================
+     HEADER / LOGO
+  ========================= */
+
   header{
     position:sticky;
     top:0;
@@ -113,19 +120,38 @@
 
   .brand{
     display:flex;
+    align-items:center;
+    gap:11px;
+    min-width:0;
+  }
+
+  .brand-logo{
+    width:36px;
+    height:36px;
+    object-fit:contain;
+    display:block;
+    flex-shrink:0;
+    border-radius:8px;
+  }
+
+  .brand-text{
+    display:flex;
     align-items:baseline;
     gap:10px;
+    min-width:0;
   }
 
   .brand .name{
     font-weight:700;
     font-size:17px;
     letter-spacing:-.2px;
+    white-space:nowrap;
   }
 
   .brand .tag{
     font-size:12.5px;
     color:var(--muted);
+    white-space:nowrap;
   }
 
   .theme-btn{
@@ -137,6 +163,7 @@
     font-size:12.5px;
     cursor:pointer;
     font-family:inherit;
+    flex-shrink:0;
   }
 
   .theme-btn:hover{
@@ -686,29 +713,74 @@
   }
 
   @media (max-width:600px){
+
     .header-row{
       height:58px;
+    }
+
+    .brand-logo{
+      width:32px;
+      height:32px;
+    }
+
+    .brand-text{
+      gap:0;
+    }
+
+    .brand .tag{
+      display:none;
+    }
+
+    .brand .name{
+      font-size:16px;
     }
 
     form{
       flex-direction:column;
     }
+
   }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
   <div class="wrap header-row">
+
     <div class="brand">
-      <span class="name">Argus OSINT</span>
-      <span class="tag">public profile lookup</span>
+
+      <!-- Argus logo -->
+      <img
+        src="logo.png"
+        class="brand-logo"
+        alt="Argus OSINT logo"
+      >
+
+      <div class="brand-text">
+
+        <span class="name">
+          Argus OSINT
+        </span>
+
+        <span class="tag">
+          public profile lookup
+        </span>
+
+      </div>
+
     </div>
 
-    <button class="theme-btn" id="themeBtn">Light mode</button>
+    <button class="theme-btn" id="themeBtn">
+      Light mode
+    </button>
+
   </div>
+
 </header>
+
 
 <main class="wrap">
 
@@ -721,6 +793,7 @@
     </p>
 
     <form id="searchForm">
+
       <input
         type="text"
         id="usernameInput"
@@ -729,80 +802,158 @@
         autocomplete="off"
       >
 
-      <button type="submit" id="searchBtn">
+      <button
+        type="submit"
+        id="searchBtn"
+      >
         Check
       </button>
+
     </form>
 
-    <div class="progress" id="progressContainer">
+
+    <div
+      class="progress"
+      id="progressContainer"
+    >
+
       <div class="progress-line">
-        <span id="progressText">Querying sources…</span>
-        <span id="progressPercent">0%</span>
+
+        <span id="progressText">
+          Querying sources…
+        </span>
+
+        <span id="progressPercent">
+          0%
+        </span>
+
       </div>
 
       <div class="progress-track">
-        <div class="progress-fill" id="progressBar"></div>
+
+        <div
+          class="progress-fill"
+          id="progressBar"
+        ></div>
+
       </div>
+
     </div>
 
   </section>
 
-  <div class="summary" id="summary">
+
+  <div
+    class="summary"
+    id="summary"
+  >
 
     <span>
-      <span class="dot" style="background:var(--ok)"></span>
-      <b id="statFound">0</b> matched
+      <span
+        class="dot"
+        style="background:var(--ok)"
+      ></span>
+
+      <b id="statFound">0</b>
+      matched
     </span>
+
 
     <span>
-      <span class="dot" style="background:var(--faint)"></span>
-      <b id="statNotFound">0</b> no record
+      <span
+        class="dot"
+        style="background:var(--faint)"
+      ></span>
+
+      <b id="statNotFound">0</b>
+      no record
     </span>
+
 
     <span>
-      <span class="dot" style="background:var(--err)"></span>
-      <b id="statErrors">0</b> blocked / errored
+      <span
+        class="dot"
+        style="background:var(--err)"
+      ></span>
+
+      <b id="statErrors">0</b>
+      blocked / errored
     </span>
 
-    <button class="copy-btn" id="copySummaryBtn">
+
+    <button
+      class="copy-btn"
+      id="copySummaryBtn"
+    >
       Copy results
     </button>
 
   </div>
 
-  <section class="group" id="resultsSection">
 
-    <div class="empty" id="emptyState">
+  <section
+    class="group"
+    id="resultsSection"
+  >
+
+    <div
+      class="empty"
+      id="emptyState"
+    >
+
       <b>No lookup run yet</b>
+
       Enter a handle above and press Check to search for public profiles.
+
     </div>
 
   </section>
 
 </main>
 
-<div class="modal-bg" id="jsonModal">
+
+<div
+  class="modal-bg"
+  id="jsonModal"
+>
 
   <div class="modal">
 
     <div class="modal-head">
-      <h3 id="modalTitle">Raw response</h3>
-      <button id="closeModalBtn">✕</button>
+
+      <h3 id="modalTitle">
+        Raw response
+      </h3>
+
+      <button id="closeModalBtn">
+        ✕
+      </button>
+
     </div>
+
 
     <div class="modal-body">
-      <pre id="modalJsonContent" style="margin:0;"></pre>
+
+      <pre
+        id="modalJsonContent"
+        style="margin:0;"
+      ></pre>
+
     </div>
 
+
     <div class="modal-foot">
+
       <button id="copyModalJsonBtn">
         Copy JSON
       </button>
+
     </div>
 
   </div>
 
 </div>
+
 
 <script>
 
@@ -852,6 +1003,7 @@ const TARGET_ENDPOINTS = [
     }
   },
 
+
   {
     id:'chess_com',
     name:'Chess.com',
@@ -875,6 +1027,7 @@ const TARGET_ENDPOINTS = [
         status:200,
         data:{
           profile:profileRes.data,
+
           stats:
             statsRes.status==='fulfilled' &&
             statsRes.value.status===200
@@ -918,14 +1071,17 @@ const TARGET_ENDPOINTS = [
             l:'Blitz',
             v:s.chess_blitz ? s.chess_blitz.last.rating : '—'
           },
+
           {
             l:'Rapid',
             v:s.chess_rapid ? s.chess_rapid.last.rating : '—'
           },
+
           {
             l:'Bullet',
             v:s.chess_bullet ? s.chess_bullet.last.rating : '—'
           },
+
           {
             l:'Followers',
             v:p.followers
@@ -944,6 +1100,7 @@ const TARGET_ENDPOINTS = [
     }
   },
 
+
   {
     id:'lichess',
     name:'Lichess',
@@ -961,7 +1118,9 @@ const TARGET_ENDPOINTS = [
 
       return {
         avatar:null,
+
         title:data.username,
+
         handle:data.title
           ? `[${data.title}] @${data.id}`
           : `@${data.id}`,
@@ -978,14 +1137,17 @@ const TARGET_ENDPOINTS = [
             l:'Blitz',
             v:perf.blitz ? perf.blitz.rating : '—'
           },
+
           {
             l:'Rapid',
             v:perf.rapid ? perf.rapid.rating : '—'
           },
+
           {
             l:'Puzzles',
             v:perf.puzzle ? perf.puzzle.rating : '—'
           },
+
           {
             l:'Games',
             v:data.count ? data.count.all : 0
@@ -993,11 +1155,13 @@ const TARGET_ENDPOINTS = [
         ],
 
         links:[data.url],
+
         profileUrl:data.url ||
           `https://lichess.org/@/${data.username}`
       };
     }
   },
+
 
   {
     id:'github',
@@ -1044,6 +1208,7 @@ const TARGET_ENDPOINTS = [
     }
   },
 
+
   {
     id:'gravatar',
     name:'Gravatar',
@@ -1079,6 +1244,7 @@ const TARGET_ENDPOINTS = [
             l:'Accounts',
             v:e.accounts ? e.accounts.length : 0
           },
+
           {
             l:'URLs',
             v:urls.length
@@ -1093,6 +1259,7 @@ const TARGET_ENDPOINTS = [
       };
     }
   },
+
 
   {
     id:'keybase',
@@ -1147,6 +1314,7 @@ const TARGET_ENDPOINTS = [
             l:'Proofs',
             v:proofs.length
           },
+
           {
             l:'Devices',
             v:u.devices
@@ -1162,6 +1330,7 @@ const TARGET_ENDPOINTS = [
       };
     }
   },
+
 
   {
     id:'reddit',
@@ -1209,6 +1378,7 @@ const TARGET_ENDPOINTS = [
         metrics:[
           {l:'Post karma',v:u.link_karma},
           {l:'Comment karma',v:u.comment_karma},
+
           {
             l:'Since',
             v:new Date(u.created_utc*1000).getFullYear()
@@ -1222,6 +1392,7 @@ const TARGET_ENDPOINTS = [
       };
     }
   },
+
 
   {
     id:'pronouns_cc',
@@ -1279,6 +1450,7 @@ const TARGET_ENDPOINTS = [
     }
   },
 
+
   {
     id:'hackernews',
     name:'Hacker News',
@@ -1298,6 +1470,7 @@ const TARGET_ENDPOINTS = [
 
       return {
         avatar:null,
+
         title:data.id,
 
         handle:
@@ -1312,6 +1485,7 @@ const TARGET_ENDPOINTS = [
             l:'Karma',
             v:data.karma
           },
+
           {
             l:'Posts',
             v:data.submitted
@@ -1327,6 +1501,7 @@ const TARGET_ENDPOINTS = [
       };
     }
   },
+
 
   {
     id:'dev_to',
@@ -1371,6 +1546,7 @@ const TARGET_ENDPOINTS = [
 
         links:[
           data.website_url,
+
           data.github_username
             ? `https://github.com/${data.github_username}`
             : null
@@ -1403,10 +1579,12 @@ async function fetchUrl(url){
     );
 
     if(!res.ok){
+
       return {
         status:res.status,
         data:null
       };
+
     }
 
     return {
@@ -1807,6 +1985,7 @@ function buildCard(item){
       .map(
         m=>
           `<div class="metric">
+
              <div class="v">
                ${esc(String(m.v))}
              </div>
@@ -1814,6 +1993,7 @@ function buildCard(item){
              <div class="l">
                ${esc(m.l)}
              </div>
+
            </div>`
       )
       .join('');
@@ -1823,6 +2003,7 @@ function buildCard(item){
     (p.clubs||[]).length
 
       ? `<div class="clublist">
+
           ${p.clubs.map(
             c=>
               `<a
@@ -1830,14 +2011,20 @@ function buildCard(item){
                  target="_blank"
                  rel="noopener"
                >
+
                  ${c.icon
-                   ? `<img src="${esc(c.icon)}" alt="">`
+                   ? `<img
+                        src="${esc(c.icon)}"
+                        alt=""
+                      >`
                    : ''
                  }
 
                  ${esc(c.name)}
+
                </a>`
           ).join('')}
+
         </div>`
 
       : '';
@@ -1864,6 +2051,7 @@ function buildCard(item){
         </div>
 
       </div>
+
 
       <button
         class="inspect-btn"
@@ -1921,6 +2109,7 @@ function buildCard(item){
       <span class="id mono">
         ${esc(item.endpoint.id)}
       </span>
+
 
       ${
         p.profileUrl
@@ -2053,9 +2242,11 @@ document
 jsonModal.addEventListener(
   'click',
   e=>{
+
     if(e.target===jsonModal){
       jsonModal.classList.remove('open');
     }
+
   }
 );
 
