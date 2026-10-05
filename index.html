@@ -11,44 +11,25 @@
 
 <style>
 
-  :root{
-    --bg:#12151a;
-    --surface:#1a1e25;
-    --surface-2:#20242c;
-    --border:#2a2f3a;
-    --text:#e7e9ec;
-    --muted:#8a92a3;
-    --faint:#5c6472;
-    --accent:#5b8def;
-    --accent-dim:rgba(91,141,239,.14);
-    --ok:#4caf7d;
-    --ok-dim:rgba(76,175,125,.14);
-    --err:#e2645c;
-    --err-dim:rgba(226,100,92,.12);
-    font-size:16px;
-  }
+:root{
+  --bg:#12151a;
+  --surface:#1a1e25;
+  --surface-2:#20242c;
+  --border:#2a2f3a;
+  --text:#e7e9ec;
+  --muted:#8a92a3;
+  --faint:#5c6472;
+  --accent:#5b8def;
+  --accent-dim:rgba(91,141,239,.14);
+  --ok:#4caf7d;
+  --ok-dim:rgba(76,175,125,.14);
+  --err:#e2645c;
+  --err-dim:rgba(226,100,92,.12);
+  font-size:16px;
+}
 
-  @media (prefers-color-scheme: light){
-
-    :root:not([data-theme="dark"]){
-      --bg:#f5f6f8;
-      --surface:#ffffff;
-      --surface-2:#fbfbfc;
-      --border:#e1e4e9;
-      --text:#1a1d22;
-      --muted:#656d7c;
-      --faint:#9aa1ad;
-      --accent:#3568d4;
-      --accent-dim:rgba(53,104,212,.08);
-      --ok:#2b8a5d;
-      --ok-dim:rgba(43,138,93,.08);
-      --err:#c0433c;
-      --err-dim:rgba(192,67,60,.08);
-    }
-
-  }
-
-  :root[data-theme="light"]{
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
     --bg:#f5f6f8;
     --surface:#ffffff;
     --surface-2:#fbfbfc;
@@ -63,835 +44,764 @@
     --err:#c0433c;
     --err-dim:rgba(192,67,60,.08);
   }
+}
+
+:root[data-theme="light"]{
+  --bg:#f5f6f8;
+  --surface:#ffffff;
+  --surface-2:#fbfbfc;
+  --border:#e1e4e9;
+  --text:#1a1d22;
+  --muted:#656d7c;
+  --faint:#9aa1ad;
+  --accent:#3568d4;
+  --accent-dim:rgba(53,104,212,.08);
+  --ok:#2b8a5d;
+  --ok-dim:rgba(43,138,93,.08);
+  --err:#c0433c;
+  --err-dim:rgba(192,67,60,.08);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+body{
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  min-height:100%;
+}
+
+.mono{
+  font-family:'IBM Plex Mono',monospace;
+}
+
+a{
+  color:var(--accent);
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:underline;
+}
+
+.wrap{
+  max-width:960px;
+  margin:0 auto;
+  padding:0 20px;
+}
 
 
-  *{
-    box-sizing:border-box;
+/* =========================
+   HEADER
+========================= */
+
+header{
+  position:sticky;
+  top:0;
+  padding-top:env(safe-area-inset-top,0px);
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  z-index:20;
+}
+
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  /* Increased to accommodate the larger logo */
+  height:86px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-width:0;
+}
+
+/*
+   LARGE ARGUS LOGO
+
+   logo.png should be in the
+   same folder as this HTML file.
+*/
+
+.brand-logo{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  display:block;
+  flex-shrink:0;
+}
+
+.brand-text{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  min-width:0;
+}
+
+.brand .name{
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:-.3px;
+  white-space:nowrap;
+}
+
+.brand .tag{
+  font-size:12.5px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+.theme-btn{
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:7px;
+  padding:6px 10px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:inherit;
+  flex-shrink:0;
+}
+
+.theme-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+  padding:28px 0 60px;
+}
+
+.search-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:28px;
+}
+
+.search-card h1{
+  font-size:19px;
+  margin:0 0 4px;
+  font-weight:600;
+}
+
+.search-card p.sub{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.5;
+  max-width:60ch;
+}
+
+form{
+  display:flex;
+  gap:10px;
+}
+
+input[type="text"]{
+  flex:1;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:8px;
+  padding:11px 14px;
+  font-size:14.5px;
+  font-family:'IBM Plex Mono',monospace;
+  min-width:0;
+}
+
+input[type="text"]:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-dim);
+}
+
+input[type="text"]::placeholder{
+  color:var(--faint);
+  font-family:'IBM Plex Sans',sans-serif;
+}
+
+button[type="submit"]{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  padding:11px 20px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  font-family:inherit;
+  white-space:nowrap;
+}
+
+button[type="submit"]:hover{
+  filter:brightness(1.08);
+}
+
+button[type="submit"]:disabled{
+  opacity:.5;
+  cursor:default;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress{
+  margin-top:16px;
+  display:none;
+}
+
+.progress.active{
+  display:block;
+}
+
+.progress-line{
+  display:flex;
+  justify-content:space-between;
+  font-size:12.5px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.progress-track{
+  height:3px;
+  background:var(--surface-2);
+  border-radius:2px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  background:var(--accent);
+  width:0%;
+  transition:width .25s ease;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+  display:none;
+  align-items:center;
+  gap:18px;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+
+.summary.active{
+  display:flex;
+}
+
+.summary b{
+  color:var(--text);
+  font-family:'IBM Plex Mono',monospace;
+}
+
+.summary .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:5px;
+}
+
+.summary .copy-btn{
+  margin-left:auto;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:7px;
+  padding:6px 12px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.summary .copy-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+}
+
+
+/* =========================
+   GROUPS
+========================= */
+
+section.group{
+  margin-bottom:30px;
+}
+
+.group-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+  margin:0 0 12px;
+}
+
+.empty{
+  border:1px dashed var(--border);
+  border-radius:12px;
+  padding:40px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.6;
+}
+
+.empty b{
+  color:var(--text);
+  display:block;
+  margin-bottom:4px;
+  font-size:14.5px;
+}
+
+
+/* =========================
+   RESULT CARDS
+========================= */
+
+.hits{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:12px;
+}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--ok);
+  border-radius:10px;
+  padding:16px;
+  animation:rise .35s ease both;
+}
+
+@keyframes rise{
+  from{
+    opacity:0;
+    transform:translateY(6px);
   }
 
-
-  html,
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
+}
+
+.card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.card-id{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  min-width:0;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  object-fit:cover;
+  flex-shrink:0;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+}
+
+.avatar-fallback{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  color:var(--muted);
+  flex-shrink:0;
+}
+
+.card-src{
+  min-width:0;
+}
+
+.card-src .name{
+  font-weight:600;
+  font-size:13.5px;
+}
+
+.card-src .cat{
+  font-size:11.5px;
+  color:var(--muted);
+}
+
+.inspect-btn{
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--faint);
+  border-radius:6px;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.inspect-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+}
+
+.card-title{
+  font-size:14.5px;
+  font-weight:600;
+  margin-bottom:1px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.card-handle{
+  font-size:12.5px;
+  color:var(--accent);
+  font-family:'IBM Plex Mono',monospace;
+  margin-bottom:10px;
+}
+
+.card-bio{
+  font-size:12.5px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-bottom:10px;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:10px;
+}
+
+.badge{
+  font-size:10.5px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--muted);
+  padding:2px 7px;
+  border-radius:5px;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+  gap:6px;
+  margin-bottom:10px;
+}
+
+.metric{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:6px 8px;
+  text-align:center;
+}
+
+.metric .v{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  font-weight:600;
+}
+
+.metric .l{
+  font-size:9.5px;
+  color:var(--faint);
+  margin-top:1px;
+}
+
+.clublist{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-bottom:10px;
+}
+
+.clublist a{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11.5px;
+  color:var(--text);
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:4px 7px;
+}
+
+.clublist img{
+  width:16px;
+  height:16px;
+  border-radius:4px;
+}
+
+.card-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:10px;
+  border-top:1px solid var(--border);
+}
+
+.card-foot .open{
+  font-size:12px;
+  font-weight:600;
+}
+
+.card-foot .id{
+  font-size:11px;
+  color:var(--faint);
+  font-family:'IBM Plex Mono',monospace;
+}
 
 
-  body{
-    font-family:'IBM Plex Sans',system-ui,sans-serif;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-    min-height:100%;
-  }
+/* =========================
+   MISSES
+========================= */
+
+details.misses{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+details.misses summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+}
+
+details.misses summary::-webkit-details-marker{
+  display:none;
+}
+
+details.misses summary .chev{
+  transition:transform .15s ease;
+  color:var(--faint);
+}
+
+details.misses[open] summary .chev{
+  transform:rotate(90deg);
+}
+
+.miss-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 16px;
+  font-size:12.5px;
+  border-top:1px solid var(--border);
+}
+
+.miss-row .n{
+  color:var(--muted);
+}
+
+.miss-row .s{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  padding:1px 6px;
+  border-radius:4px;
+}
+
+.miss-row .s.nf{
+  color:var(--faint);
+  background:var(--surface-2);
+}
+
+.miss-row .s.er{
+  color:var(--err);
+  background:var(--err-dim);
+}
 
 
-  .mono{
-    font-family:'IBM Plex Mono',monospace;
-  }
+/* =========================
+   MODAL
+========================= */
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:50;
+}
+
+.modal-bg.open{
+  display:flex;
+}
+
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  max-width:640px;
+  width:100%;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-head h3{
+  margin:0;
+  font-size:13.5px;
+  font-weight:600;
+}
+
+.modal-head button{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:16px;
+}
+
+.modal-body{
+  padding:14px 16px;
+  overflow:auto;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  color:var(--ok);
+  white-space:pre-wrap;
+  word-break:break-all;
+  background:var(--surface-2);
+}
+
+.modal-foot{
+  padding:10px 16px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+}
+
+.modal-foot button{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:7px;
+  padding:7px 14px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.hidden{
+  display:none !important;
+}
 
 
-  a{
-    color:var(--accent);
-    text-decoration:none;
-  }
+/* =========================
+   MOBILE
+========================= */
 
-
-  a:hover{
-    text-decoration:underline;
-  }
-
-
-  .wrap{
-    max-width:960px;
-    margin:0 auto;
-    padding:0 20px;
-  }
-
-
-  /* =========================
-     HEADER
-  ========================= */
-
-  header{
-    position:sticky;
-    top:0;
-    padding-top:env(safe-area-inset-top,0px);
-    background:var(--bg);
-    border-bottom:1px solid var(--border);
-    z-index:20;
-  }
-
+@media (max-width:600px){
 
   .header-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:86px;
+    height:72px;
   }
-
 
   .brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    min-width:0;
+    gap:11px;
   }
 
-
-  /*
-     LARGE ARGUS LOGO
-
-     logo.png should be in the
-     same folder as this HTML file.
-  */
-
+  /* Still larger than before, but fits mobile header */
   .brand-logo{
-    width:76px;
-    height:76px;
-    object-fit:contain;
-    display:block;
-    flex-shrink:0;
+    width:58px;
+    height:58px;
   }
-
 
   .brand-text{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    min-width:0;
+    gap:0;
   }
-
 
   .brand .name{
-    font-weight:700;
-    font-size:20px;
-    letter-spacing:-.25px;
-    white-space:nowrap;
-  }
-
-
-  .brand .tag{
-    font-size:12.5px;
-    color:var(--muted);
-    white-space:nowrap;
-  }
-
-
-  .theme-btn{
-    border:1px solid var(--border);
-    background:var(--surface);
-    color:var(--muted);
-    border-radius:7px;
-    padding:6px 10px;
-    font-size:12.5px;
-    cursor:pointer;
-    font-family:inherit;
-    flex-shrink:0;
-  }
-
-
-  .theme-btn:hover{
-    color:var(--text);
-    border-color:var(--faint);
-  }
-
-
-  /* =========================
-     MAIN
-  ========================= */
-
-  main{
-    padding:28px 0 60px;
-  }
-
-
-  .search-card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:28px;
-  }
-
-
-  .search-card h1{
-    font-size:19px;
-    margin:0 0 4px;
-    font-weight:600;
-  }
-
-
-  .search-card p.sub{
-    margin:0 0 16px;
-    color:var(--muted);
-    font-size:13.5px;
-    line-height:1.5;
-    max-width:60ch;
-  }
-
-
-  form{
-    display:flex;
-    gap:10px;
-  }
-
-
-  input[type="text"]{
-    flex:1;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    color:var(--text);
-    border-radius:8px;
-    padding:11px 14px;
-    font-size:14.5px;
-    font-family:'IBM Plex Mono',monospace;
-    min-width:0;
-  }
-
-
-  input[type="text"]:focus{
-    outline:none;
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px var(--accent-dim);
-  }
-
-
-  input[type="text"]::placeholder{
-    color:var(--faint);
-    font-family:'IBM Plex Sans',sans-serif;
-  }
-
-
-  button[type="submit"]{
-    background:var(--accent);
-    color:#fff;
-    border:none;
-    border-radius:8px;
-    padding:11px 20px;
-    font-weight:600;
-    font-size:14px;
-    cursor:pointer;
-    font-family:inherit;
-    white-space:nowrap;
-  }
-
-
-  button[type="submit"]:hover{
-    filter:brightness(1.08);
-  }
-
-
-  button[type="submit"]:disabled{
-    opacity:.5;
-    cursor:default;
-  }
-
-
-  button:focus-visible,
-  a:focus-visible,
-  input:focus-visible{
-    outline:2px solid var(--accent);
-    outline-offset:2px;
-  }
-
-
-  /* =========================
-     PROGRESS
-  ========================= */
-
-  .progress{
-    margin-top:16px;
-    display:none;
-  }
-
-
-  .progress.active{
-    display:block;
-  }
-
-
-  .progress-line{
-    display:flex;
-    justify-content:space-between;
-    font-size:12.5px;
-    color:var(--muted);
-    margin-bottom:6px;
-  }
-
-
-  .progress-track{
-    height:3px;
-    background:var(--surface-2);
-    border-radius:2px;
-    overflow:hidden;
-  }
-
-
-  .progress-fill{
-    height:100%;
-    background:var(--accent);
-    width:0%;
-    transition:width .25s ease;
-  }
-
-
-  /* =========================
-     SUMMARY
-  ========================= */
-
-  .summary{
-    display:none;
-    align-items:center;
-    gap:18px;
-    font-size:13px;
-    color:var(--muted);
-    margin-bottom:18px;
-    flex-wrap:wrap;
-  }
-
-
-  .summary.active{
-    display:flex;
-  }
-
-
-  .summary b{
-    color:var(--text);
-    font-family:'IBM Plex Mono',monospace;
-  }
-
-
-  .summary .dot{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    display:inline-block;
-    margin-right:5px;
-  }
-
-
-  .summary .copy-btn{
-    margin-left:auto;
-    border:1px solid var(--border);
-    background:var(--surface);
-    color:var(--muted);
-    border-radius:7px;
-    padding:6px 12px;
-    font-size:12.5px;
-    cursor:pointer;
-    font-family:inherit;
-  }
-
-
-  .summary .copy-btn:hover{
-    color:var(--text);
-    border-color:var(--faint);
-  }
-
-
-  /* =========================
-     GROUPS
-  ========================= */
-
-  section.group{
-    margin-bottom:30px;
-  }
-
-
-  .group-title{
-    font-size:13px;
-    font-weight:600;
-    color:var(--muted);
-    margin:0 0 12px;
-  }
-
-
-  .empty{
-    border:1px dashed var(--border);
-    border-radius:12px;
-    padding:40px 20px;
-    text-align:center;
-    color:var(--muted);
-    font-size:13.5px;
-    line-height:1.6;
-  }
-
-
-  .empty b{
-    color:var(--text);
-    display:block;
-    margin-bottom:4px;
-    font-size:14.5px;
-  }
-
-
-  /* =========================
-     RESULT CARDS
-  ========================= */
-
-  .hits{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:12px;
-  }
-
-
-  .card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-left:3px solid var(--ok);
-    border-radius:10px;
-    padding:16px;
-    animation:rise .35s ease both;
-  }
-
-
-  @keyframes rise{
-
-    from{
-      opacity:0;
-      transform:translateY(6px);
-    }
-
-    to{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-  }
-
-
-  .card-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:12px;
-  }
-
-
-  .card-id{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    min-width:0;
-  }
-
-
-  .avatar{
-    width:34px;
-    height:34px;
-    border-radius:8px;
-    object-fit:cover;
-    flex-shrink:0;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-  }
-
-
-  .avatar-fallback{
-    width:34px;
-    height:34px;
-    border-radius:8px;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:600;
-    color:var(--muted);
-    flex-shrink:0;
-  }
-
-
-  .card-src{
-    min-width:0;
-  }
-
-
-  .card-src .name{
-    font-weight:600;
-    font-size:13.5px;
-  }
-
-
-  .card-src .cat{
-    font-size:11.5px;
-    color:var(--muted);
-  }
-
-
-  .inspect-btn{
-    border:1px solid var(--border);
-    background:transparent;
-    color:var(--faint);
-    border-radius:6px;
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    flex-shrink:0;
-  }
-
-
-  .inspect-btn:hover{
-    color:var(--text);
-    border-color:var(--faint);
-  }
-
-
-  .card-title{
-    font-size:14.5px;
-    font-weight:600;
-    margin-bottom:1px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-  }
-
-
-  .card-handle{
-    font-size:12.5px;
-    color:var(--accent);
-    font-family:'IBM Plex Mono',monospace;
-    margin-bottom:10px;
-  }
-
-
-  .card-bio{
-    font-size:12.5px;
-    color:var(--muted);
-    line-height:1.55;
-    margin-bottom:10px;
-    display:-webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-  }
-
-
-  .badges{
-    display:flex;
-    flex-wrap:wrap;
-    gap:5px;
-    margin-bottom:10px;
-  }
-
-
-  .badge{
-    font-size:10.5px;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    color:var(--muted);
-    padding:2px 7px;
-    border-radius:5px;
-    font-family:'IBM Plex Mono',monospace;
-  }
-
-
-  .metrics{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
-    gap:6px;
-    margin-bottom:10px;
-  }
-
-
-  .metric{
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:7px;
-    padding:6px 8px;
-    text-align:center;
-  }
-
-
-  .metric .v{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    font-weight:600;
-  }
-
-
-  .metric .l{
-    font-size:9.5px;
-    color:var(--faint);
-    margin-top:1px;
-  }
-
-
-  .clublist{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    margin-bottom:10px;
-  }
-
-
-  .clublist a{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:11.5px;
-    color:var(--text);
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    border-radius:6px;
-    padding:4px 7px;
-  }
-
-
-  .clublist img{
-    width:16px;
-    height:16px;
-    border-radius:4px;
-  }
-
-
-  .card-foot{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-top:10px;
-    border-top:1px solid var(--border);
-  }
-
-
-  .card-foot .open{
-    font-size:12px;
-    font-weight:600;
-  }
-
-
-  .card-foot .id{
-    font-size:11px;
-    color:var(--faint);
-    font-family:'IBM Plex Mono',monospace;
-  }
-
-
-  /* =========================
-     MISSES
-  ========================= */
-
-  details.misses{
-    border:1px solid var(--border);
-    border-radius:10px;
-    overflow:hidden;
-    background:var(--surface);
-  }
-
-
-  details.misses summary{
-    list-style:none;
-    cursor:pointer;
-    padding:12px 16px;
-    font-size:13px;
-    color:var(--muted);
-    display:flex;
-    justify-content:space-between;
-  }
-
-
-  details.misses summary::-webkit-details-marker{
-    display:none;
-  }
-
-
-  details.misses summary .chev{
-    transition:transform .15s ease;
-    color:var(--faint);
-  }
-
-
-  details.misses[open] summary .chev{
-    transform:rotate(90deg);
-  }
-
-
-  .miss-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:8px 16px;
-    font-size:12.5px;
-    border-top:1px solid var(--border);
-  }
-
-
-  .miss-row .n{
-    color:var(--muted);
-  }
-
-
-  .miss-row .s{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;
-    padding:1px 6px;
-    border-radius:4px;
-  }
-
-
-  .miss-row .s.nf{
-    color:var(--faint);
-    background:var(--surface-2);
-  }
-
-
-  .miss-row .s.er{
-    color:var(--err);
-    background:var(--err-dim);
-  }
-
-
-  /* =========================
-     MODAL
-  ========================= */
-
-  .modal-bg{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:50;
-  }
-
-
-  .modal-bg.open{
-    display:flex;
-  }
-
-
-  .modal{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:12px;
-    max-width:640px;
-    width:100%;
-    max-height:80vh;
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-  }
-
-
-  .modal-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 16px;
-    border-bottom:1px solid var(--border);
-  }
-
-
-  .modal-head h3{
-    margin:0;
-    font-size:13.5px;
-    font-weight:600;
-  }
-
-
-  .modal-head button{
-    border:none;
-    background:transparent;
-    color:var(--muted);
-    cursor:pointer;
     font-size:16px;
   }
 
-
-  .modal-body{
-    padding:14px 16px;
-    overflow:auto;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11.5px;
-    color:var(--ok);
-    white-space:pre-wrap;
-    word-break:break-all;
-    background:var(--surface-2);
+  .brand .tag{
+    display:none;
   }
 
-
-  .modal-foot{
-    padding:10px 16px;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:flex-end;
+  form{
+    flex-direction:column;
   }
 
-
-  .modal-foot button{
-    border:1px solid var(--border);
-    background:var(--surface-2);
-    color:var(--text);
-    border-radius:7px;
-    padding:7px 14px;
-    font-size:12.5px;
-    cursor:pointer;
-    font-family:inherit;
-  }
-
-
-  .hidden{
-    display:none !important;
-  }
-
-
-  /* =========================
-     MOBILE
-  ========================= */
-
-  @media (max-width:600px){
-
-    .header-row{
-      height:72px;
-    }
-
-
-    .brand{
-      gap:10px;
-    }
-
-
-    .brand-logo{
-      width:60px;
-      height:60px;
-    }
-
-
-    .brand-text{
-      gap:0;
-    }
-
-
-    .brand .name{
-      font-size:16px;
-    }
-
-
-    .brand .tag{
-      display:none;
-    }
-
-
-    form{
-      flex-direction:column;
-    }
-
-  }
+}
 
 </style>
 </head>
 
 
 <body>
-
 
 <header>
 
@@ -934,18 +844,15 @@
 
 <main class="wrap">
 
-
   <section class="search-card">
 
     <h1>
       Look up a handle
     </h1>
 
-
     <p class="sub">
       Search for publicly available profile information and explore matching accounts.
     </p>
-
 
     <form id="searchForm">
 
@@ -956,7 +863,6 @@
         required
         autocomplete="off"
       >
-
 
       <button
         type="submit"
@@ -979,13 +885,11 @@
           Querying sources…
         </span>
 
-
         <span id="progressPercent">
           0%
         </span>
 
       </div>
-
 
       <div class="progress-track">
 
@@ -1007,7 +911,6 @@
   >
 
     <span>
-
       <span
         class="dot"
         style="background:var(--ok)"
@@ -1018,12 +921,10 @@
       </b>
 
       matched
-
     </span>
 
 
     <span>
-
       <span
         class="dot"
         style="background:var(--faint)"
@@ -1034,12 +935,10 @@
       </b>
 
       no record
-
     </span>
 
 
     <span>
-
       <span
         class="dot"
         style="background:var(--err)"
@@ -1050,7 +949,6 @@
       </b>
 
       blocked / errored
-
     </span>
 
 
@@ -1084,7 +982,6 @@
 
   </section>
 
-
 </main>
 
 
@@ -1095,20 +992,17 @@
 
   <div class="modal">
 
-
     <div class="modal-head">
 
       <h3 id="modalTitle">
         Raw response
       </h3>
 
-
       <button id="closeModalBtn">
         ✕
       </button>
 
     </div>
-
 
     <div class="modal-body">
 
@@ -1118,7 +1012,6 @@
       ></pre>
 
     </div>
-
 
     <div class="modal-foot">
 
@@ -1135,19 +1028,16 @@
 
 <script>
 
-
 /* =========================
    TARGET ENDPOINTS
 ========================= */
 
 const TARGET_ENDPOINTS = [
 
-
   {
     id:'pronouns_page',
     name:'Pronouns.page',
     category:'Identity',
-
 
     fetch: async (user)=>{
 
@@ -1158,23 +1048,19 @@ const TARGET_ENDPOINTS = [
 
     },
 
-
     parse:(data)=>{
 
       if(!data || !data.profiles){
         return null;
       }
 
-
       const en=
         data.profiles.en ||
         Object.values(data.profiles)[0];
 
-
       if(!en){
         return null;
       }
-
 
       const names=
         (en.names||[])
@@ -1186,7 +1072,6 @@ const TARGET_ENDPOINTS = [
           )
           .filter(Boolean);
 
-
       const pronouns=
         (en.pronouns||[])
           .map(
@@ -1197,7 +1082,6 @@ const TARGET_ENDPOINTS = [
           )
           .filter(Boolean);
 
-
       const links=
         (en.links||[])
           .map(
@@ -1207,7 +1091,6 @@ const TARGET_ENDPOINTS = [
                 : l.href||l.link
           )
           .filter(Boolean);
-
 
       return {
 
@@ -1254,21 +1137,17 @@ const TARGET_ENDPOINTS = [
     name:'Chess.com',
     category:'Gaming',
 
-
     fetch: async (user)=>{
 
       const base=
         `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
 
-
       const profileRes=
         await fetchUrl(base);
-
 
       if(profileRes.status!==200){
         return profileRes;
       }
-
 
       const [
         statsRes,
@@ -1281,7 +1160,6 @@ const TARGET_ENDPOINTS = [
           fetchUrl(`${base}/clubs`)
 
         ]);
-
 
       return {
 
@@ -1310,7 +1188,6 @@ const TARGET_ENDPOINTS = [
 
     },
 
-
     parse:(payload)=>{
 
       if(
@@ -1321,7 +1198,6 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       const p=
         payload.profile;
 
@@ -1330,7 +1206,6 @@ const TARGET_ENDPOINTS = [
 
       const clubs=
         payload.clubs||[];
-
 
       return {
 
@@ -1356,7 +1231,6 @@ const TARGET_ENDPOINTS = [
           p.location
 
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -1391,7 +1265,6 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         clubs:
           clubs.slice(0,4).map(
             c=>({
@@ -1401,11 +1274,9 @@ const TARGET_ENDPOINTS = [
             })
           ),
 
-
         links:[
           p.url
         ],
-
 
         profileUrl:
           p.url
@@ -1422,7 +1293,6 @@ const TARGET_ENDPOINTS = [
     name:'Lichess',
     category:'Gaming',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1431,7 +1301,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1443,10 +1312,8 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       const perf=
         data.perfs||{};
-
 
       return {
 
@@ -1473,7 +1340,6 @@ const TARGET_ENDPOINTS = [
             : null
 
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -1511,11 +1377,9 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:[
           data.url
         ],
-
 
         profileUrl:
           data.url ||
@@ -1533,7 +1397,6 @@ const TARGET_ENDPOINTS = [
     name:'GitHub',
     category:'Developer',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1542,7 +1405,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1553,7 +1415,6 @@ const TARGET_ENDPOINTS = [
       ){
         return null;
       }
-
 
       return {
 
@@ -1570,12 +1431,10 @@ const TARGET_ENDPOINTS = [
         bio:
           data.bio||'',
 
-
         badges:[
           data.company,
           data.location
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -1596,7 +1455,6 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:
           data.blog
             ? [
@@ -1605,7 +1463,6 @@ const TARGET_ENDPOINTS = [
                   : `https://${data.blog}`
               ]
             : [],
-
 
         profileUrl:
           data.html_url
@@ -1622,7 +1479,6 @@ const TARGET_ENDPOINTS = [
     name:'Gravatar',
     category:'Identity',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1631,7 +1487,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1643,17 +1498,14 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       const e=
         data.entry[0];
-
 
       const urls=
         (e.urls||[])
           .map(
             u=>u.value
           );
-
 
       return {
 
@@ -1670,11 +1522,9 @@ const TARGET_ENDPOINTS = [
         bio:
           e.aboutMe||'',
 
-
         badges:[
           e.currentLocation
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -1693,10 +1543,8 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:
           urls,
-
 
         profileUrl:
           e.profileUrl ||
@@ -1714,7 +1562,6 @@ const TARGET_ENDPOINTS = [
     name:'Keybase',
     category:'Security',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1723,7 +1570,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1735,15 +1581,12 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       const u=
         data.them[0];
-
 
       if(!u.id){
         return null;
       }
-
 
       const proofs=
         (
@@ -1756,7 +1599,6 @@ const TARGET_ENDPOINTS = [
             `${p.proof_type}: ${p.nametag}`
         );
 
-
       return {
 
         avatar:
@@ -1765,27 +1607,22 @@ const TARGET_ENDPOINTS = [
             ? u.pictures.primary.url
             : null,
 
-
         title:
           u.profile
             ? u.profile.full_name ||
               u.basics.username
             : u.basics.username,
 
-
         handle:
           `@${u.basics.username}`,
-
 
         bio:
           u.profile
             ? u.profile.bio
             : '',
 
-
         badges:
           proofs.slice(0,4),
-
 
         metrics:[
 
@@ -1804,9 +1641,7 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:[],
-
 
         profileUrl:
           `https://keybase.io/${u.basics.username}`
@@ -1823,7 +1658,6 @@ const TARGET_ENDPOINTS = [
     name:'Reddit',
     category:'Social',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1832,7 +1666,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1844,10 +1677,8 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       const u=
         data.data;
-
 
       return {
 
@@ -1856,23 +1687,19 @@ const TARGET_ENDPOINTS = [
             ? u.icon_img.split('?')[0]
             : null,
 
-
         title:
           u.subreddit
             ? u.subreddit.title ||
               u.name
             : u.name,
 
-
         handle:
           `u/${u.name}`,
-
 
         bio:
           u.subreddit
             ? u.subreddit.public_description
             : '',
-
 
         badges:[
           u.is_gold
@@ -1888,7 +1715,6 @@ const TARGET_ENDPOINTS = [
             : null
 
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -1912,9 +1738,7 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:[],
-
 
         profileUrl:
           `https://reddit.com/user/${u.name}`
@@ -1931,7 +1755,6 @@ const TARGET_ENDPOINTS = [
     name:'Pronouns.cc',
     category:'Identity',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -1940,7 +1763,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -1951,35 +1773,29 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       return {
 
         avatar:
           data.avatar_url,
 
-
         title:
           data.username ||
           'System',
-
 
         handle:
           data.id
             ? `ID ${data.id}`
             : '',
 
-
         bio:
           data.biography ||
           data.description ||
           '',
 
-
         badges:
           data.pronouns
             ? [data.pronouns]
             : [],
-
 
         metrics:[
 
@@ -1993,10 +1809,8 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:
           data.links||[],
-
 
         profileUrl:
           `https://pronouns.cc/p/${data.username}`
@@ -2013,7 +1827,6 @@ const TARGET_ENDPOINTS = [
     name:'Hacker News',
     category:'Community',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -2022,7 +1835,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -2033,7 +1845,6 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       return {
 
         avatar:null,
@@ -2041,17 +1852,13 @@ const TARGET_ENDPOINTS = [
         title:
           data.id,
 
-
         handle:
           `since ${new Date(data.created*1000).getFullYear()}`,
-
 
         bio:
           data.about||'',
 
-
         badges:[],
-
 
         metrics:[
 
@@ -2070,9 +1877,7 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:[],
-
 
         profileUrl:
           `https://news.ycombinator.com/user?id=${data.id}`
@@ -2089,7 +1894,6 @@ const TARGET_ENDPOINTS = [
     name:'Dev.to',
     category:'Developer',
 
-
     fetch: async (user)=>{
 
       const url=
@@ -2098,7 +1902,6 @@ const TARGET_ENDPOINTS = [
       return await fetchUrl(url);
 
     },
-
 
     parse:(data)=>{
 
@@ -2109,30 +1912,24 @@ const TARGET_ENDPOINTS = [
         return null;
       }
 
-
       return {
 
         avatar:
           data.profile_image,
 
-
         title:
           data.name ||
           data.username,
 
-
         handle:
           `@${data.username}`,
-
 
         bio:
           data.summary||'',
 
-
         badges:[
           data.location
         ].filter(Boolean),
-
 
         metrics:[
 
@@ -2146,7 +1943,6 @@ const TARGET_ENDPOINTS = [
 
         ],
 
-
         links:[
 
           data.website_url,
@@ -2156,7 +1952,6 @@ const TARGET_ENDPOINTS = [
             : null
 
         ].filter(Boolean),
-
 
         profileUrl:
           `https://dev.to/${data.username}`
@@ -2188,7 +1983,6 @@ async function fetchUrl(url){
         }
       );
 
-
     if(!res.ok){
 
       return {
@@ -2197,7 +1991,6 @@ async function fetchUrl(url){
       };
 
     }
-
 
     return {
 
@@ -2232,102 +2025,85 @@ const searchForm=
     'searchForm'
   );
 
-
 const usernameInput=
   document.getElementById(
     'usernameInput'
   );
-
 
 const searchBtn=
   document.getElementById(
     'searchBtn'
   );
 
-
 const progressContainer=
   document.getElementById(
     'progressContainer'
   );
-
 
 const progressBar=
   document.getElementById(
     'progressBar'
   );
 
-
 const progressText=
   document.getElementById(
     'progressText'
   );
-
 
 const progressPercent=
   document.getElementById(
     'progressPercent'
   );
 
-
 const summary=
   document.getElementById(
     'summary'
   );
-
 
 const statFound=
   document.getElementById(
     'statFound'
   );
 
-
 const statNotFound=
   document.getElementById(
     'statNotFound'
   );
-
 
 const statErrors=
   document.getElementById(
     'statErrors'
   );
 
-
 const resultsSection=
   document.getElementById(
     'resultsSection'
   );
-
 
 const emptyState=
   document.getElementById(
     'emptyState'
   );
 
-
 const copySummaryBtn=
   document.getElementById(
     'copySummaryBtn'
   );
-
 
 const jsonModal=
   document.getElementById(
     'jsonModal'
   );
 
-
 const modalTitle=
   document.getElementById(
     'modalTitle'
   );
 
-
 const modalJsonContent=
   document.getElementById(
     'modalJsonContent'
   );
-
 
 let currentResults=[];
 
@@ -2343,7 +2119,6 @@ function esc(str){
   if(typeof str!=='string'){
     return str;
   }
-
 
   return str.replace(
     /[&<>'"]/g,
@@ -2374,34 +2149,26 @@ searchForm.addEventListener(
 
     e.preventDefault();
 
-
     const username=
       usernameInput.value.trim();
-
 
     if(!username){
       return;
     }
 
-
     currentResults=[];
 
-
     resultsSection.innerHTML='';
-
 
     summary.classList.remove(
       'active'
     );
 
-
     progressContainer.classList.add(
       'active'
     );
 
-
     searchBtn.disabled=true;
-
 
     progressBar.style.width='0%';
 
@@ -2410,15 +2177,10 @@ searchForm.addEventListener(
     progressText.textContent=
       'Querying sources…';
 
-
     let completed=0;
-
     let found=0;
-
     let notFound=0;
-
     let errored=0;
-
 
     await Promise.allSettled(
 
@@ -2430,7 +2192,6 @@ searchForm.addEventListener(
             await endpoint.fetch(
               username
             );
-
 
           let result={
 
@@ -2444,7 +2205,6 @@ searchForm.addEventListener(
 
           };
 
-
           if(
             res.status===200 &&
             res.data
@@ -2454,7 +2214,6 @@ searchForm.addEventListener(
               endpoint.parse(
                 res.data
               );
-
 
             if(parsed){
 
@@ -2493,9 +2252,7 @@ searchForm.addEventListener(
 
           }
 
-
           completed++;
-
 
           const pct=
             Math.round(
@@ -2506,14 +2263,11 @@ searchForm.addEventListener(
               100
             );
 
-
           progressBar.style.width=
             pct+'%';
 
-
           progressPercent.textContent=
             pct+'%';
-
 
           progressText.textContent=
             completed===
@@ -2522,7 +2276,6 @@ searchForm.addEventListener(
               ? 'Search complete'
 
               : `Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
-
 
           currentResults.push(
             result
@@ -2534,31 +2287,24 @@ searchForm.addEventListener(
 
     );
 
-
     progressContainer.classList.remove(
       'active'
     );
 
-
     searchBtn.disabled=false;
-
 
     statFound.textContent=
       found;
 
-
     statNotFound.textContent=
       notFound;
-
 
     statErrors.textContent=
       errored;
 
-
     summary.classList.add(
       'active'
     );
-
 
     renderResults(
       username
@@ -2573,24 +2319,19 @@ searchForm.addEventListener(
    RESULTS
 ========================= */
 
-function renderResults(
-  username
-){
+function renderResults(username){
 
   resultsSection.innerHTML='';
-
 
   const hits=
     currentResults.filter(
       r=>r.status==='found'
     );
 
-
   const rest=
     currentResults.filter(
       r=>r.status!=='found'
     );
-
 
   if(
     hits.length===0 &&
@@ -2605,7 +2346,6 @@ function renderResults(
 
   }
 
-
   if(hits.length){
 
     const title=
@@ -2613,24 +2353,19 @@ function renderResults(
         'p'
       );
 
-
     title.className=
       'group-title';
 
-
     title.textContent=
       `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
-
 
     const grid=
       document.createElement(
         'div'
       );
 
-
     grid.className=
       'hits';
-
 
     hits.forEach(
       item=>
@@ -2639,11 +2374,9 @@ function renderResults(
         )
     );
 
-
     resultsSection.appendChild(
       title
     );
-
 
     resultsSection.appendChild(
       grid
@@ -2656,22 +2389,18 @@ function renderResults(
         'div'
       );
 
-
     none.className=
       'empty';
-
 
     none.innerHTML=
       `<b>No public match for "${esc(username)}"</b>
        Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
-
 
     resultsSection.appendChild(
       none
     );
 
   }
-
 
   if(rest.length){
 
@@ -2680,26 +2409,21 @@ function renderResults(
         'details'
       );
 
-
     details.className=
       'misses';
-
 
     const summaryEl=
       document.createElement(
         'summary'
       );
 
-
     summaryEl.innerHTML=
       `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
        <span class="chev">›</span>`;
 
-
     details.appendChild(
       summaryEl
     );
-
 
     rest.forEach(
       r=>{
@@ -2709,10 +2433,8 @@ function renderResults(
             'div'
           );
 
-
         row.className=
           'miss-row';
-
 
         row.innerHTML=
           `<span class="n">
@@ -2725,14 +2447,12 @@ function renderResults(
               : 'no record'}
           </span>`;
 
-
         details.appendChild(
           row
         );
 
       }
     );
-
 
     resultsSection.appendChild(
       details
@@ -2752,16 +2472,13 @@ function buildCard(item){
   const p=
     item.parsed;
 
-
   const card=
     document.createElement(
       'div'
     );
 
-
   card.className=
     'card';
-
 
   const avatarHTML=
 
@@ -2782,7 +2499,6 @@ function buildCard(item){
            )}
          </div>`;
 
-
   const badges=
     (p.badges||[])
       .filter(Boolean)
@@ -2793,7 +2509,6 @@ function buildCard(item){
            </span>`
       )
       .join('');
-
 
   const metrics=
     (p.metrics||[])
@@ -2812,7 +2527,6 @@ function buildCard(item){
            </div>`
       )
       .join('');
-
 
   const clubs=
     (p.clubs||[]).length
@@ -2844,7 +2558,6 @@ function buildCard(item){
 
       : '';
 
-
   card.innerHTML=`
 
     <div class="card-head">
@@ -2871,7 +2584,6 @@ function buildCard(item){
 
       </div>
 
-
       <button
         class="inspect-btn"
         title="View raw response"
@@ -2882,16 +2594,13 @@ function buildCard(item){
 
     </div>
 
-
     <div class="card-title">
       ${esc(p.title||'')}
     </div>
 
-
     <div class="card-handle">
       ${esc(p.handle||'')}
     </div>
-
 
     ${
       p.bio
@@ -2903,7 +2612,6 @@ function buildCard(item){
         : ''
     }
 
-
     ${
       badges
 
@@ -2913,7 +2621,6 @@ function buildCard(item){
 
         : ''
     }
-
 
     ${
       metrics
@@ -2925,16 +2632,13 @@ function buildCard(item){
         : ''
     }
 
-
     ${clubs}
-
 
     <div class="card-foot">
 
       <span class="id mono">
         ${esc(item.endpoint.id)}
       </span>
-
 
       ${
         p.profileUrl
@@ -2955,7 +2659,6 @@ function buildCard(item){
 
   `;
 
-
   card
     .querySelector(
       '.inspect-btn'
@@ -2969,12 +2672,10 @@ function buildCard(item){
         modalTitle.textContent=
           `${item.endpoint.name} — raw response`;
 
-
         rawModalJSON=
           item.raw || {
             status:'No payload'
           };
-
 
         modalJsonContent.textContent=
           JSON.stringify(
@@ -2983,7 +2684,6 @@ function buildCard(item){
             2
           );
 
-
         jsonModal.classList.add(
           'open'
         );
@@ -2991,7 +2691,6 @@ function buildCard(item){
       }
 
     );
-
 
   return card;
 
@@ -3013,15 +2712,12 @@ copySummaryBtn.addEventListener(
         r=>r.status==='found'
       );
 
-
     if(!hits.length){
       return;
     }
 
-
     let text=
       `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
-
 
     hits.forEach(
       i=>{
@@ -3029,33 +2725,24 @@ copySummaryBtn.addEventListener(
         const p=
           i.parsed;
 
-
         text+=
           `${i.endpoint.name} (${p.handle})\n`;
 
-
         if(p.title){
-
           text+=
             `Name: ${p.title}\n`;
-
         }
-
 
         if(p.bio){
-
           text+=
             `Bio: ${p.bio}\n`;
-
         }
-
 
         text+=
           `URL: ${p.profileUrl}\n\n`;
 
       }
     );
-
 
     navigator.clipboard
       .writeText(text)
@@ -3066,10 +2753,8 @@ copySummaryBtn.addEventListener(
           const old=
             copySummaryBtn.textContent;
 
-
           copySummaryBtn.textContent=
             'Copied';
-
 
           setTimeout(
             ()=>{
@@ -3146,7 +2831,6 @@ document
         return;
       }
 
-
       navigator.clipboard
         .writeText(
 
@@ -3166,14 +2850,11 @@ document
                 'copyModalJsonBtn'
               );
 
-
             const old=
               btn.textContent;
 
-
             btn.textContent=
               'Copied';
-
 
             setTimeout(
               ()=>{
@@ -3203,7 +2884,6 @@ const themeBtn=
     'themeBtn'
   );
 
-
 themeBtn.addEventListener(
 
   'click',
@@ -3216,19 +2896,16 @@ themeBtn.addEventListener(
           'data-theme'
         );
 
-
     const next=
       current==='light'
         ? 'dark'
         : 'light';
-
 
     document.documentElement
       .setAttribute(
         'data-theme',
         next
       );
-
 
     themeBtn.textContent=
       next==='light'
@@ -3242,4 +2919,4 @@ themeBtn.addEventListener(
 </script>
 
 </body>
-</html>
+  </html>
