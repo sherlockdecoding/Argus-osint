@@ -3,11 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
 <title>Argus OSINT — public profile lookup</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
 
 <style>
 
@@ -64,11 +69,9 @@
     --err-dim:rgba(192,67,60,.08);
   }
 
-
   *{
     box-sizing:border-box;
   }
-
 
   html,
   body{
@@ -77,7 +80,6 @@
     color:var(--text);
   }
 
-
   body{
     font-family:'IBM Plex Sans',system-ui,sans-serif;
     padding-top:env(safe-area-inset-top,0px);
@@ -85,29 +87,24 @@
     min-height:100%;
   }
 
-
   .mono{
     font-family:'IBM Plex Mono',monospace;
   }
-
 
   a{
     color:var(--accent);
     text-decoration:none;
   }
 
-
   a:hover{
     text-decoration:underline;
   }
-
 
   .wrap{
     max-width:960px;
     margin:0 auto;
     padding:0 20px;
   }
-
 
   header .wrap{
     padding-right:40px;
@@ -128,7 +125,6 @@
     z-index:20;
   }
 
-
   .header-row{
     display:flex;
     align-items:center;
@@ -136,21 +132,12 @@
     padding:14px 0;
   }
 
-
   .brand{
     display:flex;
     align-items:center;
     gap:14px;
     min-width:0;
   }
-
-
-  /*
-     LARGE ARGUS LOGO
-
-     logo.png should be in the
-     same folder as this HTML file.
-  */
 
   .brand-logo{
     width:150px;
@@ -160,14 +147,12 @@
     flex-shrink:0;
   }
 
-
   .brand-text{
     display:flex;
     align-items:baseline;
     gap:10px;
     min-width:0;
   }
-
 
   .brand .name{
     font-weight:700;
@@ -176,13 +161,11 @@
     white-space:nowrap;
   }
 
-
   .brand .tag{
     font-size:12.5px;
     color:var(--muted);
     white-space:nowrap;
   }
-
 
   .theme-btn{
     border:1px solid var(--border);
@@ -195,7 +178,6 @@
     font-family:inherit;
     flex-shrink:0;
   }
-
 
   .theme-btn:hover{
     color:var(--text);
@@ -211,7 +193,6 @@
     padding:28px 0 60px;
   }
 
-
   .search-card{
     background:var(--surface);
     border:1px solid var(--border);
@@ -220,13 +201,11 @@
     margin-bottom:28px;
   }
 
-
   .search-card h1{
     font-size:19px;
     margin:0 0 4px;
     font-weight:600;
   }
-
 
   .search-card p.sub{
     margin:0 0 16px;
@@ -236,12 +215,10 @@
     max-width:60ch;
   }
 
-
   form{
     display:flex;
     gap:10px;
   }
-
 
   input[type="text"]{
     flex:1;
@@ -255,19 +232,16 @@
     min-width:0;
   }
 
-
   input[type="text"]:focus{
     outline:none;
     border-color:var(--accent);
     box-shadow:0 0 0 3px var(--accent-dim);
   }
 
-
   input[type="text"]::placeholder{
     color:var(--faint);
     font-family:'IBM Plex Sans',sans-serif;
   }
-
 
   button[type="submit"]{
     background:var(--accent);
@@ -282,17 +256,14 @@
     white-space:nowrap;
   }
 
-
   button[type="submit"]:hover{
     filter:brightness(1.08);
   }
-
 
   button[type="submit"]:disabled{
     opacity:.5;
     cursor:default;
   }
-
 
   button:focus-visible,
   a:focus-visible,
@@ -311,11 +282,9 @@
     display:none;
   }
 
-
   .progress.active{
     display:block;
   }
-
 
   .progress-line{
     display:flex;
@@ -325,14 +294,12 @@
     margin-bottom:6px;
   }
 
-
   .progress-track{
     height:3px;
     background:var(--surface-2);
     border-radius:2px;
     overflow:hidden;
   }
-
 
   .progress-fill{
     height:100%;
@@ -356,17 +323,14 @@
     flex-wrap:wrap;
   }
 
-
   .summary.active{
     display:flex;
   }
-
 
   .summary b{
     color:var(--text);
     font-family:'IBM Plex Mono',monospace;
   }
-
 
   .summary .dot{
     width:6px;
@@ -375,7 +339,6 @@
     display:inline-block;
     margin-right:5px;
   }
-
 
   .summary .copy-btn{
     margin-left:auto;
@@ -388,7 +351,6 @@
     cursor:pointer;
     font-family:inherit;
   }
-
 
   .summary .copy-btn:hover{
     color:var(--text);
@@ -404,14 +366,12 @@
     margin-bottom:30px;
   }
 
-
   .group-title{
     font-size:13px;
     font-weight:600;
     color:var(--muted);
     margin:0 0 12px;
   }
-
 
   .empty{
     border:1px dashed var(--border);
@@ -422,7 +382,6 @@
     font-size:13.5px;
     line-height:1.6;
   }
-
 
   .empty b{
     color:var(--text);
@@ -442,7 +401,6 @@
     gap:12px;
   }
 
-
   .card{
     background:var(--surface);
     border:1px solid var(--border);
@@ -451,7 +409,6 @@
     padding:16px;
     animation:rise .35s ease both;
   }
-
 
   @keyframes rise{
 
@@ -467,7 +424,6 @@
 
   }
 
-
   .card-head{
     display:flex;
     align-items:flex-start;
@@ -476,14 +432,12 @@
     margin-bottom:12px;
   }
 
-
   .card-id{
     display:flex;
     gap:10px;
     align-items:center;
     min-width:0;
   }
-
 
   .avatar{
     width:34px;
@@ -494,7 +448,6 @@
     background:var(--surface-2);
     border:1px solid var(--border);
   }
-
 
   .avatar-fallback{
     width:34px;
@@ -510,23 +463,19 @@
     flex-shrink:0;
   }
 
-
   .card-src{
     min-width:0;
   }
-
 
   .card-src .name{
     font-weight:600;
     font-size:13.5px;
   }
 
-
   .card-src .cat{
     font-size:11.5px;
     color:var(--muted);
   }
-
 
   .inspect-btn{
     border:1px solid var(--border);
@@ -542,12 +491,10 @@
     flex-shrink:0;
   }
 
-
   .inspect-btn:hover{
     color:var(--text);
     border-color:var(--faint);
   }
-
 
   .card-title{
     font-size:14.5px;
@@ -558,14 +505,12 @@
     white-space:nowrap;
   }
 
-
   .card-handle{
     font-size:12.5px;
     color:var(--accent);
     font-family:'IBM Plex Mono',monospace;
     margin-bottom:10px;
   }
-
 
   .card-bio{
     font-size:12.5px;
@@ -578,14 +523,12 @@
     overflow:hidden;
   }
 
-
   .badges{
     display:flex;
     flex-wrap:wrap;
     gap:5px;
     margin-bottom:10px;
   }
-
 
   .badge{
     font-size:10.5px;
@@ -597,14 +540,12 @@
     font-family:'IBM Plex Mono',monospace;
   }
 
-
   .metrics{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
     gap:6px;
     margin-bottom:10px;
   }
-
 
   .metric{
     background:var(--surface-2);
@@ -614,13 +555,11 @@
     text-align:center;
   }
 
-
   .metric .v{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
     font-weight:600;
   }
-
 
   .metric .l{
     font-size:9.5px;
@@ -628,14 +567,12 @@
     margin-top:1px;
   }
 
-
   .clublist{
     display:flex;
     flex-direction:column;
     gap:4px;
     margin-bottom:10px;
   }
-
 
   .clublist a{
     display:flex;
@@ -649,13 +586,11 @@
     padding:4px 7px;
   }
 
-
   .clublist img{
     width:16px;
     height:16px;
     border-radius:4px;
   }
-
 
   .card-foot{
     display:flex;
@@ -665,12 +600,10 @@
     border-top:1px solid var(--border);
   }
 
-
   .card-foot .open{
     font-size:12px;
     font-weight:600;
   }
-
 
   .card-foot .id{
     font-size:11px;
@@ -690,7 +623,6 @@
     background:var(--surface);
   }
 
-
   details.misses summary{
     list-style:none;
     cursor:pointer;
@@ -701,22 +633,18 @@
     justify-content:space-between;
   }
 
-
   details.misses summary::-webkit-details-marker{
     display:none;
   }
-
 
   details.misses summary .chev{
     transition:transform .15s ease;
     color:var(--faint);
   }
 
-
   details.misses[open] summary .chev{
     transform:rotate(90deg);
   }
-
 
   .miss-row{
     display:flex;
@@ -727,11 +655,9 @@
     border-top:1px solid var(--border);
   }
 
-
   .miss-row .n{
     color:var(--muted);
   }
-
 
   .miss-row .s{
     font-family:'IBM Plex Mono',monospace;
@@ -740,12 +666,10 @@
     border-radius:4px;
   }
 
-
   .miss-row .s.nf{
     color:var(--faint);
     background:var(--surface-2);
   }
-
 
   .miss-row .s.er{
     color:var(--err);
@@ -768,11 +692,9 @@
     z-index:50;
   }
 
-
   .modal-bg.open{
     display:flex;
   }
-
 
   .modal{
     background:var(--surface);
@@ -786,7 +708,6 @@
     overflow:hidden;
   }
 
-
   .modal-head{
     display:flex;
     justify-content:space-between;
@@ -795,13 +716,11 @@
     border-bottom:1px solid var(--border);
   }
 
-
   .modal-head h3{
     margin:0;
     font-size:13.5px;
     font-weight:600;
   }
-
 
   .modal-head button{
     border:none;
@@ -810,7 +729,6 @@
     cursor:pointer;
     font-size:16px;
   }
-
 
   .modal-body{
     padding:14px 16px;
@@ -823,14 +741,12 @@
     background:var(--surface-2);
   }
 
-
   .modal-foot{
     padding:10px 16px;
     border-top:1px solid var(--border);
     display:flex;
     justify-content:flex-end;
   }
-
 
   .modal-foot button{
     border:1px solid var(--border);
@@ -843,9 +759,23 @@
     font-family:inherit;
   }
 
-
   .hidden{
     display:none !important;
+  }
+
+
+  /* =========================
+     ERROR
+  ========================= */
+
+  .api-error{
+    border:1px solid var(--err);
+    background:var(--err-dim);
+    color:var(--err);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:13px;
+    line-height:1.5;
   }
 
 
@@ -859,32 +789,26 @@
       padding:10px 0;
     }
 
-
     .brand{
       gap:10px;
     }
-
 
     .brand-logo{
       width:100px;
       height:100px;
     }
 
-
     .brand-text{
       gap:0;
     }
-
 
     .brand .name{
       font-size:20px;
     }
 
-
     .brand .tag{
       display:none;
     }
-
 
     form{
       flex-direction:column;
@@ -947,7 +871,6 @@
       Look up a handle
     </h1>
 
-
     <p class="sub">
       Search for publicly available profile information and explore matching accounts.
     </p>
@@ -961,8 +884,8 @@
         placeholder="e.g. octocat"
         required
         autocomplete="off"
+        maxlength="100"
       >
-
 
       <button
         type="submit"
@@ -982,9 +905,8 @@
       <div class="progress-line">
 
         <span id="progressText">
-          Querying sources…
+          Contacting Argus API…
         </span>
-
 
         <span id="progressPercent">
           0%
@@ -1101,15 +1023,16 @@
 
   <div class="modal">
 
-
     <div class="modal-head">
 
       <h3 id="modalTitle">
         Raw response
       </h3>
 
-
-      <button id="closeModalBtn">
+      <button
+        id="closeModalBtn"
+        aria-label="Close"
+      >
         ✕
       </button>
 
@@ -1141,1247 +1064,127 @@
 
 <script>
 
+/* =========================================================
+   ARGUS API
+   The browser now talks ONLY to the Vercel serverless API.
+========================================================= */
 
-/* =========================
-   TARGET ENDPOINTS
-========================= */
+const API_ENDPOINT = "/api/lookup";
 
-const TARGET_ENDPOINTS = [
 
-
-  {
-    id:'pronouns_page',
-    name:'Pronouns.page',
-    category:'Identity',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(!data || !data.profiles){
-        return null;
-      }
-
-
-      const en=
-        data.profiles.en ||
-        Object.values(data.profiles)[0];
-
-
-      if(!en){
-        return null;
-      }
-
-
-      const names=
-        (en.names||[])
-          .map(
-            n=>
-              typeof n==='string'
-                ? n
-                : n.value||n.name
-          )
-          .filter(Boolean);
-
-
-      const pronouns=
-        (en.pronouns||[])
-          .map(
-            p=>
-              typeof p==='string'
-                ? p
-                : p.value||p.pronoun
-          )
-          .filter(Boolean);
-
-
-      const links=
-        (en.links||[])
-          .map(
-            l=>
-              typeof l==='string'
-                ? l
-                : l.href||l.link
-          )
-          .filter(Boolean);
-
-
-      return {
-
-        avatar:data.avatar||null,
-
-        title:
-          names[0] ||
-          data.username,
-
-        handle:
-          `@${data.username}`,
-
-        bio:
-          en.bio||'',
-
-        badges:
-          pronouns,
-
-        metrics:[
-          {
-            l:'Names',
-            v:names.length
-          },
-          {
-            l:'Pronouns',
-            v:pronouns.length
-          }
-        ],
-
-        links,
-
-        profileUrl:
-          `https://pronouns.page/@${data.username}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'chess_com',
-    name:'Chess.com',
-    category:'Gaming',
-
-
-    fetch: async (user)=>{
-
-      const base=
-        `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
-
-
-      const profileRes=
-        await fetchUrl(base);
-
-
-      if(profileRes.status!==200){
-        return profileRes;
-      }
-
-
-      const [
-        statsRes,
-        clubsRes
-      ]=
-        await Promise.allSettled([
-
-          fetchUrl(`${base}/stats`),
-
-          fetchUrl(`${base}/clubs`)
-
-        ]);
-
-
-      return {
-
-        status:200,
-
-        data:{
-
-          profile:
-            profileRes.data,
-
-          stats:
-            statsRes.status==='fulfilled' &&
-            statsRes.value.status===200
-              ? statsRes.value.data
-              : null,
-
-          clubs:
-            clubsRes.status==='fulfilled' &&
-            clubsRes.value.status===200
-              ? clubsRes.value.data.clubs
-              : []
-
-        }
-
-      };
-
-    },
-
-
-    parse:(payload)=>{
-
-      if(
-        !payload ||
-        !payload.profile ||
-        !payload.profile.username
-      ){
-        return null;
-      }
-
-
-      const p=
-        payload.profile;
-
-      const s=
-        payload.stats||{};
-
-      const clubs=
-        payload.clubs||[];
-
-
-      return {
-
-        avatar:
-          p.avatar,
-
-        title:
-          p.name ||
-          p.username,
-
-        handle:
-          `@${p.username}`,
-
-        bio:
-          `Joined ${new Date(p.joined*1000).toLocaleDateString()} · `+
-          `last online ${new Date(p.last_online*1000).toLocaleDateString()}`,
-
-        badges:[
-          p.title
-            ? `Title: ${p.title}`
-            : null,
-
-          p.location
-
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Blitz',
-            v:
-              s.chess_blitz
-                ? s.chess_blitz.last.rating
-                : '—'
-          },
-
-          {
-            l:'Rapid',
-            v:
-              s.chess_rapid
-                ? s.chess_rapid.last.rating
-                : '—'
-          },
-
-          {
-            l:'Bullet',
-            v:
-              s.chess_bullet
-                ? s.chess_bullet.last.rating
-                : '—'
-          },
-
-          {
-            l:'Followers',
-            v:p.followers
-          }
-
-        ],
-
-
-        clubs:
-          clubs.slice(0,4).map(
-            c=>({
-              name:c.name,
-              icon:c.icon,
-              url:c.url
-            })
-          ),
-
-
-        links:[
-          p.url
-        ],
-
-
-        profileUrl:
-          p.url
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'lichess',
-    name:'Lichess',
-    category:'Gaming',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://lichess.org/api/user/${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        data.error ||
-        !data.id
-      ){
-        return null;
-      }
-
-
-      const perf=
-        data.perfs||{};
-
-
-      return {
-
-        avatar:null,
-
-        title:
-          data.username,
-
-        handle:
-          data.title
-            ? `[${data.title}] @${data.id}`
-            : `@${data.id}`,
-
-        bio:
-          data.bio||'',
-
-        badges:[
-          data.online
-            ? 'Online'
-            : 'Offline',
-
-          data.patron
-            ? 'Patron'
-            : null
-
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Blitz',
-            v:
-              perf.blitz
-                ? perf.blitz.rating
-                : '—'
-          },
-
-          {
-            l:'Rapid',
-            v:
-              perf.rapid
-                ? perf.rapid.rating
-                : '—'
-          },
-
-          {
-            l:'Puzzles',
-            v:
-              perf.puzzle
-                ? perf.puzzle.rating
-                : '—'
-          },
-
-          {
-            l:'Games',
-            v:
-              data.count
-                ? data.count.all
-                : 0
-          }
-
-        ],
-
-
-        links:[
-          data.url
-        ],
-
-
-        profileUrl:
-          data.url ||
-          `https://lichess.org/@/${data.username}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'github',
-    name:'GitHub',
-    category:'Developer',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://api.github.com/users/${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        data.message==='Not Found' ||
-        !data.login
-      ){
-        return null;
-      }
-
-
-      return {
-
-        avatar:
-          data.avatar_url,
-
-        title:
-          data.name ||
-          data.login,
-
-        handle:
-          `@${data.login}`,
-
-        bio:
-          data.bio||'',
-
-
-        badges:[
-          data.company,
-          data.location
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Repos',
-            v:data.public_repos
-          },
-
-          {
-            l:'Followers',
-            v:data.followers
-          },
-
-          {
-            l:'Gists',
-            v:data.public_gists
-          }
-
-        ],
-
-
-        links:
-          data.blog
-            ? [
-                data.blog.startsWith('http')
-                  ? data.blog
-                  : `https://${data.blog}`
-              ]
-            : [],
-
-
-        profileUrl:
-          data.html_url
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'gravatar',
-    name:'Gravatar',
-    category:'Identity',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://en.gravatar.com/${encodeURIComponent(user)}.json`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        !data.entry ||
-        !data.entry[0]
-      ){
-        return null;
-      }
-
-
-      const e=
-        data.entry[0];
-
-
-      const urls=
-        (e.urls||[])
-          .map(
-            u=>u.value
-          );
-
-
-      return {
-
-        avatar:
-          e.thumbnailUrl,
-
-        title:
-          e.displayName ||
-          e.preferredUsername,
-
-        handle:
-          `@${e.preferredUsername}`,
-
-        bio:
-          e.aboutMe||'',
-
-
-        badges:[
-          e.currentLocation
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Accounts',
-            v:
-              e.accounts
-                ? e.accounts.length
-                : 0
-          },
-
-          {
-            l:'URLs',
-            v:urls.length
-          }
-
-        ],
-
-
-        links:
-          urls,
-
-
-        profileUrl:
-          e.profileUrl ||
-          `https://gravatar.com/${e.preferredUsername}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'keybase',
-    name:'Keybase',
-    category:'Security',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        !data.them ||
-        !data.them[0]
-      ){
-        return null;
-      }
-
-
-      const u=
-        data.them[0];
-
-
-      if(!u.id){
-        return null;
-      }
-
-
-      const proofs=
-        (
-          u.proofs_summary
-            ? u.proofs_summary.all||[]
-            : []
-        )
-        .map(
-          p=>
-            `${p.proof_type}: ${p.nametag}`
-        );
-
-
-      return {
-
-        avatar:
-          u.pictures &&
-          u.pictures.primary
-            ? u.pictures.primary.url
-            : null,
-
-
-        title:
-          u.profile
-            ? u.profile.full_name ||
-              u.basics.username
-            : u.basics.username,
-
-
-        handle:
-          `@${u.basics.username}`,
-
-
-        bio:
-          u.profile
-            ? u.profile.bio
-            : '',
-
-
-        badges:
-          proofs.slice(0,4),
-
-
-        metrics:[
-
-          {
-            l:'Proofs',
-            v:proofs.length
-          },
-
-          {
-            l:'Devices',
-            v:
-              u.devices
-                ? Object.keys(u.devices).length
-                : 0
-          }
-
-        ],
-
-
-        links:[],
-
-
-        profileUrl:
-          `https://keybase.io/${u.basics.username}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'reddit',
-    name:'Reddit',
-    category:'Social',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        !data.data ||
-        data.error===404
-      ){
-        return null;
-      }
-
-
-      const u=
-        data.data;
-
-
-      return {
-
-        avatar:
-          u.icon_img
-            ? u.icon_img.split('?')[0]
-            : null,
-
-
-        title:
-          u.subreddit
-            ? u.subreddit.title ||
-              u.name
-            : u.name,
-
-
-        handle:
-          `u/${u.name}`,
-
-
-        bio:
-          u.subreddit
-            ? u.subreddit.public_description
-            : '',
-
-
-        badges:[
-          u.is_gold
-            ? 'Gold'
-            : null,
-
-          u.is_mod
-            ? 'Moderator'
-            : null,
-
-          u.has_verified_email
-            ? 'Verified email'
-            : null
-
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Post karma',
-            v:u.link_karma
-          },
-
-          {
-            l:'Comment karma',
-            v:u.comment_karma
-          },
-
-          {
-            l:'Since',
-            v:
-              new Date(
-                u.created_utc*1000
-              ).getFullYear()
-          }
-
-        ],
-
-
-        links:[],
-
-
-        profileUrl:
-          `https://reddit.com/user/${u.name}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'pronouns_cc',
-    name:'Pronouns.cc',
-    category:'Identity',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        (!data.username && !data.members)
-      ){
-        return null;
-      }
-
-
-      return {
-
-        avatar:
-          data.avatar_url,
-
-
-        title:
-          data.username ||
-          'System',
-
-
-        handle:
-          data.id
-            ? `ID ${data.id}`
-            : '',
-
-
-        bio:
-          data.biography ||
-          data.description ||
-          '',
-
-
-        badges:
-          data.pronouns
-            ? [data.pronouns]
-            : [],
-
-
-        metrics:[
-
-          {
-            l:'Members',
-            v:
-              data.members
-                ? data.members.length
-                : 0
-          }
-
-        ],
-
-
-        links:
-          data.links||[],
-
-
-        profileUrl:
-          `https://pronouns.cc/p/${data.username}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'hackernews',
-    name:'Hacker News',
-    category:'Community',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        !data.id
-      ){
-        return null;
-      }
-
-
-      return {
-
-        avatar:null,
-
-        title:
-          data.id,
-
-
-        handle:
-          `since ${new Date(data.created*1000).getFullYear()}`,
-
-
-        bio:
-          data.about||'',
-
-
-        badges:[],
-
-
-        metrics:[
-
-          {
-            l:'Karma',
-            v:data.karma
-          },
-
-          {
-            l:'Posts',
-            v:
-              data.submitted
-                ? data.submitted.length
-                : 0
-          }
-
-        ],
-
-
-        links:[],
-
-
-        profileUrl:
-          `https://news.ycombinator.com/user?id=${data.id}`
-
-      };
-
-    }
-
-  },
-
-
-  {
-    id:'dev_to',
-    name:'Dev.to',
-    category:'Developer',
-
-
-    fetch: async (user)=>{
-
-      const url=
-        `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`;
-
-      return await fetchUrl(url);
-
-    },
-
-
-    parse:(data)=>{
-
-      if(
-        !data ||
-        !data.username
-      ){
-        return null;
-      }
-
-
-      return {
-
-        avatar:
-          data.profile_image,
-
-
-        title:
-          data.name ||
-          data.username,
-
-
-        handle:
-          `@${data.username}`,
-
-
-        bio:
-          data.summary||'',
-
-
-        badges:[
-          data.location
-        ].filter(Boolean),
-
-
-        metrics:[
-
-          {
-            l:'Joined',
-            v:
-              data.joined_at
-                ? data.joined_at.split(' ')[0]
-                : '—'
-          }
-
-        ],
-
-
-        links:[
-
-          data.website_url,
-
-          data.github_username
-            ? `https://github.com/${data.github_username}`
-            : null
-
-        ].filter(Boolean),
-
-
-        profileUrl:
-          `https://dev.to/${data.username}`
-
-      };
-
-    }
-
-  }
-
-];
-
-
-/* =========================
-   NETWORK REQUEST
-========================= */
-
-async function fetchUrl(url){
-
-  try{
-
-    const res=
-      await fetch(
-        url,
-        {
-          headers:{
-            'Accept':'application/json'
-          }
-        }
-      );
-
-
-    if(!res.ok){
-
-      return {
-        status:res.status,
-        data:null
-      };
-
-    }
-
-
-    return {
-
-      status:200,
-
-      data:
-        await res.json()
-
-    };
-
-  }catch(err){
-
-    return {
-
-      status:'blocked',
-
-      data:null
-
-    };
-
-  }
-
-}
-
-
-/* =========================
+/* =========================================================
    UI ELEMENTS
-========================= */
+========================================================= */
 
-const searchForm=
-  document.getElementById(
-    'searchForm'
-  );
+const searchForm =
+  document.getElementById("searchForm");
 
+const usernameInput =
+  document.getElementById("usernameInput");
 
-const usernameInput=
-  document.getElementById(
-    'usernameInput'
-  );
+const searchBtn =
+  document.getElementById("searchBtn");
 
+const progressContainer =
+  document.getElementById("progressContainer");
 
-const searchBtn=
-  document.getElementById(
-    'searchBtn'
-  );
+const progressBar =
+  document.getElementById("progressBar");
 
+const progressText =
+  document.getElementById("progressText");
 
-const progressContainer=
-  document.getElementById(
-    'progressContainer'
-  );
+const progressPercent =
+  document.getElementById("progressPercent");
 
+const summary =
+  document.getElementById("summary");
 
-const progressBar=
-  document.getElementById(
-    'progressBar'
-  );
+const statFound =
+  document.getElementById("statFound");
 
+const statNotFound =
+  document.getElementById("statNotFound");
 
-const progressText=
-  document.getElementById(
-    'progressText'
-  );
+const statErrors =
+  document.getElementById("statErrors");
 
+const resultsSection =
+  document.getElementById("resultsSection");
 
-const progressPercent=
-  document.getElementById(
-    'progressPercent'
-  );
+const emptyState =
+  document.getElementById("emptyState");
 
+const copySummaryBtn =
+  document.getElementById("copySummaryBtn");
 
-const summary=
-  document.getElementById(
-    'summary'
-  );
+const jsonModal =
+  document.getElementById("jsonModal");
 
+const modalTitle =
+  document.getElementById("modalTitle");
 
-const statFound=
-  document.getElementById(
-    'statFound'
-  );
+const modalJsonContent =
+  document.getElementById("modalJsonContent");
 
+const closeModalBtn =
+  document.getElementById("closeModalBtn");
 
-const statNotFound=
-  document.getElementById(
-    'statNotFound'
-  );
+const copyModalJsonBtn =
+  document.getElementById("copyModalJsonBtn");
 
-
-const statErrors=
-  document.getElementById(
-    'statErrors'
-  );
+const themeBtn =
+  document.getElementById("themeBtn");
 
 
-const resultsSection=
-  document.getElementById(
-    'resultsSection'
-  );
+let currentResults = [];
+
+let currentUsername = "";
+
+let rawModalJSON = null;
 
 
-const emptyState=
-  document.getElementById(
-    'emptyState'
-  );
-
-
-const copySummaryBtn=
-  document.getElementById(
-    'copySummaryBtn'
-  );
-
-
-const jsonModal=
-  document.getElementById(
-    'jsonModal'
-  );
-
-
-const modalTitle=
-  document.getElementById(
-    'modalTitle'
-  );
-
-
-const modalJsonContent=
-  document.getElementById(
-    'modalJsonContent'
-  );
-
-
-let currentResults=[];
-
-let rawModalJSON=null;
-
-
-/* =========================
+/* =========================================================
    ESCAPE HTML
-========================= */
+========================================================= */
 
 function esc(str){
 
-  if(typeof str!=='string'){
-    return str;
+  if(str === null || str === undefined){
+    return "";
   }
 
-
-  return str.replace(
+  return String(str).replace(
     /[&<>'"]/g,
 
-    t=>({
+    t => ({
 
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      "'":'&#39;',
-      '"':'&quot;'
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      "'":"&#39;",
+      '"':"&quot;"
 
-    }[t]||t)
+    }[t] || t)
 
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    SEARCH
-========================= */
+========================================================= */
 
 searchForm.addEventListener(
-  'submit',
+  "submit",
 
-  async e=>{
+  async event => {
 
-    e.preventDefault();
+    event.preventDefault();
 
 
-    const username=
+    const username =
       usernameInput.value.trim();
 
 
@@ -2390,217 +1193,239 @@ searchForm.addEventListener(
     }
 
 
-    currentResults=[];
+    currentUsername = username;
+
+    currentResults = [];
 
 
-    resultsSection.innerHTML='';
+    resultsSection.innerHTML = "";
+
+    summary.classList.remove("active");
 
 
-    summary.classList.remove(
-      'active'
-    );
+    searchBtn.disabled = true;
+
+    usernameInput.disabled = true;
 
 
-    progressContainer.classList.add(
-      'active'
-    );
+    progressContainer.classList.add("active");
+
+    progressBar.style.width = "10%";
+
+    progressPercent.textContent = "10%";
+
+    progressText.textContent =
+      "Contacting Argus API…";
 
 
-    searchBtn.disabled=true;
+    try {
+
+      const url =
+        `${API_ENDPOINT}?username=${encodeURIComponent(username)}`;
 
 
-    progressBar.style.width='0%';
+      progressBar.style.width = "35%";
 
-    progressPercent.textContent='0%';
+      progressPercent.textContent = "35%";
 
-    progressText.textContent=
-      'Querying sources…';
-
-
-    let completed=0;
-
-    let found=0;
-
-    let notFound=0;
-
-    let errored=0;
+      progressText.textContent =
+        "Querying public sources…";
 
 
-    await Promise.allSettled(
-
-      TARGET_ENDPOINTS.map(
-
-        async endpoint=>{
-
-          const res=
-            await endpoint.fetch(
-              username
-            );
-
-
-          let result={
-
-            endpoint,
-
-            status:'error',
-
-            raw:res.data,
-
-            parsed:null
-
-          };
-
-
-          if(
-            res.status===200 &&
-            res.data
-          ){
-
-            const parsed=
-              endpoint.parse(
-                res.data
-              );
-
-
-            if(parsed){
-
-              result.status=
-                'found';
-
-              result.parsed=
-                parsed;
-
-              found++;
-
-            }else{
-
-              result.status=
-                'not_found';
-
-              notFound++;
-
+      const response =
+        await fetch(
+          url,
+          {
+            method:"GET",
+            headers:{
+              "Accept":"application/json"
             }
-
-          }else if(
-            res.status===404
-          ){
-
-            result.status=
-              'not_found';
-
-            notFound++;
-
-          }else{
-
-            result.status=
-              'error';
-
-            errored++;
-
           }
+        );
 
 
-          completed++;
+      progressBar.style.width = "75%";
+
+      progressPercent.textContent = "75%";
+
+      progressText.textContent =
+        "Processing results…";
 
 
-          const pct=
-            Math.round(
-              (
-                completed /
-                TARGET_ENDPOINTS.length
-              ) *
-              100
-            );
+      let payload = null;
 
 
-          progressBar.style.width=
-            pct+'%';
+      try {
+
+        payload =
+          await response.json();
+
+      } catch {
+
+        payload = null;
+
+      }
 
 
-          progressPercent.textContent=
-            pct+'%';
+      if(!response.ok){
+
+        throw new Error(
+          payload &&
+          payload.error
+            ? payload.error
+            : `API request failed (${response.status})`
+        );
+
+      }
 
 
-          progressText.textContent=
-            completed===
-            TARGET_ENDPOINTS.length
+      if(
+        !payload ||
+        !Array.isArray(payload.results)
+      ){
 
-              ? 'Search complete'
+        throw new Error(
+          "The API returned an invalid response."
+        );
 
-              : `Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
-
-
-          currentResults.push(
-            result
-          );
-
-        }
-
-      )
-
-    );
+      }
 
 
-    progressContainer.classList.remove(
-      'active'
-    );
+      currentResults =
+        payload.results.map(
+          result => ({
+
+            endpoint:{
+
+              id:
+                result.id,
+
+              name:
+                result.name,
+
+              category:
+                result.category
+
+            },
+
+            status:
+              result.status,
+
+            raw:
+              result.raw,
+
+            parsed:
+              result.parsed,
+
+            httpStatus:
+              result.httpStatus
+
+          })
+        );
 
 
-    searchBtn.disabled=false;
+      progressBar.style.width = "100%";
+
+      progressPercent.textContent = "100%";
+
+      progressText.textContent =
+        "Search complete";
 
 
-    statFound.textContent=
-      found;
+      statFound.textContent =
+        Number(payload.found || 0);
 
 
-    statNotFound.textContent=
-      notFound;
+      statNotFound.textContent =
+        Number(payload.notFound || 0);
 
 
-    statErrors.textContent=
-      errored;
+      statErrors.textContent =
+        Number(payload.errors || 0);
 
 
-    summary.classList.add(
-      'active'
-    );
+      summary.classList.add("active");
 
 
-    renderResults(
-      username
-    );
+      setTimeout(
+        () => {
+          progressContainer.classList.remove("active");
+        },
+        350
+      );
+
+
+      renderResults(username);
+
+
+    } catch(error){
+
+      progressBar.style.width = "100%";
+
+      progressPercent.textContent = "100%";
+
+      progressText.textContent =
+        "Request failed";
+
+
+      progressContainer.classList.remove("active");
+
+
+      resultsSection.innerHTML = `
+
+        <div class="api-error">
+
+          <b>Argus API error</b><br>
+
+          ${esc(error.message || "Unknown error")}
+
+        </div>
+
+      `;
+
+      summary.classList.remove("active");
+
+    } finally {
+
+      searchBtn.disabled = false;
+
+      usernameInput.disabled = false;
+
+    }
 
   }
 
 );
 
 
-/* =========================
+/* =========================================================
    RESULTS
-========================= */
+========================================================= */
 
-function renderResults(
-  username
-){
+function renderResults(username){
 
-  resultsSection.innerHTML='';
+  resultsSection.innerHTML = "";
 
 
-  const hits=
+  const hits =
     currentResults.filter(
-      r=>r.status==='found'
+      result =>
+        result.status === "found" &&
+        result.parsed
     );
 
 
-  const rest=
+  const rest =
     currentResults.filter(
-      r=>r.status!=='found'
+      result =>
+        result.status !== "found" ||
+        !result.parsed
     );
 
 
   if(
-    hits.length===0 &&
-    rest.length===0
+    hits.length === 0 &&
+    rest.length === 0
   ){
 
     resultsSection.appendChild(
@@ -2614,162 +1439,169 @@ function renderResults(
 
   if(hits.length){
 
-    const title=
-      document.createElement(
-        'p'
-      );
+    const title =
+      document.createElement("p");
 
 
-    title.className=
-      'group-title';
+    title.className =
+      "group-title";
 
 
-    title.textContent=
-      `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
+    title.textContent =
+      `Matched on ${hits.length} source${hits.length === 1 ? "" : "s"}`;
 
 
-    const grid=
-      document.createElement(
-        'div'
-      );
+    const grid =
+      document.createElement("div");
 
 
-    grid.className=
-      'hits';
+    grid.className =
+      "hits";
 
 
     hits.forEach(
-      item=>
+      item => {
+
         grid.appendChild(
           buildCard(item)
-        )
-    );
-
-
-    resultsSection.appendChild(
-      title
-    );
-
-
-    resultsSection.appendChild(
-      grid
-    );
-
-  }else{
-
-    const none=
-      document.createElement(
-        'div'
-      );
-
-
-    none.className=
-      'empty';
-
-
-    none.innerHTML=
-      `<b>No public match for "${esc(username)}"</b>
-       Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
-
-
-    resultsSection.appendChild(
-      none
-    );
-
-  }
-
-
-  if(rest.length){
-
-    const details=
-      document.createElement(
-        'details'
-      );
-
-
-    details.className=
-      'misses';
-
-
-    const summaryEl=
-      document.createElement(
-        'summary'
-      );
-
-
-    summaryEl.innerHTML=
-      `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
-       <span class="chev">›</span>`;
-
-
-    details.appendChild(
-      summaryEl
-    );
-
-
-    rest.forEach(
-      r=>{
-
-        const row=
-          document.createElement(
-            'div'
-          );
-
-
-        row.className=
-          'miss-row';
-
-
-        row.innerHTML=
-          `<span class="n">
-            ${esc(r.endpoint.name)}
-          </span>
-
-          <span class="s ${r.status==='error'?'er':'nf'}">
-            ${r.status==='error'
-              ? 'blocked'
-              : 'no record'}
-          </span>`;
-
-
-        details.appendChild(
-          row
         );
 
       }
     );
 
 
-    resultsSection.appendChild(
-      details
+    resultsSection.appendChild(title);
+
+    resultsSection.appendChild(grid);
+
+  } else {
+
+    const none =
+      document.createElement("div");
+
+
+    none.className =
+      "empty";
+
+
+    none.innerHTML =
+      `<b>No public match for "${esc(username)}"</b>
+       Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
+
+
+    resultsSection.appendChild(none);
+
+  }
+
+
+  if(rest.length){
+
+    const details =
+      document.createElement("details");
+
+
+    details.className =
+      "misses";
+
+
+    const summaryEl =
+      document.createElement("summary");
+
+
+    summaryEl.innerHTML =
+      `<span>
+        ${rest.length}
+        source${rest.length === 1 ? "" : "s"}
+        with no record or a blocked request
+       </span>
+
+       <span class="chev">
+        ›
+       </span>`;
+
+
+    details.appendChild(summaryEl);
+
+
+    rest.forEach(
+      result => {
+
+        const row =
+          document.createElement("div");
+
+
+        row.className =
+          "miss-row";
+
+
+        const statusClass =
+          result.status === "error"
+            ? "er"
+            : "nf";
+
+
+        const statusText =
+          result.status === "error"
+            ? (
+                result.httpStatus
+                  ? `error ${result.httpStatus}`
+                  : "blocked / errored"
+              )
+            : "no record";
+
+
+        row.innerHTML =
+          `<span class="n">
+             ${esc(result.endpoint.name)}
+           </span>
+
+           <span class="s ${statusClass}">
+             ${esc(statusText)}
+           </span>`;
+
+
+        details.appendChild(row);
+
+      }
     );
+
+
+    resultsSection.appendChild(details);
 
   }
 
 }
 
 
-/* =========================
+/* =========================================================
    PROFILE CARD
-========================= */
+========================================================= */
 
 function buildCard(item){
 
-  const p=
+  const p =
     item.parsed;
 
 
-  const card=
-    document.createElement(
-      'div'
-    );
+  const card =
+    document.createElement("div");
 
 
-  card.className=
-    'card';
+  card.className =
+    "card";
 
 
-  const avatarHTML=
+  const firstLetter =
+    String(
+      p.title ||
+      p.handle ||
+      "?"
+    )
+      .charAt(0)
+      .toUpperCase();
+
+
+  const avatarHTML =
 
     p.avatar
 
@@ -2777,81 +1609,88 @@ function buildCard(item){
            class="avatar"
            src="${esc(p.avatar)}"
            alt=""
-           onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title||'?').charAt(0).toUpperCase())}</div>"
+           loading="lazy"
+           onerror="this.outerHTML='<div class=&quot;avatar-fallback&quot;>${esc(firstLetter)}</div>'"
          >`
 
       : `<div class="avatar-fallback">
-           ${esc(
-             (p.title||'?')
-               .charAt(0)
-               .toUpperCase()
-           )}
+           ${esc(firstLetter)}
          </div>`;
 
 
-  const badges=
-    (p.badges||[])
-      .filter(Boolean)
-      .map(
-        b=>
-          `<span class="badge">
-             ${esc(String(b))}
-           </span>`
-      )
-      .join('');
+  const badges =
+    Array.isArray(p.badges)
+      ? p.badges
+          .filter(Boolean)
+          .map(
+            badge =>
+              `<span class="badge">
+                 ${esc(String(badge))}
+               </span>`
+          )
+          .join("")
+      : "";
 
 
-  const metrics=
-    (p.metrics||[])
-      .map(
-        m=>
-          `<div class="metric">
+  const metrics =
+    Array.isArray(p.metrics)
+      ? p.metrics
+          .map(
+            metric =>
+              `<div class="metric">
 
-             <div class="v">
-               ${esc(String(m.v))}
-             </div>
+                 <div class="v">
+                   ${esc(String(metric.v ?? "—"))}
+                 </div>
 
-             <div class="l">
-               ${esc(m.l)}
-             </div>
+                 <div class="l">
+                   ${esc(metric.l || "")}
+                 </div>
 
-           </div>`
-      )
-      .join('');
+               </div>`
+          )
+          .join("")
+      : "";
 
 
-  const clubs=
-    (p.clubs||[]).length
+  const clubs =
+    Array.isArray(p.clubs) &&
+    p.clubs.length
 
       ? `<div class="clublist">
 
-          ${p.clubs.map(
-            c=>
-              `<a
-                 href="${esc(c.url)}"
-                 target="_blank"
-                 rel="noopener"
-               >
+          ${p.clubs
+            .map(
+              club =>
 
-                 ${c.icon
-                   ? `<img
-                        src="${esc(c.icon)}"
-                        alt=""
-                      >`
-                   : ''
-                 }
+                `<a
+                   href="${esc(club.url || "#")}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
 
-                 ${esc(c.name)}
+                   ${
+                     club.icon
+                       ? `<img
+                            src="${esc(club.icon)}"
+                            alt=""
+                            loading="lazy"
+                          >`
+                       : ""
+                   }
 
-               </a>`
-          ).join('')}
+                   ${esc(club.name || "Club")}
+
+                 </a>`
+            )
+            .join("")}
 
         </div>`
 
-      : '';
+      : "";
 
 
-  card.innerHTML=`
+  card.innerHTML = `
 
     <div class="card-head">
 
@@ -2862,15 +1701,11 @@ function buildCard(item){
         <div class="card-src">
 
           <div class="name">
-            ${esc(
-              item.endpoint.name
-            )}
+            ${esc(item.endpoint.name)}
           </div>
 
           <div class="cat">
-            ${esc(
-              item.endpoint.category
-            )}
+            ${esc(item.endpoint.category)}
           </div>
 
         </div>
@@ -2890,12 +1725,12 @@ function buildCard(item){
 
 
     <div class="card-title">
-      ${esc(p.title||'')}
+      ${esc(p.title || "")}
     </div>
 
 
     <div class="card-handle">
-      ${esc(p.handle||'')}
+      ${esc(p.handle || "")}
     </div>
 
 
@@ -2906,7 +1741,7 @@ function buildCard(item){
              ${esc(p.bio)}
            </div>`
 
-        : ''
+        : ""
     }
 
 
@@ -2917,7 +1752,7 @@ function buildCard(item){
              ${badges}
            </div>`
 
-        : ''
+        : ""
     }
 
 
@@ -2928,7 +1763,7 @@ function buildCard(item){
              ${metrics}
            </div>`
 
-        : ''
+        : ""
     }
 
 
@@ -2949,12 +1784,12 @@ function buildCard(item){
                class="open"
                href="${esc(p.profileUrl)}"
                target="_blank"
-               rel="noopener"
+               rel="noopener noreferrer"
              >
                Open profile
              </a>`
 
-          : ''
+          : ""
       }
 
     </div>
@@ -2963,26 +1798,22 @@ function buildCard(item){
 
 
   card
-    .querySelector(
-      '.inspect-btn'
-    )
+    .querySelector(".inspect-btn")
     .addEventListener(
+      "click",
+      () => {
 
-      'click',
-
-      ()=>{
-
-        modalTitle.textContent=
+        modalTitle.textContent =
           `${item.endpoint.name} — raw response`;
 
 
-        rawModalJSON=
+        rawModalJSON =
           item.raw || {
-            status:'No payload'
+            status:"No payload"
           };
 
 
-        modalJsonContent.textContent=
+        modalJsonContent.textContent =
           JSON.stringify(
             rawModalJSON,
             null,
@@ -2990,12 +1821,9 @@ function buildCard(item){
           );
 
 
-        jsonModal.classList.add(
-          'open'
-        );
+        jsonModal.classList.add("open");
 
       }
-
     );
 
 
@@ -3004,19 +1832,19 @@ function buildCard(item){
 }
 
 
-/* =========================
+/* =========================================================
    COPY RESULTS
-========================= */
+========================================================= */
 
 copySummaryBtn.addEventListener(
+  "click",
+  () => {
 
-  'click',
-
-  ()=>{
-
-    const hits=
+    const hits =
       currentResults.filter(
-        r=>r.status==='found'
+        result =>
+          result.status === "found" &&
+          result.parsed
       );
 
 
@@ -3025,24 +1853,24 @@ copySummaryBtn.addEventListener(
     }
 
 
-    let text=
-      `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
+    let text =
+      `Argus OSINT report — ${currentUsername}\n\n`;
 
 
     hits.forEach(
-      i=>{
+      item => {
 
-        const p=
-          i.parsed;
+        const p =
+          item.parsed;
 
 
-        text+=
-          `${i.endpoint.name} (${p.handle})\n`;
+        text +=
+          `${item.endpoint.name} (${p.handle || ""})\n`;
 
 
         if(p.title){
 
-          text+=
+          text +=
             `Name: ${p.title}\n`;
 
         }
@@ -3050,14 +1878,49 @@ copySummaryBtn.addEventListener(
 
         if(p.bio){
 
-          text+=
+          text +=
             `Bio: ${p.bio}\n`;
 
         }
 
 
-        text+=
-          `URL: ${p.profileUrl}\n\n`;
+        if(
+          Array.isArray(p.badges) &&
+          p.badges.length
+        ){
+
+          text +=
+            `Badges: ${p.badges.join(", ")}\n`;
+
+        }
+
+
+        if(
+          Array.isArray(p.metrics) &&
+          p.metrics.length
+        ){
+
+          p.metrics.forEach(
+            metric => {
+
+              text +=
+                `${metric.l}: ${metric.v}\n`;
+
+            }
+          );
+
+        }
+
+
+        if(p.profileUrl){
+
+          text +=
+            `URL: ${p.profileUrl}\n`;
+
+        }
+
+
+        text += "\n";
 
       }
     );
@@ -3067,24 +1930,43 @@ copySummaryBtn.addEventListener(
       .writeText(text)
 
       .then(
-        ()=>{
+        () => {
 
-          const old=
+          const old =
             copySummaryBtn.textContent;
 
 
-          copySummaryBtn.textContent=
-            'Copied';
+          copySummaryBtn.textContent =
+            "Copied";
 
 
           setTimeout(
-            ()=>{
+            () => {
 
-              copySummaryBtn.textContent=
+              copySummaryBtn.textContent =
                 old;
 
             },
+            1500
+          );
 
+        }
+      )
+
+      .catch(
+        () => {
+
+          copySummaryBtn.textContent =
+            "Copy failed";
+
+
+          setTimeout(
+            () => {
+
+              copySummaryBtn.textContent =
+                "Copy results";
+
+            },
             1500
           );
 
@@ -3092,189 +1974,161 @@ copySummaryBtn.addEventListener(
       );
 
   }
-
 );
 
 
-/* =========================
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
-document
-  .getElementById(
-    'closeModalBtn'
-  )
-  .addEventListener(
+closeModalBtn.addEventListener(
+  "click",
+  () => {
 
-    'click',
+    jsonModal.classList.remove("open");
 
-    ()=>{
-
-      jsonModal.classList.remove(
-        'open'
-      );
-
-    }
-
-  );
+  }
+);
 
 
 jsonModal.addEventListener(
+  "click",
+  event => {
 
-  'click',
+    if(event.target === jsonModal){
 
-  e=>{
-
-    if(e.target===jsonModal){
-
-      jsonModal.classList.remove(
-        'open'
-      );
+      jsonModal.classList.remove("open");
 
     }
 
   }
-
 );
 
 
-document
-  .getElementById(
-    'copyModalJsonBtn'
-  )
-  .addEventListener(
+document.addEventListener(
+  "keydown",
+  event => {
 
-    'click',
+    if(event.key === "Escape"){
 
-    ()=>{
-
-      if(!rawModalJSON){
-        return;
-      }
-
-
-      navigator.clipboard
-        .writeText(
-
-          JSON.stringify(
-            rawModalJSON,
-            null,
-            2
-          )
-
-        )
-
-        .then(
-          ()=>{
-
-            const btn=
-              document.getElementById(
-                'copyModalJsonBtn'
-              );
-
-
-            const old=
-              btn.textContent;
-
-
-            btn.textContent=
-              'Copied';
-
-
-            setTimeout(
-              ()=>{
-
-                btn.textContent=
-                  old;
-
-              },
-
-              1500
-            );
-
-          }
-        );
+      jsonModal.classList.remove("open");
 
     }
 
-  );
+  }
+);
 
 
-/* =========================
+copyModalJsonBtn.addEventListener(
+  "click",
+  () => {
+
+    if(!rawModalJSON){
+      return;
+    }
+
+
+    navigator.clipboard
+      .writeText(
+        JSON.stringify(
+          rawModalJSON,
+          null,
+          2
+        )
+      )
+
+      .then(
+        () => {
+
+          const old =
+            copyModalJsonBtn.textContent;
+
+
+          copyModalJsonBtn.textContent =
+            "Copied";
+
+
+          setTimeout(
+            () => {
+
+              copyModalJsonBtn.textContent =
+                old;
+
+            },
+            1500
+          );
+
+        }
+      );
+
+  }
+);
+
+
+/* =========================================================
    THEME
-========================= */
-
-const themeBtn=
-  document.getElementById(
-    'themeBtn'
-  );
-
+========================================================= */
 
 (function initTheme(){
 
-  const prefersLight=
+  const prefersLight =
     window.matchMedia(
-      '(prefers-color-scheme: light)'
+      "(prefers-color-scheme: light)"
     ).matches;
 
 
-  const initial=
+  const initial =
     prefersLight
-      ? 'light'
-      : 'dark';
+      ? "light"
+      : "dark";
 
 
   document.documentElement
     .setAttribute(
-      'data-theme',
+      "data-theme",
       initial
     );
 
 
-  themeBtn.textContent=
-    initial==='light'
-      ? 'Dark mode'
-      : 'Light mode';
+  themeBtn.textContent =
+    initial === "light"
+      ? "Dark mode"
+      : "Light mode";
 
 })();
 
 
 themeBtn.addEventListener(
+  "click",
+  () => {
 
-  'click',
-
-  ()=>{
-
-    const current=
+    const current =
       document.documentElement
-        .getAttribute(
-          'data-theme'
-        );
+        .getAttribute("data-theme");
 
 
-    const next=
-      current==='light'
-        ? 'dark'
-        : 'light';
+    const next =
+      current === "light"
+        ? "dark"
+        : "light";
 
 
     document.documentElement
       .setAttribute(
-        'data-theme',
+        "data-theme",
         next
       );
 
 
-    themeBtn.textContent=
-      next==='light'
-        ? 'Dark mode'
-        : 'Light mode';
+    themeBtn.textContent =
+      next === "light"
+        ? "Dark mode"
+        : "Light mode";
 
   }
-
 );
 
 </script>
 
 </body>
-</html>
+  </html>
