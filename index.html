@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
 <title>Argus OSINT — public profile lookup</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,6 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================================================
+   THEME
+========================================================= */
 
 :root{
   --bg:#12151a;
@@ -19,28 +24,37 @@
   --text:#e7e9ec;
   --muted:#8a92a3;
   --faint:#5c6472;
+
   --accent:#5b8def;
   --accent-dim:rgba(91,141,239,.14);
+  --accent-glow:rgba(91,141,239,.28);
+
   --ok:#4caf7d;
   --ok-dim:rgba(76,175,125,.14);
+
   --err:#e2645c;
   --err-dim:rgba(226,100,92,.12);
+
   font-size:16px;
 }
 
-@media (prefers-color-scheme: light){
+@media (prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
     --bg:#f5f6f8;
-    --surface:#ffffff;
+    --surface:#fff;
     --surface-2:#fbfbfc;
     --border:#e1e4e9;
     --text:#1a1d22;
     --muted:#656d7c;
     --faint:#9aa1ad;
+
     --accent:#3568d4;
     --accent-dim:rgba(53,104,212,.08);
+    --accent-glow:rgba(53,104,212,.2);
+
     --ok:#2b8a5d;
     --ok-dim:rgba(43,138,93,.08);
+
     --err:#c0433c;
     --err-dim:rgba(192,67,60,.08);
   }
@@ -48,21 +62,28 @@
 
 :root[data-theme="light"]{
   --bg:#f5f6f8;
-  --surface:#ffffff;
+  --surface:#fff;
   --surface-2:#fbfbfc;
   --border:#e1e4e9;
   --text:#1a1d22;
   --muted:#656d7c;
   --faint:#9aa1ad;
+
   --accent:#3568d4;
   --accent-dim:rgba(53,104,212,.08);
+  --accent-glow:rgba(53,104,212,.2);
+
   --ok:#2b8a5d;
   --ok-dim:rgba(43,138,93,.08);
+
   --err:#c0433c;
   --err-dim:rgba(192,67,60,.08);
 }
 
-/* ========================= BASE ========================= */
+
+/* =========================================================
+   BASE
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -76,14 +97,19 @@ body{
   min-width:0;
   background:var(--bg);
   color:var(--text);
+
+  transition:
+    background-color .35s ease,
+    color .35s ease;
 }
 
 body{
   font-family:'IBM Plex Sans',system-ui,sans-serif;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
   min-height:100vh;
   overflow-x:hidden;
+
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
 
 .mono{
@@ -96,7 +122,19 @@ a{
 }
 
 a:hover{
-  text-decoration:underline;
+  text-decoration:none;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
 }
 
 .wrap{
@@ -107,48 +145,165 @@ a:hover{
   padding-right:20px;
 }
 
-/* ========================= HEADER ========================= */
+
+/* =========================================================
+   BACKGROUND ATMOSPHERE
+========================================================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  width:420px;
+  height:420px;
+  left:-220px;
+  top:120px;
+
+  background:radial-gradient(
+    circle,
+    var(--accent-glow) 0%,
+    transparent 68%
+  );
+
+  opacity:.18;
+  pointer-events:none;
+  z-index:-1;
+
+  animation:
+    ambientFloat 9s ease-in-out infinite alternate;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  width:350px;
+  height:350px;
+  right:-220px;
+  bottom:60px;
+
+  background:radial-gradient(
+    circle,
+    var(--accent-glow) 0%,
+    transparent 68%
+  );
+
+  opacity:.12;
+  pointer-events:none;
+  z-index:-1;
+
+  animation:
+    ambientFloat 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes ambientFloat{
+  from{
+    transform:translate3d(0,0,0) scale(1);
+  }
+
+  to{
+    transform:translate3d(35px,-25px,0) scale(1.12);
+  }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 header{
   position:sticky;
   top:0;
   width:100%;
+
   padding-top:env(safe-area-inset-top,0px);
-  background:var(--bg);
+
+  background:color-mix(
+    in srgb,
+    var(--bg) 88%,
+    transparent
+  );
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
   border-bottom:1px solid var(--border);
+
   z-index:20;
+
+  transition:
+    background-color .35s ease,
+    border-color .35s ease;
 }
 
 .header-row{
   min-height:82px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:16px;
 }
 
-/* Brand is allowed to shrink, button is not */
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
+
   min-width:0;
   flex:1 1 auto;
   overflow:hidden;
+
+  animation:
+    brandEntrance .7s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes brandEntrance{
+  from{
+    opacity:0;
+    transform:translateX(-22px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
 }
 
 .brand-logo{
   width:72px;
   height:72px;
+
   object-fit:contain;
   display:block;
+
   flex:0 0 72px;
+
+  filter:
+    drop-shadow(
+      0 0 0 rgba(91,141,239,0)
+    );
+
+  transition:
+    transform .45s cubic-bezier(.22,1,.36,1),
+    filter .45s ease;
+}
+
+.brand:hover .brand-logo{
+  transform:
+    scale(1.07)
+    rotate(-2deg);
+
+  filter:
+    drop-shadow(
+      0 0 14px var(--accent-glow)
+    );
 }
 
 .brand-text{
   display:flex;
   align-items:baseline;
   gap:9px;
+
   min-width:0;
   overflow:hidden;
 }
@@ -158,51 +313,209 @@ header{
   font-size:24px;
   letter-spacing:-.25px;
   white-space:nowrap;
+
   flex:0 1 auto;
+
+  animation:
+    textReveal .7s .12s cubic-bezier(.22,1,.36,1) both;
 }
 
 .brand .tag{
   font-size:12.5px;
   color:var(--muted);
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+
   flex:0 1 auto;
+
+  animation:
+    textReveal .7s .22s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes textReveal{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .theme-btn{
   border:1px solid var(--border);
+
   background:var(--surface);
   color:var(--muted);
+
   border-radius:7px;
+
   padding:7px 11px;
+
   min-height:32px;
   min-width:88px;
+
   font-size:12.5px;
   line-height:1;
+
   cursor:pointer;
-  font-family:inherit;
+
   flex:0 0 auto;
   white-space:nowrap;
+
+  position:relative;
+  overflow:hidden;
+
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    background-color .25s ease,
+    transform .2s ease,
+    box-shadow .25s ease;
+}
+
+.theme-btn::after{
+  content:"";
+
+  position:absolute;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(0);
+
+  opacity:.25;
+
+  transition:
+    transform .45s ease,
+    opacity .45s ease;
+}
+
+.theme-btn:active{
+  transform:scale(.94);
+}
+
+.theme-btn:active::after{
+  transform:
+    translate(-50%,-50%)
+    scale(18);
+
+  opacity:0;
 }
 
 .theme-btn:hover{
   color:var(--text);
   border-color:var(--faint);
+
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.12);
 }
 
-/* ========================= MAIN ========================= */
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 main{
   padding:28px 0 60px;
 }
 
+
+/* =========================================================
+   SEARCH CARD
+========================================================= */
+
 .search-card{
+  position:relative;
+  overflow:hidden;
+
   background:var(--surface);
+
   border:1px solid var(--border);
   border-radius:12px;
+
   padding:20px;
   margin-bottom:28px;
+
+  animation:
+    cardEntrance .65s .08s cubic-bezier(.22,1,.36,1) both;
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    transform .3s ease;
+}
+
+.search-card::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-100%;
+
+  width:55%;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--accent),
+      transparent
+    );
+
+  opacity:0;
+
+  transition:left .8s ease;
+}
+
+.search-card.searching::before{
+  left:150%;
+  opacity:1;
+  transition:left 1.8s ease;
+}
+
+.search-card.searching{
+  border-color:
+    color-mix(
+      in srgb,
+      var(--accent) 50%,
+      var(--border)
+    );
+
+  box-shadow:
+    0 0 0 1px var(--accent-dim),
+    0 8px 35px rgba(0,0,0,.08);
+}
+
+@keyframes cardEntrance{
+  from{
+    opacity:0;
+    transform:
+      translateY(22px)
+      scale(.98);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
 }
 
 .search-card h1{
@@ -213,9 +526,12 @@ main{
 
 .search-card p.sub{
   margin:0 0 16px;
+
   color:var(--muted);
+
   font-size:13.5px;
   line-height:1.5;
+
   max-width:60ch;
 }
 
@@ -229,19 +545,42 @@ input[type="text"]{
   flex:1 1 auto;
   width:100%;
   min-width:0;
+
   background:var(--surface-2);
+
   border:1px solid var(--border);
   color:var(--text);
+
   border-radius:8px;
+
   padding:11px 14px;
+
   font-size:14.5px;
   font-family:'IBM Plex Mono',monospace;
+
+  transition:
+    border-color .25s ease,
+    box-shadow .3s ease,
+    background-color .3s ease,
+    transform .2s ease;
+}
+
+input[type="text"]:hover{
+  border-color:var(--faint);
 }
 
 input[type="text"]:focus{
   outline:none;
+
   border-color:var(--accent);
-  box-shadow:0 0 0 3px var(--accent-dim);
+
+  background:var(--surface);
+
+  box-shadow:
+    0 0 0 3px var(--accent-dim),
+    0 5px 20px var(--accent-dim);
+
+  transform:translateY(-1px);
 }
 
 input[type="text"]::placeholder{
@@ -250,37 +589,87 @@ input[type="text"]::placeholder{
 }
 
 button[type="submit"]{
+  position:relative;
+  overflow:hidden;
+
   background:var(--accent);
   color:#fff;
+
   border:none;
   border-radius:8px;
+
   padding:11px 20px;
+
   min-height:42px;
+
   font-weight:600;
   font-size:14px;
+
   cursor:pointer;
-  font-family:inherit;
+
   white-space:nowrap;
+
   flex:0 0 auto;
+
+  box-shadow:
+    0 4px 12px var(--accent-dim);
+
+  transition:
+    transform .2s cubic-bezier(.22,1,.36,1),
+    filter .2s ease,
+    box-shadow .25s ease;
+}
+
+button[type="submit"]::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-120%;
+
+  width:70%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent,
+      rgba(255,255,255,.28),
+      transparent
+    );
+
+  transform:skewX(-18deg);
 }
 
 button[type="submit"]:hover{
   filter:brightness(1.08);
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 7px 20px var(--accent-dim);
+}
+
+button[type="submit"]:hover::before{
+  left:150%;
+  transition:left .65s ease;
+}
+
+button[type="submit"]:active{
+  transform:translateY(0) scale(.97);
 }
 
 button[type="submit"]:disabled{
-  opacity:.5;
+  opacity:.55;
   cursor:default;
+  transform:none;
 }
 
-button:focus-visible,
-a:focus-visible,
-input:focus-visible{
-  outline:2px solid var(--accent);
-  outline-offset:2px;
-}
 
-/* ========================= PROGRESS ========================= */
+/* =========================================================
+   PROGRESS
+========================================================= */
 
 .progress{
   margin-top:16px;
@@ -289,45 +678,164 @@ input:focus-visible{
 
 .progress.active{
   display:block;
+
+  animation:
+    progressEnter .3s ease both;
+}
+
+@keyframes progressEnter{
+  from{
+    opacity:0;
+    transform:translateY(-4px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .progress-line{
   display:flex;
   justify-content:space-between;
   gap:12px;
+
   font-size:12.5px;
   color:var(--muted);
+
   margin-bottom:6px;
 }
 
+#progressText{
+  animation:
+    textPulse 1.3s ease-in-out infinite;
+}
+
+@keyframes textPulse{
+  0%,100%{
+    opacity:.55;
+  }
+
+  50%{
+    opacity:1;
+  }
+}
+
 .progress-track{
-  height:3px;
+  height:4px;
+
   background:var(--surface-2);
-  border-radius:2px;
+
+  border-radius:4px;
+
   overflow:hidden;
+
+  position:relative;
 }
 
 .progress-fill{
+  position:relative;
+
   height:100%;
-  background:var(--accent);
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      #78a3ff,
+      var(--accent)
+    );
+
+  background-size:200% 100%;
+
   width:0%;
-  transition:width .25s ease;
+
+  border-radius:4px;
+
+  transition:
+    width .35s cubic-bezier(.22,1,.36,1);
+
+  animation:
+    progressShimmer 1.3s linear infinite;
 }
 
-/* ========================= SUMMARY ========================= */
+@keyframes progressShimmer{
+  from{
+    background-position:0% 0;
+  }
+
+  to{
+    background-position:200% 0;
+  }
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
 
 .summary{
   display:none;
+
   align-items:center;
+
   gap:18px;
+
   font-size:13px;
+
   color:var(--muted);
+
   margin-bottom:18px;
+
   flex-wrap:wrap;
 }
 
 .summary.active{
   display:flex;
+
+  animation:
+    summaryEntrance .5s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes summaryEntrance{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.summary > span{
+  animation:
+    statEntrance .45s cubic-bezier(.22,1,.36,1) both;
+}
+
+.summary > span:nth-child(1){
+  animation-delay:.04s;
+}
+
+.summary > span:nth-child(2){
+  animation-delay:.10s;
+}
+
+.summary > span:nth-child(3){
+  animation-delay:.16s;
+}
+
+@keyframes statEntrance{
+  from{
+    opacity:0;
+    transform:translateX(-8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
 }
 
 .summary b{
@@ -338,24 +846,89 @@ input:focus-visible{
 .summary .dot{
   width:6px;
   height:6px;
+
   border-radius:50%;
+
   display:inline-block;
+
   margin-right:5px;
+
+  animation:
+    dotPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes dotPulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:.65;
+  }
+
+  50%{
+    transform:scale(1.45);
+    opacity:1;
+  }
 }
 
 .summary .copy-btn{
   margin-left:auto;
+
   border:1px solid var(--border);
+
   background:var(--surface);
   color:var(--muted);
+
   border-radius:7px;
+
   padding:6px 12px;
+
   font-size:12.5px;
+
   cursor:pointer;
+
   font-family:inherit;
+
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    transform .2s ease,
+    background-color .2s ease;
 }
 
-/* ========================= GROUPS ========================= */
+.summary .copy-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+  transform:translateY(-1px);
+}
+
+.summary .copy-btn:active{
+  transform:scale(.95);
+}
+
+.summary .copy-btn.copied{
+  color:var(--ok);
+  border-color:var(--ok);
+  animation:
+    copiedPop .35s ease;
+}
+
+@keyframes copiedPop{
+  0%{
+    transform:scale(.92);
+  }
+
+  60%{
+    transform:scale(1.06);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+}
+
+
+/* =========================================================
+   GROUPS
+========================================================= */
 
 section.group{
   margin-bottom:30px;
@@ -365,92 +938,237 @@ section.group{
   font-size:13px;
   font-weight:600;
   color:var(--muted);
+
   margin:0 0 12px;
+
+  animation:
+    titleSlide .5s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes titleSlide{
+  from{
+    opacity:0;
+    transform:translateX(-10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
 }
 
 .empty{
   border:1px dashed var(--border);
+
   border-radius:12px;
+
   padding:40px 20px;
+
   text-align:center;
+
   color:var(--muted);
+
   font-size:13.5px;
   line-height:1.6;
+
+  animation:
+    emptyEntrance .55s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes emptyEntrance{
+  from{
+    opacity:0;
+    transform:scale(.97);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
 .empty b{
   color:var(--text);
+
   display:block;
+
   margin-bottom:4px;
+
   font-size:14.5px;
 }
 
-/* ========================= RESULT CARDS ========================= */
+
+/* =========================================================
+   RESULTS
+========================================================= */
 
 .hits{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(min(300px,100%),1fr)
+    );
+
   gap:12px;
 }
 
 .card{
   background:var(--surface);
+
   border:1px solid var(--border);
+
   border-left:3px solid var(--ok);
+
   border-radius:10px;
+
   padding:16px;
+
   min-width:0;
-  animation:rise .35s ease both;
+
+  opacity:0;
+
+  animation:
+    resultEntrance
+    .55s
+    cubic-bezier(.22,1,.36,1)
+    forwards;
+
+  transition:
+    transform .3s cubic-bezier(.22,1,.36,1),
+    border-color .25s ease,
+    box-shadow .3s ease,
+    background-color .3s ease;
 }
 
-@keyframes rise{
+.card:nth-child(1){animation-delay:.03s}
+.card:nth-child(2){animation-delay:.09s}
+.card:nth-child(3){animation-delay:.15s}
+.card:nth-child(4){animation-delay:.21s}
+.card:nth-child(5){animation-delay:.27s}
+.card:nth-child(6){animation-delay:.33s}
+.card:nth-child(7){animation-delay:.39s}
+.card:nth-child(8){animation-delay:.45s}
+.card:nth-child(9){animation-delay:.51s}
+.card:nth-child(10){animation-delay:.57s}
+
+@keyframes resultEntrance{
   from{
     opacity:0;
-    transform:translateY(6px);
+
+    transform:
+      translateY(20px)
+      scale(.97);
   }
+
   to{
     opacity:1;
-    transform:translateY(0);
+
+    transform:
+      translateY(0)
+      scale(1);
   }
+}
+
+.card:hover{
+  transform:
+    translateY(-4px);
+
+  border-color:
+    color-mix(
+      in srgb,
+      var(--accent) 38%,
+      var(--border)
+    );
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.14),
+    0 0 0 1px var(--accent-dim);
 }
 
 .card-head{
   display:flex;
+
   align-items:flex-start;
+
   justify-content:space-between;
+
   gap:10px;
+
   margin-bottom:12px;
 }
 
 .card-id{
   display:flex;
+
   gap:10px;
+
   align-items:center;
+
   min-width:0;
 }
 
 .avatar{
   width:34px;
   height:34px;
+
   border-radius:8px;
+
   object-fit:cover;
+
   flex:0 0 34px;
+
   background:var(--surface-2);
+
   border:1px solid var(--border);
+
+  transition:
+    transform .35s cubic-bezier(.22,1,.36,1),
+    border-color .25s ease,
+    box-shadow .3s ease;
+}
+
+.card:hover .avatar{
+  transform:
+    scale(1.08)
+    rotate(2deg);
+
+  border-color:var(--accent);
+
+  box-shadow:
+    0 0 12px var(--accent-dim);
 }
 
 .avatar-fallback{
   width:34px;
   height:34px;
+
   border-radius:8px;
+
   background:var(--surface-2);
+
   border:1px solid var(--border);
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   font-weight:600;
+
   color:var(--muted);
+
   flex:0 0 34px;
+
+  transition:
+    transform .35s ease,
+    border-color .25s ease;
+}
+
+.card:hover .avatar-fallback{
+  transform:scale(1.08);
+  border-color:var(--accent);
 }
 
 .card-src{
@@ -469,22 +1187,52 @@ section.group{
 
 .inspect-btn{
   border:1px solid var(--border);
+
   background:transparent;
+
   color:var(--faint);
+
   border-radius:6px;
+
   width:28px;
   height:28px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   cursor:pointer;
+
   flex:0 0 28px;
+
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    background-color .2s ease,
+    transform .25s cubic-bezier(.22,1,.36,1);
+}
+
+.inspect-btn:hover{
+  color:var(--text);
+  border-color:var(--accent);
+  background:var(--accent-dim);
+
+  transform:
+    rotate(8deg)
+    scale(1.06);
+}
+
+.inspect-btn:active{
+  transform:scale(.9);
 }
 
 .card-title{
   font-size:14.5px;
   font-weight:600;
+
   margin-bottom:1px;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -492,151 +1240,307 @@ section.group{
 
 .card-handle{
   font-size:12.5px;
+
   color:var(--accent);
+
   font-family:'IBM Plex Mono',monospace;
+
   margin-bottom:10px;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
 .card-bio{
   font-size:12.5px;
+
   color:var(--muted);
+
   line-height:1.55;
+
   margin-bottom:10px;
+
   display:-webkit-box;
+
   -webkit-line-clamp:3;
   -webkit-box-orient:vertical;
+
   overflow:hidden;
 }
 
 .badges{
   display:flex;
+
   flex-wrap:wrap;
+
   gap:5px;
+
   margin-bottom:10px;
 }
 
 .badge{
   font-size:10.5px;
+
   background:var(--surface-2);
+
   border:1px solid var(--border);
+
   color:var(--muted);
+
   padding:2px 7px;
+
   border-radius:5px;
+
   font-family:'IBM Plex Mono',monospace;
+
   max-width:100%;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
+
+  transition:
+    transform .25s ease,
+    border-color .2s ease,
+    color .2s ease,
+    background-color .2s ease;
+}
+
+.card:hover .badge{
+  border-color:
+    color-mix(
+      in srgb,
+      var(--accent) 35%,
+      var(--border)
+    );
+}
+
+.badge:hover{
+  transform:translateY(-2px);
+  color:var(--text);
+  background:var(--accent-dim);
 }
 
 .metrics{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(70px,1fr)
+    );
+
   gap:6px;
+
   margin-bottom:10px;
 }
 
 .metric{
   background:var(--surface-2);
+
   border:1px solid var(--border);
+
   border-radius:7px;
+
   padding:6px 8px;
+
   text-align:center;
+
   min-width:0;
+
+  transition:
+    transform .25s cubic-bezier(.22,1,.36,1),
+    border-color .25s ease,
+    background-color .25s ease;
+}
+
+.metric:hover{
+  transform:translateY(-3px);
+
+  border-color:var(--accent);
+
+  background:var(--accent-dim);
 }
 
 .metric .v{
   font-family:'IBM Plex Mono',monospace;
+
   font-size:13px;
+
   font-weight:600;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
 }
 
 .metric .l{
   font-size:9.5px;
+
   color:var(--faint);
+
   margin-top:1px;
 }
 
 .clublist{
   display:flex;
+
   flex-direction:column;
+
   gap:4px;
+
   margin-bottom:10px;
 }
 
 .clublist a{
   display:flex;
+
   align-items:center;
+
   gap:6px;
+
   font-size:11.5px;
+
   color:var(--text);
+
   background:var(--surface-2);
+
   border:1px solid var(--border);
+
   border-radius:6px;
+
   padding:4px 7px;
+
   min-width:0;
+
+  transition:
+    transform .25s ease,
+    border-color .2s ease,
+    background-color .2s ease;
 }
 
-.clublist a span{
-  overflow:hidden;
-  text-overflow:ellipsis;
+.clublist a:hover{
+  transform:translateX(4px);
+
+  border-color:var(--accent);
+
+  background:var(--accent-dim);
 }
 
 .clublist img{
   width:16px;
   height:16px;
+
   border-radius:4px;
+
   flex:0 0 16px;
 }
 
 .card-foot{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:10px;
+
   padding-top:10px;
+
   border-top:1px solid var(--border);
+
   min-width:0;
 }
 
 .card-foot .open{
   font-size:12px;
   font-weight:600;
+
   white-space:nowrap;
+
+  transition:
+    transform .2s ease,
+    color .2s ease;
+}
+
+.card-foot .open:hover{
+  transform:translateX(3px);
 }
 
 .card-foot .id{
   font-size:11px;
+
   color:var(--faint);
+
   font-family:'IBM Plex Mono',monospace;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
-/* ========================= MISSES ========================= */
+
+/* =========================================================
+   MISSES
+========================================================= */
 
 details.misses{
   border:1px solid var(--border);
+
   border-radius:10px;
+
   overflow:hidden;
+
   background:var(--surface);
+
+  animation:
+    detailsEntrance .5s .15s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes detailsEntrance{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 details.misses summary{
   list-style:none;
+
   cursor:pointer;
+
   padding:12px 16px;
+
   font-size:13px;
+
   color:var(--muted);
+
   display:flex;
+
   justify-content:space-between;
+
   gap:12px;
+
+  transition:
+    background-color .25s ease,
+    color .2s ease;
+}
+
+details.misses summary:hover{
+  color:var(--text);
+  background:var(--surface-2);
 }
 
 details.misses summary::-webkit-details-marker{
@@ -644,7 +1548,9 @@ details.misses summary::-webkit-details-marker{
 }
 
 details.misses summary .chev{
-  transition:transform .15s ease;
+  transition:
+    transform .25s cubic-bezier(.22,1,.36,1);
+
   color:var(--faint);
 }
 
@@ -654,26 +1560,66 @@ details.misses[open] summary .chev{
 
 .miss-row{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:12px;
+
   padding:8px 16px;
+
   font-size:12.5px;
+
   border-top:1px solid var(--border);
+
+  animation:
+    missRow .3s ease both;
+}
+
+details.misses[open] .miss-row:nth-child(2){
+  animation-delay:.03s;
+}
+
+details.misses[open] .miss-row:nth-child(3){
+  animation-delay:.06s;
+}
+
+details.misses[open] .miss-row:nth-child(4){
+  animation-delay:.09s;
+}
+
+@keyframes missRow{
+  from{
+    opacity:0;
+    transform:translateX(-8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
 }
 
 .miss-row .n{
   color:var(--muted);
+
   min-width:0;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
 }
 
 .miss-row .s{
   font-family:'IBM Plex Mono',monospace;
+
   font-size:11px;
+
   padding:1px 6px;
+
   border-radius:4px;
+
   flex:0 0 auto;
 }
 
@@ -687,99 +1633,207 @@ details.misses[open] summary .chev{
   background:var(--err-dim);
 }
 
-/* ========================= MODAL ========================= */
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal-bg{
   position:fixed;
+
   inset:0;
+
   background:rgba(0,0,0,.6);
+
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+
   display:none;
+
   align-items:center;
   justify-content:center;
+
   padding:20px;
+
   z-index:50;
+
+  opacity:0;
 }
 
 .modal-bg.open{
   display:flex;
+
+  animation:
+    modalBackground .3s ease forwards;
+}
+
+@keyframes modalBackground{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
 }
 
 .modal{
   background:var(--surface);
+
   border:1px solid var(--border);
+
   border-radius:12px;
+
   max-width:640px;
+
   width:100%;
+
   max-height:80vh;
+
   display:flex;
+
   flex-direction:column;
+
   overflow:hidden;
+
+  transform:
+    translateY(18px)
+    scale(.96);
+
+  animation:
+    modalEntrance .35s cubic-bezier(.22,1,.36,1) forwards;
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.3);
+}
+
+@keyframes modalEntrance{
+  to{
+    transform:
+      translateY(0)
+      scale(1);
+  }
 }
 
 .modal-head{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:10px;
+
   padding:14px 16px;
+
   border-bottom:1px solid var(--border);
 }
 
 .modal-head h3{
   margin:0;
+
   font-size:13.5px;
+
   font-weight:600;
+
   min-width:0;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
 .modal-head button{
   border:none;
+
   background:transparent;
+
   color:var(--muted);
+
   cursor:pointer;
+
   font-size:16px;
-  flex:0 0 auto;
+
+  transition:
+    color .2s ease,
+    transform .25s ease;
+}
+
+.modal-head button:hover{
+  color:var(--text);
+
+  transform:
+    rotate(90deg)
+    scale(1.1);
 }
 
 .modal-body{
   padding:14px 16px;
+
   overflow:auto;
+
   font-family:'IBM Plex Mono',monospace;
+
   font-size:11.5px;
+
   color:var(--ok);
+
   white-space:pre-wrap;
+
   word-break:break-all;
+
   background:var(--surface-2);
 }
 
 .modal-foot{
   padding:10px 16px;
+
   border-top:1px solid var(--border);
+
   display:flex;
+
   justify-content:flex-end;
 }
 
 .modal-foot button{
   border:1px solid var(--border);
+
   background:var(--surface-2);
+
   color:var(--text);
+
   border-radius:7px;
+
   padding:7px 14px;
+
   font-size:12.5px;
+
   cursor:pointer;
+
   font-family:inherit;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background-color .2s ease;
 }
 
-.hidden{
-  display:none !important;
+.modal-foot button:hover{
+  border-color:var(--accent);
+
+  background:var(--accent-dim);
+
+  transform:translateY(-1px);
 }
 
-/* ========================= TABLET ========================= */
 
-@media (max-width:760px){
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:760px){
 
   .wrap{
     padding-left:16px;
@@ -808,11 +1862,10 @@ details.misses[open] summary .chev{
   .theme-btn{
     min-width:88px;
   }
+
 }
 
-/* ========================= PHONE ========================= */
-
-@media (max-width:520px){
+@media(max-width:520px){
 
   .wrap{
     padding-left:12px;
@@ -836,7 +1889,6 @@ details.misses[open] summary .chev{
 
   .brand .name{
     font-size:18px;
-    letter-spacing:-.2px;
   }
 
   .theme-btn{
@@ -884,11 +1936,10 @@ details.misses[open] summary .chev{
   .modal{
     max-height:88vh;
   }
+
 }
 
-/* ========================= VERY SMALL PHONES ========================= */
-
-@media (max-width:360px){
+@media(max-width:360px){
 
   .wrap{
     padding-left:10px;
@@ -924,13 +1975,24 @@ details.misses[open] summary .chev{
     padding:14px;
   }
 
-  .search-card h1{
-    font-size:18px;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
   }
 
-  .search-card p.sub{
-    font-size:13px;
-  }
 }
 
 </style>
@@ -939,33 +2001,57 @@ details.misses[open] summary .chev{
 <body>
 
 <header>
+
   <div class="wrap header-row">
 
     <div class="brand">
-      <img src="logo.png" class="brand-logo" alt="Argus OSINT logo">
+
+      <img
+        src="logo.png"
+        class="brand-logo"
+        alt="Argus OSINT logo"
+      >
 
       <div class="brand-text">
-        <span class="name">Argus OSINT</span>
-        <span class="tag">public profile lookup</span>
+
+        <span class="name">
+          Argus OSINT
+        </span>
+
+        <span class="tag">
+          public profile lookup
+        </span>
+
       </div>
+
     </div>
 
-    <button class="theme-btn" id="themeBtn">Light mode</button>
+    <button
+      class="theme-btn"
+      id="themeBtn"
+    >
+      Light mode
+    </button>
 
   </div>
+
 </header>
+
 
 <main class="wrap">
 
-  <section class="search-card">
+  <section class="search-card" id="searchCard">
 
-    <h1>Look up a handle</h1>
+    <h1>
+      Look up a handle
+    </h1>
 
     <p class="sub">
       Search for publicly available profile information and explore matching accounts.
     </p>
 
     <form id="searchForm">
+
       <input
         type="text"
         id="usernameInput"
@@ -974,52 +2060,104 @@ details.misses[open] summary .chev{
         autocomplete="off"
       >
 
-      <button type="submit" id="searchBtn">Check</button>
+      <button
+        type="submit"
+        id="searchBtn"
+      >
+        Check
+      </button>
+
     </form>
 
-    <div class="progress" id="progressContainer">
+    <div
+      class="progress"
+      id="progressContainer"
+    >
 
       <div class="progress-line">
-        <span id="progressText">Querying sources…</span>
-        <span id="progressPercent">0%</span>
+
+        <span id="progressText">
+          Querying sources…
+        </span>
+
+        <span id="progressPercent">
+          0%
+        </span>
+
       </div>
 
       <div class="progress-track">
-        <div class="progress-fill" id="progressBar"></div>
+
+        <div
+          class="progress-fill"
+          id="progressBar"
+        ></div>
+
       </div>
 
     </div>
 
   </section>
 
-  <div class="summary" id="summary">
+
+  <div
+    class="summary"
+    id="summary"
+  >
 
     <span>
-      <span class="dot" style="background:var(--ok)"></span>
-      <b id="statFound">0</b> matched
+      <span
+        class="dot"
+        style="background:var(--ok)"
+      ></span>
+
+      <b id="statFound">0</b>
+      matched
     </span>
 
     <span>
-      <span class="dot" style="background:var(--faint)"></span>
-      <b id="statNotFound">0</b> no record
+      <span
+        class="dot"
+        style="background:var(--faint)"
+      ></span>
+
+      <b id="statNotFound">0</b>
+      no record
     </span>
 
     <span>
-      <span class="dot" style="background:var(--err)"></span>
-      <b id="statErrors">0</b> blocked / errored
+      <span
+        class="dot"
+        style="background:var(--err)"
+      ></span>
+
+      <b id="statErrors">0</b>
+      blocked / errored
     </span>
 
-    <button class="copy-btn" id="copySummaryBtn">
+    <button
+      class="copy-btn"
+      id="copySummaryBtn"
+    >
       Copy results
     </button>
 
   </div>
 
-  <section class="group" id="resultsSection">
 
-    <div class="empty" id="emptyState">
+  <section
+    class="group"
+    id="resultsSection"
+  >
 
-      <b>No lookup run yet</b>
+    <div
+      class="empty"
+      id="emptyState"
+    >
+
+      <b>
+        No lookup run yet
+      </b>
 
       Enter a handle above and press Check to search for public profiles.
 
@@ -1029,20 +2167,33 @@ details.misses[open] summary .chev{
 
 </main>
 
-<div class="modal-bg" id="jsonModal">
+
+<div
+  class="modal-bg"
+  id="jsonModal"
+>
 
   <div class="modal">
 
     <div class="modal-head">
 
-      <h3 id="modalTitle">Raw response</h3>
+      <h3 id="modalTitle">
+        Raw response
+      </h3>
 
-      <button id="closeModalBtn">✕</button>
+      <button id="closeModalBtn">
+        ✕
+      </button>
 
     </div>
 
     <div class="modal-body">
-      <pre id="modalJsonContent" style="margin:0;"></pre>
+
+      <pre
+        id="modalJsonContent"
+        style="margin:0;"
+      ></pre>
+
     </div>
 
     <div class="modal-foot">
@@ -1057,9 +2208,12 @@ details.misses[open] summary .chev{
 
 </div>
 
+
 <script>
 
-/* ========================= TARGET ENDPOINTS ========================= */
+/* =========================================================
+   TARGET ENDPOINTS
+========================================================= */
 
 const TARGET_ENDPOINTS = [
 
@@ -1068,229 +2222,331 @@ const TARGET_ENDPOINTS = [
     name:'Pronouns.page',
     category:'Identity',
 
-    fetch: async (user)=>
+    fetch:async user =>
       fetchUrl(
         `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || !data.profiles) return null;
+      if(!data || !data.profiles)
+        return null;
 
       const en =
         data.profiles.en ||
         Object.values(data.profiles)[0];
 
-      if(!en) return null;
+      if(!en)
+        return null;
 
       const names =
-        (en.names||[])
-          .map(n=>typeof n==='string' ? n : n.value||n.name)
+        (en.names || [])
+          .map(
+            n =>
+              typeof n === 'string'
+                ? n
+                : n.value || n.name
+          )
           .filter(Boolean);
 
       const pronouns =
-        (en.pronouns||[])
-          .map(p=>typeof p==='string' ? p : p.value||p.pronoun)
+        (en.pronouns || [])
+          .map(
+            p =>
+              typeof p === 'string'
+                ? p
+                : p.value || p.pronoun
+          )
           .filter(Boolean);
 
       const links =
-        (en.links||[])
-          .map(l=>typeof l==='string' ? l : l.href||l.link)
+        (en.links || [])
+          .map(
+            l =>
+              typeof l === 'string'
+                ? l
+                : l.href || l.link
+          )
           .filter(Boolean);
 
       return {
-        avatar:data.avatar||null,
-        title:names[0] || data.username,
-        handle:`@${data.username}`,
-        bio:en.bio||'',
-        badges:pronouns,
+
+        avatar:data.avatar || null,
+
+        title:
+          names[0] ||
+          data.username,
+
+        handle:
+          `@${data.username}`,
+
+        bio:
+          en.bio || '',
+
+        badges:
+          pronouns,
+
         metrics:[
-          {l:'Names',v:names.length},
-          {l:'Pronouns',v:pronouns.length}
+          {
+            l:'Names',
+            v:names.length
+          },
+          {
+            l:'Pronouns',
+            v:pronouns.length
+          }
         ],
+
         links,
-        profileUrl:`https://pronouns.page/@${data.username}`
+
+        profileUrl:
+          `https://pronouns.page/@${data.username}`
+
       };
 
     }
+
   },
+
 
   {
     id:'chess_com',
     name:'Chess.com',
     category:'Gaming',
 
-    fetch:async(user)=>{
+    fetch:async user => {
 
       const base =
         `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
 
-      const profileRes = await fetchUrl(base);
+      const profileRes =
+        await fetchUrl(base);
 
-      if(profileRes.status!==200)
+      if(profileRes.status !== 200)
         return profileRes;
 
       const [statsRes,clubsRes] =
         await Promise.allSettled([
 
           fetchUrl(`${base}/stats`),
+
           fetchUrl(`${base}/clubs`)
 
         ]);
 
       return {
+
         status:200,
 
         data:{
-          profile:profileRes.data,
+
+          profile:
+            profileRes.data,
 
           stats:
-            statsRes.status==='fulfilled' &&
-            statsRes.value.status===200
+            statsRes.status === 'fulfilled' &&
+            statsRes.value.status === 200
               ? statsRes.value.data
               : null,
 
           clubs:
-            clubsRes.status==='fulfilled' &&
-            clubsRes.value.status===200
+            clubsRes.status === 'fulfilled' &&
+            clubsRes.value.status === 200
               ? clubsRes.value.data.clubs
               : []
+
         }
+
       };
 
     },
 
-    parse:(payload)=>{
+    parse:payload => {
 
       if(
         !payload ||
         !payload.profile ||
         !payload.profile.username
-      ) return null;
+      )
+        return null;
 
-      const p = payload.profile;
-      const s = payload.stats||{};
-      const clubs = payload.clubs||[];
+      const p =
+        payload.profile;
+
+      const s =
+        payload.stats || {};
+
+      const clubs =
+        payload.clubs || [];
 
       return {
 
         avatar:p.avatar,
 
-        title:p.name || p.username,
+        title:
+          p.name ||
+          p.username,
 
-        handle:`@${p.username}`,
+        handle:
+          `@${p.username}`,
 
         bio:
-          `Joined ${new Date(p.joined*1000).toLocaleDateString()} · last online ${new Date(p.last_online*1000).toLocaleDateString()}`,
+          `Joined ${new Date(p.joined * 1000).toLocaleDateString()} · last online ${new Date(p.last_online * 1000).toLocaleDateString()}`,
 
         badges:[
-          p.title ? `Title: ${p.title}` : null,
+          p.title
+            ? `Title: ${p.title}`
+            : null,
+
           p.location
+
         ].filter(Boolean),
 
         metrics:[
+
           {
             l:'Blitz',
-            v:s.chess_blitz
-              ? s.chess_blitz.last.rating
-              : '—'
+            v:
+              s.chess_blitz
+                ? s.chess_blitz.last.rating
+                : '—'
           },
 
           {
             l:'Rapid',
-            v:s.chess_rapid
-              ? s.chess_rapid.last.rating
-              : '—'
+            v:
+              s.chess_rapid
+                ? s.chess_rapid.last.rating
+                : '—'
           },
 
           {
             l:'Bullet',
-            v:s.chess_bullet
-              ? s.chess_bullet.last.rating
-              : '—'
+            v:
+              s.chess_bullet
+                ? s.chess_bullet.last.rating
+                : '—'
           },
 
           {
             l:'Followers',
             v:p.followers
           }
+
         ],
 
         clubs:
-          clubs.slice(0,4)
-            .map(c=>({
-              name:c.name,
-              icon:c.icon,
-              url:c.url
-            })),
+          clubs
+            .slice(0,4)
+            .map(
+              c => ({
+                name:c.name,
+                icon:c.icon,
+                url:c.url
+              })
+            ),
 
-        links:[p.url],
+        links:[
+          p.url
+        ],
 
-        profileUrl:p.url
+        profileUrl:
+          p.url
 
       };
 
     }
+
   },
+
 
   {
     id:'lichess',
     name:'Lichess',
     category:'Gaming',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://lichess.org/api/user/${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || data.error || !data.id)
+      if(
+        !data ||
+        data.error ||
+        !data.id
+      )
         return null;
 
-      const perf=data.perfs||{};
+      const perf =
+        data.perfs || {};
 
       return {
 
         avatar:null,
 
-        title:data.username,
+        title:
+          data.username,
 
         handle:
           data.title
             ? `[${data.title}] @${data.id}`
             : `@${data.id}`,
 
-        bio:data.bio||'',
+        bio:
+          data.bio || '',
 
         badges:[
-          data.online ? 'Online' : 'Offline',
-          data.patron ? 'Patron' : null
+          data.online
+            ? 'Online'
+            : 'Offline',
+
+          data.patron
+            ? 'Patron'
+            : null
+
         ].filter(Boolean),
 
         metrics:[
+
           {
             l:'Blitz',
-            v:perf.blitz ? perf.blitz.rating : '—'
+            v:
+              perf.blitz
+                ? perf.blitz.rating
+                : '—'
           },
 
           {
             l:'Rapid',
-            v:perf.rapid ? perf.rapid.rating : '—'
+            v:
+              perf.rapid
+                ? perf.rapid.rating
+                : '—'
           },
 
           {
             l:'Puzzles',
-            v:perf.puzzle ? perf.puzzle.rating : '—'
+            v:
+              perf.puzzle
+                ? perf.puzzle.rating
+                : '—'
           },
 
           {
             l:'Games',
-            v:data.count ? data.count.all : 0
+            v:
+              data.count
+                ? data.count.all
+                : 0
           }
+
         ],
 
-        links:[data.url],
+        links:[
+          data.url
+        ],
 
         profileUrl:
           data.url ||
@@ -1299,35 +2555,43 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'github',
     name:'GitHub',
     category:'Developer',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://api.github.com/users/${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
       if(
         !data ||
-        data.message==='Not Found' ||
+        data.message === 'Not Found' ||
         !data.login
-      ) return null;
+      )
+        return null;
 
       return {
 
-        avatar:data.avatar_url,
+        avatar:
+          data.avatar_url,
 
-        title:data.name || data.login,
+        title:
+          data.name ||
+          data.login,
 
-        handle:`@${data.login}`,
+        handle:
+          `@${data.login}`,
 
-        bio:data.bio||'',
+        bio:
+          data.bio || '',
 
         badges:[
           data.company,
@@ -1335,9 +2599,20 @@ const TARGET_ENDPOINTS = [
         ].filter(Boolean),
 
         metrics:[
-          {l:'Repos',v:data.public_repos},
-          {l:'Followers',v:data.followers},
-          {l:'Gists',v:data.public_gists}
+          {
+            l:'Repos',
+            v:data.public_repos
+          },
+
+          {
+            l:'Followers',
+            v:data.followers
+          },
+
+          {
+            l:'Gists',
+            v:data.public_gists
+          }
         ],
 
         links:
@@ -1349,44 +2624,58 @@ const TARGET_ENDPOINTS = [
               ]
             : [],
 
-        profileUrl:data.html_url
+        profileUrl:
+          data.html_url
 
       };
 
     }
+
   },
+
 
   {
     id:'gravatar',
     name:'Gravatar',
     category:'Identity',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://en.gravatar.com/${encodeURIComponent(user)}.json`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || !data.entry || !data.entry[0])
+      if(
+        !data ||
+        !data.entry ||
+        !data.entry[0]
+      )
         return null;
 
-      const e=data.entry[0];
+      const e =
+        data.entry[0];
 
       const urls =
-        (e.urls||[]).map(u=>u.value);
+        (e.urls || [])
+          .map(
+            u => u.value
+          );
 
       return {
 
-        avatar:e.thumbnailUrl,
+        avatar:
+          e.thumbnailUrl,
 
         title:
           e.displayName ||
           e.preferredUsername,
 
-        handle:`@${e.preferredUsername}`,
+        handle:
+          `@${e.preferredUsername}`,
 
-        bio:e.aboutMe||'',
+        bio:
+          e.aboutMe || '',
 
         badges:[
           e.currentLocation
@@ -1395,16 +2684,21 @@ const TARGET_ENDPOINTS = [
         metrics:[
           {
             l:'Accounts',
-            v:e.accounts ? e.accounts.length : 0
+            v:
+              e.accounts
+                ? e.accounts.length
+                : 0
           },
 
           {
             l:'URLs',
-            v:urls.length
+            v:
+              urls.length
           }
         ],
 
-        links:urls,
+        links:
+          urls,
 
         profileUrl:
           e.profileUrl ||
@@ -1413,34 +2707,45 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'keybase',
     name:'Keybase',
     category:'Security',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || !data.them || !data.them[0])
+      if(
+        !data ||
+        !data.them ||
+        !data.them[0]
+      )
         return null;
 
-      const u=data.them[0];
+      const u =
+        data.them[0];
 
-      if(!u.id) return null;
+      if(!u.id)
+        return null;
 
       const proofs =
         (
           u.proofs_summary
-            ? u.proofs_summary.all||[]
+            ? u.proofs_summary.all || []
             : []
         )
-        .map(p=>`${p.proof_type}: ${p.nametag}`);
+        .map(
+          p =>
+            `${p.proof_type}: ${p.nametag}`
+        );
 
       return {
 
@@ -1452,17 +2757,20 @@ const TARGET_ENDPOINTS = [
 
         title:
           u.profile
-            ? u.profile.full_name || u.basics.username
+            ? u.profile.full_name ||
+              u.basics.username
             : u.basics.username,
 
-        handle:`@${u.basics.username}`,
+        handle:
+          `@${u.basics.username}`,
 
         bio:
           u.profile
             ? u.profile.bio
             : '',
 
-        badges:proofs.slice(0,4),
+        badges:
+          proofs.slice(0,4),
 
         metrics:[
           {
@@ -1472,9 +2780,10 @@ const TARGET_ENDPOINTS = [
 
           {
             l:'Devices',
-            v:u.devices
-              ? Object.keys(u.devices).length
-              : 0
+            v:
+              u.devices
+                ? Object.keys(u.devices).length
+                : 0
           }
         ],
 
@@ -1486,27 +2795,31 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'reddit',
     name:'Reddit',
     category:'Social',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
       if(
         !data ||
         !data.data ||
-        data.error===404
-      ) return null;
+        data.error === 404
+      )
+        return null;
 
-      const u=data.data;
+      const u =
+        data.data;
 
       return {
 
@@ -1517,10 +2830,12 @@ const TARGET_ENDPOINTS = [
 
         title:
           u.subreddit
-            ? u.subreddit.title || u.name
+            ? u.subreddit.title ||
+              u.name
             : u.name,
 
-        handle:`u/${u.name}`,
+        handle:
+          `u/${u.name}`,
 
         bio:
           u.subreddit
@@ -1528,9 +2843,18 @@ const TARGET_ENDPOINTS = [
             : '',
 
         badges:[
-          u.is_gold ? 'Gold' : null,
-          u.is_mod ? 'Moderator' : null,
-          u.has_verified_email ? 'Verified email' : null
+          u.is_gold
+            ? 'Gold'
+            : null,
+
+          u.is_mod
+            ? 'Moderator'
+            : null,
+
+          u.has_verified_email
+            ? 'Verified email'
+            : null
+
         ].filter(Boolean),
 
         metrics:[
@@ -1546,9 +2870,10 @@ const TARGET_ENDPOINTS = [
 
           {
             l:'Since',
-            v:new Date(
-              u.created_utc*1000
-            ).getFullYear()
+            v:
+              new Date(
+                u.created_utc * 1000
+              ).getFullYear()
           }
         ],
 
@@ -1560,30 +2885,36 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'pronouns_cc',
     name:'Pronouns.cc',
     category:'Identity',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
       if(
         !data ||
         (!data.username && !data.members)
-      ) return null;
+      )
+        return null;
 
       return {
 
-        avatar:data.avatar_url,
+        avatar:
+          data.avatar_url,
 
-        title:data.username || 'System',
+        title:
+          data.username ||
+          'System',
 
         handle:
           data.id
@@ -1603,13 +2934,15 @@ const TARGET_ENDPOINTS = [
         metrics:[
           {
             l:'Members',
-            v:data.members
-              ? data.members.length
-              : 0
+            v:
+              data.members
+                ? data.members.length
+                : 0
           }
         ],
 
-        links:data.links||[],
+        links:
+          data.links || [],
 
         profileUrl:
           `https://pronouns.cc/p/${data.username}`
@@ -1617,35 +2950,42 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'hackernews',
     name:'Hacker News',
     category:'Community',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || !data.id)
+      if(
+        !data ||
+        !data.id
+      )
         return null;
 
       return {
 
         avatar:null,
 
-        title:data.id,
+        title:
+          data.id,
 
         handle:
           `since ${new Date(
-            data.created*1000
+            data.created * 1000
           ).getFullYear()}`,
 
-        bio:data.about||'',
+        bio:
+          data.about || '',
 
         badges:[],
 
@@ -1657,9 +2997,10 @@ const TARGET_ENDPOINTS = [
 
           {
             l:'Posts',
-            v:data.submitted
-              ? data.submitted.length
-              : 0
+            v:
+              data.submitted
+                ? data.submitted.length
+                : 0
           }
         ],
 
@@ -1671,34 +3012,42 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   },
+
 
   {
     id:'dev_to',
     name:'Dev.to',
     category:'Developer',
 
-    fetch:async(user)=>
+    fetch:async user =>
       fetchUrl(
         `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`
       ),
 
-    parse:(data)=>{
+    parse:data => {
 
-      if(!data || !data.username)
+      if(
+        !data ||
+        !data.username
+      )
         return null;
 
       return {
 
-        avatar:data.profile_image,
+        avatar:
+          data.profile_image,
 
         title:
           data.name ||
           data.username,
 
-        handle:`@${data.username}`,
+        handle:
+          `@${data.username}`,
 
-        bio:data.summary||'',
+        bio:
+          data.summary || '',
 
         badges:[
           data.location
@@ -1707,17 +3056,20 @@ const TARGET_ENDPOINTS = [
         metrics:[
           {
             l:'Joined',
-            v:data.joined_at
-              ? data.joined_at.split(' ')[0]
-              : '—'
+            v:
+              data.joined_at
+                ? data.joined_at.split(' ')[0]
+                : '—'
           }
         ],
 
         links:[
           data.website_url,
+
           data.github_username
             ? `https://github.com/${data.github_username}`
             : null
+
         ].filter(Boolean),
 
         profileUrl:
@@ -1726,11 +3078,15 @@ const TARGET_ENDPOINTS = [
       };
 
     }
+
   }
 
 ];
 
-/* ========================= NETWORK ========================= */
+
+/* =========================================================
+   NETWORK
+========================================================= */
 
 async function fetchUrl(url){
 
@@ -1747,10 +3103,12 @@ async function fetchUrl(url){
       );
 
     if(!res.ok){
+
       return {
         status:res.status,
         data:null
       };
+
     }
 
     return {
@@ -1769,102 +3127,206 @@ async function fetchUrl(url){
 
 }
 
-/* ========================= UI ========================= */
+
+/* =========================================================
+   UI
+========================================================= */
 
 const searchForm =
-  document.getElementById('searchForm');
+  document.getElementById(
+    'searchForm'
+  );
 
 const usernameInput =
-  document.getElementById('usernameInput');
+  document.getElementById(
+    'usernameInput'
+  );
 
 const searchBtn =
-  document.getElementById('searchBtn');
+  document.getElementById(
+    'searchBtn'
+  );
+
+const searchCard =
+  document.getElementById(
+    'searchCard'
+  );
 
 const progressContainer =
-  document.getElementById('progressContainer');
+  document.getElementById(
+    'progressContainer'
+  );
 
 const progressBar =
-  document.getElementById('progressBar');
+  document.getElementById(
+    'progressBar'
+  );
 
 const progressText =
-  document.getElementById('progressText');
+  document.getElementById(
+    'progressText'
+  );
 
 const progressPercent =
-  document.getElementById('progressPercent');
+  document.getElementById(
+    'progressPercent'
+  );
 
 const summary =
-  document.getElementById('summary');
+  document.getElementById(
+    'summary'
+  );
 
 const statFound =
-  document.getElementById('statFound');
+  document.getElementById(
+    'statFound'
+  );
 
 const statNotFound =
-  document.getElementById('statNotFound');
+  document.getElementById(
+    'statNotFound'
+  );
 
 const statErrors =
-  document.getElementById('statErrors');
+  document.getElementById(
+    'statErrors'
+  );
 
 const resultsSection =
-  document.getElementById('resultsSection');
+  document.getElementById(
+    'resultsSection'
+  );
 
 const emptyState =
-  document.getElementById('emptyState');
+  document.getElementById(
+    'emptyState'
+  );
 
 const copySummaryBtn =
-  document.getElementById('copySummaryBtn');
+  document.getElementById(
+    'copySummaryBtn'
+  );
 
 const jsonModal =
-  document.getElementById('jsonModal');
+  document.getElementById(
+    'jsonModal'
+  );
 
 const modalTitle =
-  document.getElementById('modalTitle');
+  document.getElementById(
+    'modalTitle'
+  );
 
 const modalJsonContent =
-  document.getElementById('modalJsonContent');
+  document.getElementById(
+    'modalJsonContent'
+  );
 
 let currentResults=[];
 let rawModalJSON=null;
 
-/* ========================= ESCAPE ========================= */
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
 
 function esc(str){
 
-  if(typeof str!=='string')
+  if(typeof str !== 'string')
     return str;
 
   return str.replace(
     /[&<>'"]/g,
-    t=>({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      "'":'&#39;',
-      '"':'&quot;'
-    }[t]||t)
+    t =>
+      ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        "'":'&#39;',
+        '"':'&quot;'
+      }[t] || t)
   );
 
 }
 
-/* ========================= SEARCH ========================= */
+
+/* =========================================================
+   NUMBER ANIMATION
+========================================================= */
+
+function animateNumber(
+  element,
+  target
+){
+
+  const end =
+    Number(target) || 0;
+
+  const startTime =
+    performance.now();
+
+  const duration=650;
+
+  function tick(now){
+
+    const progress =
+      Math.min(
+        (now-startTime)/duration,
+        1
+      );
+
+    const eased =
+      1-Math.pow(
+        1-progress,
+        3
+      );
+
+    element.textContent =
+      Math.round(
+        end*eased
+      );
+
+    if(progress < 1)
+      requestAnimationFrame(tick);
+
+  }
+
+  requestAnimationFrame(tick);
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 searchForm.addEventListener(
   'submit',
-  async e=>{
+  async e => {
 
     e.preventDefault();
 
     const username =
       usernameInput.value.trim();
 
-    if(!username) return;
+    if(!username)
+      return;
 
     currentResults=[];
 
     resultsSection.innerHTML='';
 
-    summary.classList.remove('active');
+    summary.classList.remove(
+      'active'
+    );
 
-    progressContainer.classList.add('active');
+    searchCard.classList.add(
+      'searching'
+    );
+
+    progressContainer.classList.add(
+      'active'
+    );
 
     searchBtn.disabled=true;
 
@@ -1872,7 +3334,8 @@ searchForm.addEventListener(
 
     progressPercent.textContent='0%';
 
-    progressText.textContent='Querying sources…';
+    progressText.textContent=
+      'Querying sources…';
 
     let completed=0;
     let found=0;
@@ -1882,10 +3345,12 @@ searchForm.addEventListener(
     await Promise.allSettled(
 
       TARGET_ENDPOINTS.map(
-        async endpoint=>{
+        async endpoint => {
 
           const res =
-            await endpoint.fetch(username);
+            await endpoint.fetch(
+              username
+            );
 
           let result={
             endpoint,
@@ -1895,34 +3360,43 @@ searchForm.addEventListener(
           };
 
           if(
-            res.status===200 &&
+            res.status === 200 &&
             res.data
           ){
 
             const parsed =
-              endpoint.parse(res.data);
+              endpoint.parse(
+                res.data
+              );
 
             if(parsed){
 
               result.status='found';
+
               result.parsed=parsed;
+
               found++;
 
             }else{
 
               result.status='not_found';
+
               notFound++;
 
             }
 
-          }else if(res.status===404){
+          }else if(
+            res.status === 404
+          ){
 
             result.status='not_found';
+
             notFound++;
 
           }else{
 
             result.status='error';
+
             errored++;
 
           }
@@ -1942,54 +3416,93 @@ searchForm.addEventListener(
           progressPercent.textContent=
             pct+'%';
 
-          progressText.textContent=
-            completed===TARGET_ENDPOINTS.length
+          progressText.textContent =
+            completed === TARGET_ENDPOINTS.length
               ? 'Search complete'
               : `Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
 
-          currentResults.push(result);
+          currentResults.push(
+            result
+          );
 
         }
       )
 
     );
 
-    progressContainer.classList.remove('active');
+    progressBar.style.width='100%';
+
+    progressText.textContent=
+      'Search complete';
+
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          280
+        )
+    );
+
+    progressContainer.classList.remove(
+      'active'
+    );
+
+    searchCard.classList.remove(
+      'searching'
+    );
 
     searchBtn.disabled=false;
 
-    statFound.textContent=found;
+    summary.classList.add(
+      'active'
+    );
 
-    statNotFound.textContent=notFound;
+    animateNumber(
+      statFound,
+      found
+    );
 
-    statErrors.textContent=errored;
+    animateNumber(
+      statNotFound,
+      notFound
+    );
 
-    summary.classList.add('active');
+    animateNumber(
+      statErrors,
+      errored
+    );
 
-    renderResults(username);
+    renderResults(
+      username
+    );
 
   }
 );
 
-/* ========================= RESULTS ========================= */
 
-function renderResults(username){
+/* =========================================================
+   RESULTS
+========================================================= */
+
+function renderResults(
+  username
+){
 
   resultsSection.innerHTML='';
 
   const hits =
     currentResults.filter(
-      r=>r.status==='found'
+      r => r.status === 'found'
     );
 
   const rest =
     currentResults.filter(
-      r=>r.status!=='found'
+      r => r.status !== 'found'
     );
 
   if(
-    hits.length===0 &&
-    rest.length===0
+    hits.length === 0 &&
+    rest.length === 0
   ){
 
     resultsSection.appendChild(
@@ -2003,91 +3516,127 @@ function renderResults(username){
   if(hits.length){
 
     const title =
-      document.createElement('p');
+      document.createElement(
+        'p'
+      );
 
-    title.className='group-title';
+    title.className=
+      'group-title';
 
-    title.textContent=
-      `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
+    title.textContent =
+      `Matched on ${hits.length} source${hits.length === 1 ? '' : 's'}`;
 
     const grid =
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
     grid.className='hits';
 
     hits.forEach(
-      item=>
+      item =>
         grid.appendChild(
           buildCard(item)
         )
     );
 
-    resultsSection.appendChild(title);
+    resultsSection.appendChild(
+      title
+    );
 
-    resultsSection.appendChild(grid);
+    resultsSection.appendChild(
+      grid
+    );
 
   }else{
 
     const none =
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
     none.className='empty';
 
-    none.innerHTML=
+    none.innerHTML =
       `<b>No public match for "${esc(username)}"</b>
        Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
 
-    resultsSection.appendChild(none);
+    resultsSection.appendChild(
+      none
+    );
 
   }
 
   if(rest.length){
 
     const details =
-      document.createElement('details');
+      document.createElement(
+        'details'
+      );
 
-    details.className='misses';
+    details.className=
+      'misses';
 
     const summaryEl =
-      document.createElement('summary');
+      document.createElement(
+        'summary'
+      );
 
-    summaryEl.innerHTML=
-      `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
+    summaryEl.innerHTML =
+      `<span>${rest.length} source${rest.length === 1 ? '' : 's'} with no record or a blocked request</span>
        <span class="chev">›</span>`;
 
-    details.appendChild(summaryEl);
+    details.appendChild(
+      summaryEl
+    );
 
-    rest.forEach(r=>{
+    rest.forEach(
+      r => {
 
-      const row =
-        document.createElement('div');
+        const row =
+          document.createElement(
+            'div'
+          );
 
-      row.className='miss-row';
+        row.className='miss-row';
 
-      row.innerHTML=
-        `<span class="n">${esc(r.endpoint.name)}</span>
-         <span class="s ${r.status==='error'?'er':'nf'}">
-           ${r.status==='error' ? 'blocked' : 'no record'}
-         </span>`;
+        row.innerHTML =
+          `<span class="n">${esc(r.endpoint.name)}</span>
+           <span class="s ${r.status === 'error' ? 'er' : 'nf'}">
+             ${r.status === 'error'
+               ? 'blocked'
+               : 'no record'}
+           </span>`;
 
-      details.appendChild(row);
+        details.appendChild(
+          row
+        );
 
-    });
+      }
+    );
 
-    resultsSection.appendChild(details);
+    resultsSection.appendChild(
+      details
+    );
 
   }
 
 }
 
-/* ========================= PROFILE CARD ========================= */
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
 
 function buildCard(item){
 
-  const p=item.parsed;
+  const p =
+    item.parsed;
 
-  const card=
-    document.createElement('div');
+  const card =
+    document.createElement(
+      'div'
+    );
 
   card.className='card';
 
@@ -2098,41 +3647,50 @@ function buildCard(item){
           class="avatar"
           src="${esc(p.avatar)}"
           alt=""
-          onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title||'?').charAt(0).toUpperCase())}</div>'"
+          onerror="this.outerHTML='<div class=avatar-fallback>${esc((p.title || '?').charAt(0).toUpperCase())}</div>'"
         >`
 
       : `<div class="avatar-fallback">
-          ${esc((p.title||'?').charAt(0).toUpperCase())}
+          ${esc(
+            (p.title || '?')
+              .charAt(0)
+              .toUpperCase()
+          )}
         </div>`;
 
   const badges =
-    (p.badges||[])
+    (p.badges || [])
       .filter(Boolean)
       .map(
-        b=>
+        b =>
           `<span class="badge">
-            ${esc(String(b))}
-          </span>`
+             ${esc(String(b))}
+           </span>`
       )
       .join('');
 
   const metrics =
-    (p.metrics||[])
+    (p.metrics || [])
       .map(
-        m=>
+        m =>
           `<div class="metric">
-            <div class="v">${esc(String(m.v))}</div>
-            <div class="l">${esc(m.l)}</div>
-          </div>`
+             <div class="v">
+               ${esc(String(m.v))}
+             </div>
+
+             <div class="l">
+               ${esc(m.l)}
+             </div>
+           </div>`
       )
       .join('');
 
   const clubs =
-    (p.clubs||[]).length
+    (p.clubs || []).length
 
       ? `<div class="clublist">
           ${p.clubs.map(
-            c=>
+            c =>
               `<a
                 href="${esc(c.url)}"
                 target="_blank"
@@ -2140,17 +3698,24 @@ function buildCard(item){
               >
                 ${
                   c.icon
-                    ? `<img src="${esc(c.icon)}" alt="">`
+                    ? `<img
+                         src="${esc(c.icon)}"
+                         alt=""
+                       >`
                     : ''
                 }
-                <span>${esc(c.name)}</span>
+
+                <span>
+                  ${esc(c.name)}
+                </span>
+
               </a>`
           ).join('')}
         </div>`
 
       : '';
 
-  card.innerHTML=`
+  card.innerHTML = `
 
     <div class="card-head">
 
@@ -2182,39 +3747,46 @@ function buildCard(item){
 
     </div>
 
+
     <div class="card-title">
-      ${esc(p.title||'')}
+      ${esc(p.title || '')}
     </div>
 
+
     <div class="card-handle">
-      ${esc(p.handle||'')}
+      ${esc(p.handle || '')}
     </div>
+
 
     ${
       p.bio
         ? `<div class="card-bio">
-            ${esc(p.bio)}
+             ${esc(p.bio)}
            </div>`
         : ''
     }
+
 
     ${
       badges
         ? `<div class="badges">
-            ${badges}
+             ${badges}
            </div>`
         : ''
     }
+
 
     ${
       metrics
         ? `<div class="metrics">
-            ${metrics}
+             ${metrics}
            </div>`
         : ''
     }
 
+
     ${clubs}
+
 
     <div class="card-foot">
 
@@ -2230,35 +3802,42 @@ function buildCard(item){
               target="_blank"
               rel="noopener"
             >
-              Open profile
+              Open profile →
             </a>`
           : ''
       }
 
     </div>
+
   `;
 
   card
-    .querySelector('.inspect-btn')
+    .querySelector(
+      '.inspect-btn'
+    )
     .addEventListener(
       'click',
-      ()=>{
+      () => {
 
-        modalTitle.textContent=
+        modalTitle.textContent =
           `${item.endpoint.name} — raw response`;
 
         rawModalJSON =
           item.raw ||
-          {status:'No payload'};
+          {
+            status:'No payload'
+          };
 
-        modalJsonContent.textContent=
+        modalJsonContent.textContent =
           JSON.stringify(
             rawModalJSON,
             null,
             2
           );
 
-        jsonModal.classList.add('open');
+        jsonModal.classList.add(
+          'open'
+        );
 
       }
     );
@@ -2267,87 +3846,129 @@ function buildCard(item){
 
 }
 
-/* ========================= COPY RESULTS ========================= */
+
+/* =========================================================
+   COPY RESULTS
+========================================================= */
 
 copySummaryBtn.addEventListener(
   'click',
-  ()=>{
+  () => {
 
     const hits =
       currentResults.filter(
-        r=>r.status==='found'
+        r => r.status === 'found'
       );
 
-    if(!hits.length) return;
+    if(!hits.length)
+      return;
 
-    let text=
+    let text =
       `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
 
-    hits.forEach(i=>{
+    hits.forEach(
+      i => {
 
-      const p=i.parsed;
+        const p =
+          i.parsed;
 
-      text+=
-        `${i.endpoint.name} (${p.handle})\n`;
+        text +=
+          `${i.endpoint.name} (${p.handle})\n`;
 
-      if(p.title)
-        text+=`Name: ${p.title}\n`;
+        if(p.title)
+          text +=
+            `Name: ${p.title}\n`;
 
-      if(p.bio)
-        text+=`Bio: ${p.bio}\n`;
+        if(p.bio)
+          text +=
+            `Bio: ${p.bio}\n`;
 
-      text+=
-        `URL: ${p.profileUrl}\n\n`;
+        text +=
+          `URL: ${p.profileUrl}\n\n`;
 
-    });
+      }
+    );
 
     navigator.clipboard
       .writeText(text)
-      .then(()=>{
+      .then(
+        () => {
 
-        const old=
-          copySummaryBtn.textContent;
+          const old =
+            copySummaryBtn.textContent;
 
-        copySummaryBtn.textContent='Copied';
+          copySummaryBtn.textContent =
+            '✓ Copied';
 
-        setTimeout(
-          ()=>{
-            copySummaryBtn.textContent=old;
-          },
-          1500
-        );
+          copySummaryBtn.classList.add(
+            'copied'
+          );
 
-      });
+          setTimeout(
+            () => {
+
+              copySummaryBtn.textContent =
+                old;
+
+              copySummaryBtn.classList.remove(
+                'copied'
+              );
+
+            },
+            1500
+          );
+
+        }
+      );
 
   }
 );
 
-/* ========================= MODAL ========================= */
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 document
-  .getElementById('closeModalBtn')
+  .getElementById(
+    'closeModalBtn'
+  )
   .addEventListener(
     'click',
-    ()=>{
-      jsonModal.classList.remove('open');
+    () => {
+
+      jsonModal.classList.remove(
+        'open'
+      );
+
     }
   );
 
 jsonModal.addEventListener(
   'click',
-  e=>{
-    if(e.target===jsonModal)
-      jsonModal.classList.remove('open');
+  e => {
+
+    if(e.target === jsonModal){
+
+      jsonModal.classList.remove(
+        'open'
+      );
+
+    }
+
   }
 );
 
 document
-  .getElementById('copyModalJsonBtn')
+  .getElementById(
+    'copyModalJsonBtn'
+  )
   .addEventListener(
     'click',
-    ()=>{
+    () => {
 
-      if(!rawModalJSON) return;
+      if(!rawModalJSON)
+        return;
 
       navigator.clipboard
         .writeText(
@@ -2357,39 +3978,80 @@ document
             2
           )
         )
-        .then(()=>{
+        .then(
+          () => {
 
-          const btn =
-            document.getElementById(
-              'copyModalJsonBtn'
+            const btn =
+              document.getElementById(
+                'copyModalJsonBtn'
+              );
+
+            const old =
+              btn.textContent;
+
+            btn.textContent =
+              '✓ Copied';
+
+            btn.style.color =
+              'var(--ok)';
+
+            btn.style.borderColor =
+              'var(--ok)';
+
+            setTimeout(
+              () => {
+
+                btn.textContent =
+                  old;
+
+                btn.style.color='';
+                btn.style.borderColor='';
+
+              },
+              1500
             );
 
-          const old=btn.textContent;
-
-          btn.textContent='Copied';
-
-          setTimeout(
-            ()=>{
-              btn.textContent=old;
-            },
-            1500
-          );
-
-        });
+          }
+        );
 
     }
   );
 
-/* ========================= THEME ========================= */
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+  'keydown',
+  e => {
+
+    if(e.key === 'Escape'){
+
+      jsonModal.classList.remove(
+        'open'
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   THEME
+========================================================= */
 
 const themeBtn =
-  document.getElementById('themeBtn');
+  document.getElementById(
+    'themeBtn'
+  );
 
 (function initTheme(){
 
   const prefersLight =
     window.matchMedia(
-      '(prefers-color-scheme: light)'
+      '(prefers-color-scheme:light)'
     ).matches;
 
   const initial =
@@ -2404,7 +4066,7 @@ const themeBtn =
     );
 
   themeBtn.textContent =
-    initial==='light'
+    initial === 'light'
       ? 'Dark mode'
       : 'Light mode';
 
@@ -2412,14 +4074,16 @@ const themeBtn =
 
 themeBtn.addEventListener(
   'click',
-  ()=>{
+  () => {
 
     const current =
       document.documentElement
-        .getAttribute('data-theme');
+        .getAttribute(
+          'data-theme'
+        );
 
     const next =
-      current==='light'
+      current === 'light'
         ? 'dark'
         : 'light';
 
@@ -2430,7 +4094,7 @@ themeBtn.addEventListener(
       );
 
     themeBtn.textContent =
-      next==='light'
+      next === 'light'
         ? 'Dark mode'
         : 'Light mode';
 
