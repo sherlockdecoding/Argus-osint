@@ -1,140 +1,154 @@
 export default async function handler(req, res) {
-  /*
-   * ARGUS OSINT
-   * Public API proxy
-   */
 
-  if (req.method !== "GET") {
-    return res.status(405).json({
-      error: "method not allowed"
-    });
+  /* ================= METHOD ================= */
+
+  if (req.method && req.method !== 'GET') {
+    return res
+      .status(405)
+      .json({
+        error: 'method not allowed'
+      });
   }
+
+  /* ================= URL ================= */
 
   const { url } = req.query;
 
   if (!url) {
-    return res.status(400).json({
-      error: "missing url"
-    });
+    return res
+      .status(400)
+      .json({
+        error: 'missing url'
+      });
   }
 
-  /*
-   * Only allow known public API hosts.
-   */
-  const allowedHosts = new Set([
-    "en.pronouns.page",
-    "api.chess.com",
-    "lichess.org",
-    "api.github.com",
-    "en.gravatar.com",
-    "keybase.io",
-    "www.reddit.com",
-    "pronouns.cc",
-    "hacker-news.firebaseio.com",
-    "dev.to",
+  /* ================= ALLOWED HOSTS ================= */
+
+  const allowedHosts = [
+
+    /* Existing sources */
+
+    'en.pronouns.page',
+    'api.chess.com',
+    'lichess.org',
+    'api.github.com',
+    'en.gravatar.com',
+    'keybase.io',
+    'www.reddit.com',
+    'pronouns.cc',
+    'hacker-news.firebaseio.com',
+    'dev.to',
 
     /* New sources */
-    "public.api.bsky.app",
-    "gitlab.com",
-    "api.stackexchange.com",
-    "huggingface.co",
-    "registry.npmjs.org",
-    "codeberg.org"
-  ]);
+
+    'public.api.bsky.app',
+    'mastodon.social',
+    'gitlab.com',
+    'api.stackexchange.com',
+    'huggingface.co',
+    'registry.npmjs.org',
+    'codeberg.org'
+
+  ];
+
+  /* ================= PARSE URL ================= */
 
   let target;
 
   try {
-    target = new URL(decodeURIComponent(url));
+
+    target =
+      new URL(
+        decodeURIComponent(url)
+      );
+
   } catch {
-    return res.status(400).json({
-      error: "bad url"
-    });
+
+    return res
+      .status(400)
+      .json({
+        error: 'bad url'
+      });
+
   }
 
-  /*
-   * Only HTTPS URLs are accepted.
-   */
-  if (target.protocol !== "https:") {
-    return res.status(403).json({
-      error: "https only"
-    });
+  /* ================= HOST SECURITY ================= */
+
+  if (
+    target.protocol !== 'https:' ||
+    !allowedHosts.includes(target.hostname)
+  ) {
+
+    return res
+      .status(403)
+      .json({
+        error: 'host not allowed'
+      });
+
   }
 
-  /*
-   * Prevent the proxy from becoming an arbitrary
-   * open proxy.
-   */
-  if (!allowedHosts.has(target.hostname)) {
-    return res.status(403).json({
-      error: "host not allowed"
-    });
-  }
-
-  /*
-   * Abort slow upstream requests.
-   */
-  const controller = new AbortController();
-
-  const timeout = setTimeout(() => {
-    controller.abort();
-  }, 10000);
+  /* ================= REQUEST ================= */
 
   try {
 
-    const response = await fetch(target.toString(), {
-      method: "GET",
+    const controller =
+      new AbortController();
 
-      headers: {
-        "Accept": "application/json",
-        "User-Agent": "ArgusOSINT/1.0 (+https://osint-argus.vercel.app/)"
-      },
+    const timeout =
+      setTimeout(
+        () => controller.abort(),
+        10000
+      );
 
-      signal: controller.signal
-    });
+    const r =
+      await fetch(
+        target.toString(),
+        {
+          method:'GET',
 
-    const text = await response.text();
+          headers:{
+            'Accept':
+              'application/json',
+            'User-Agent':
+              'Mozilla/5.0 (ArgusOSINT proxy)'
+          },
 
-    /*
-     * Try to preserve JSON responses.
-     */
-    let body = text;
+          signal:
+            controller.signal
+        }
+      );
 
-    try {
-      const parsed = JSON.parse(text);
-      body = JSON.stringify(parsed);
-    } catch {
-      /*
-       * Some providers can return non-JSON responses
-       * for blocked/error conditions. Return them as-is.
-       */
-    }
+    clearTimeout(timeout);
+
+    const text =
+      await r.text();
+
+    /* ================= RESPONSE ================= */
 
     res
-      .status(response.status)
+      .status(r.status)
       .setHeader(
-        "Content-Type",
-        "application/json; charset=utf-8"
+        'Content-Type',
+        'application/json; charset=utf-8'
       )
       .setHeader(
-        "Cache-Control",
-        "no-store"
+        'Cache-Control',
+        'public, max-age=30, s-maxage=60'
       )
-      .send(body);
+      .send(text);
 
   } catch (error) {
 
-    if (error?.name === "AbortError") {
-      return res.status(504).json({
-        error: "upstream timeout"
+    return res
+      .status(502)
+      .json({
+        error:
+          error &&
+          error.name === 'AbortError'
+            ?'upstream timeout'
+            :'fetch failed'
       });
-    }
 
-    return res.status(502).json({
-      error: "fetch failed"
-    });
-
-  } finally {
-    clearTimeout(timeout);
   }
-      }
+
+        }
