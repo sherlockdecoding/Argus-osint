@@ -4,2243 +4,3575 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+<!-- ================= SEO ================= -->
+
 <title>Argus — Concurrent Profile OSINT Search Engine</title>
 
-<meta name="description" content="Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis.">
+<meta
+  name="description"
+  content="Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis."
+>
+
 <meta name="robots" content="index, follow">
 <meta name="googlebot" content="index, follow">
+
+<!-- DO NOT CHANGE THIS GOOGLE VERIFICATION TAG -->
 <meta name="google-site-verification" content="PZPtZBT4HkanG5TNu6QfaSlGUqlinF9IerUmR1olKlY" />
 
 <link rel="canonical" href="https://osint-argus.vercel.app/">
 
-<meta property="og:title" content="Argus — Concurrent Profile OSINT Search Engine">
-<meta property="og:description" content="Concurrent public profile lookup across multiple platforms.">
+<!-- ================= OPEN GRAPH ================= -->
+
+<meta property="og:title" content="Argus — OSINT Search Engine">
+<meta property="og:description" content="Concurrent profile search engine for OSINT metadata and linked identity analysis.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://osint-argus.vercel.app/">
+<meta property="og:site_name" content="Argus OSINT">
 <meta property="og:image" content="https://osint-argus.vercel.app/logo.png">
+<meta property="og:image:alt" content="Argus OSINT logo">
+<meta property="og:image:type" content="image/png">
+
+<!-- ================= TWITTER / X ================= -->
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Argus — Concurrent Profile OSINT Search Engine">
-<meta name="twitter:description" content="Concurrent public profile lookup across multiple platforms.">
+<meta name="twitter:title" content="Argus — OSINT Search Engine">
+<meta name="twitter:description" content="Concurrent profile search engine for OSINT metadata and linked identity analysis.">
 <meta name="twitter:image" content="https://osint-argus.vercel.app/logo.png">
+<meta name="twitter:image:alt" content="Argus OSINT logo">
 
-<link rel="icon" href="https://osint-argus.vercel.app/logo.png">
-<link rel="apple-touch-icon" href="https://osint-argus.vercel.app/logo.png">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- ================= STRUCTURED DATA ================= -->
 
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"Argus",
-  "url":"https://osint-argus.vercel.app/",
-  "description":"Concurrent public profile OSINT search engine."
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Argus OSINT",
+  "alternateName": "Argus",
+  "url": "https://osint-argus.vercel.app/",
+  "description": "Argus is a concurrent profile search engine for multi-platform OSINT metadata and linked identity analysis.",
+  "image": "https://osint-argus.vercel.app/logo.png"
 }
 </script>
 
+<!-- ================= ICONS ================= -->
+
+<link rel="icon" type="image/png" href="https://osint-argus.vercel.app/logo.png">
+<link rel="apple-touch-icon" href="https://osint-argus.vercel.app/logo.png">
+
+<!-- ================= FONTS ================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+>
+
 <style>
-:root {
-  --bg:#080b10;
-  --bg2:#0d1118;
-  --panel:#10151d;
-  --panel2:#141a23;
-  --border:#26303c;
-  --border2:#344151;
-  --text:#edf2f7;
-  --muted:#8995a4;
-  --dim:#596574;
-  --accent:#76a9ff;
-  --accent2:#9a7cff;
-  --green:#52d99a;
-  --yellow:#e7c76b;
-  --red:#ff6f78;
-  --shadow:0 20px 70px rgba(0,0,0,.35);
-  --radius:16px;
+
+:root{
+  --bg:#12151a;
+  --surface:#1a1e25;
+  --surface-2:#20242c;
+  --border:#2a2f3a;
+  --text:#e7e9ec;
+  --muted:#8a92a3;
+  --faint:#5c6472;
+  --accent:#5b8def;
+  --accent-dim:rgba(91,141,239,.14);
+  --ok:#4caf7d;
+  --ok-dim:rgba(76,175,125,.14);
+  --err:#e2645c;
+  --err-dim:rgba(226,100,92,.12);
+  --shadow:0 10px 35px rgba(0,0,0,.18);
+  font-size:16px;
 }
 
-[data-theme="light"] {
-  --bg:#f3f6fa;
-  --bg2:#eaf0f6;
-  --panel:#ffffff;
-  --panel2:#f6f8fb;
-  --border:#d9e0e8;
-  --border2:#c5cfdb;
-  --text:#17202b;
-  --muted:#647181;
-  --dim:#8994a2;
-  --accent:#3977db;
-  --accent2:#7457dc;
-  --green:#16875a;
-  --yellow:#987712;
-  --red:#cc3f4b;
-  --shadow:0 20px 60px rgba(30,50,80,.12);
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#f5f6f8;
+    --surface:#fff;
+    --surface-2:#fbfbfc;
+    --border:#e1e4e9;
+    --text:#1a1d22;
+    --muted:#656d7c;
+    --faint:#9aa1ad;
+    --accent:#3568d4;
+    --accent-dim:rgba(53,104,212,.08);
+    --ok:#2b8a5d;
+    --ok-dim:rgba(43,138,93,.08);
+    --err:#c0433c;
+    --err-dim:rgba(192,67,60,.08);
+    --shadow:0 10px 30px rgba(20,30,50,.08);
+  }
 }
 
-* {
-  box-sizing:border-box;
+:root[data-theme="light"]{
+  --bg:#f5f6f8;
+  --surface:#fff;
+  --surface-2:#fbfbfc;
+  --border:#e1e4e9;
+  --text:#1a1d22;
+  --muted:#656d7c;
+  --faint:#9aa1ad;
+  --accent:#3568d4;
+  --accent-dim:rgba(53,104,212,.08);
+  --ok:#2b8a5d;
+  --ok-dim:rgba(43,138,93,.08);
+  --err:#c0433c;
+  --err-dim:rgba(192,67,60,.08);
+  --shadow:0 10px 30px rgba(20,30,50,.08);
 }
 
-html {
-  scroll-behavior:smooth;
+*{
+  box-sizing:border-box
 }
 
-body {
+html{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .35s ease,color .35s ease;
+}
+
+body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at 20% -10%, rgba(118,169,255,.09), transparent 32%),
-    radial-gradient(circle at 90% 10%, rgba(154,124,255,.07), transparent 28%),
+    radial-gradient(circle at 50% -10%,var(--accent-dim),transparent 35%),
     var(--bg);
   color:var(--text);
-  font-family:"IBM Plex Sans",sans-serif;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
   overflow-x:hidden;
+  transition:background .4s ease,color .35s ease;
 }
 
-body::before {
+body::before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
   opacity:.035;
   background-image:
-    linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
+    linear-gradient(var(--text) 1px,transparent 1px),
+    linear-gradient(90deg,var(--text) 1px,transparent 1px);
   background-size:40px 40px;
   mask-image:linear-gradient(to bottom,black,transparent 75%);
 }
 
-button,
-input {
-  font:inherit;
+.mono{
+  font-family:'IBM Plex Mono',monospace
 }
 
-button {
-  cursor:pointer;
+a{
+  color:var(--accent);
+  text-decoration:none
 }
 
-a {
-  color:inherit;
+a:hover{
+  text-decoration:underline
 }
 
-header {
+.wrap{
+  width:100%;
+  max-width:960px;
+  margin:0 auto;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+/* ================= HEADER ================= */
+
+header{
   position:sticky;
   top:0;
-  z-index:50;
-  height:70px;
-  display:flex;
-  align-items:center;
+  z-index:20;
+  padding-top:env(safe-area-inset-top,0px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  transition:background .35s ease,border-color .35s ease;
 }
 
-.header-inner {
-  width:min(1180px,calc(100% - 32px));
-  margin:auto;
+.header-row{
+  min-height:82px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:20px;
+  padding-top:8px;
+  padding-bottom:8px;
 }
 
-.brand {
+.brand{
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:12px;
   min-width:0;
-  animation:brandIn .7s ease both;
+  flex:1 1 auto;
+  overflow:hidden;
+  animation:brandIn .8s cubic-bezier(.2,.8,.2,1) both;
 }
 
-.brand img {
-  width:52px;
-  height:52px;
+@keyframes brandIn{
+  from{opacity:0;transform:translateX(-18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+.brand-logo{
+  width:62px;
+  height:62px;
   object-fit:contain;
-  border-radius:12px;
-  filter:drop-shadow(0 0 14px rgba(118,169,255,.18));
-  animation:logoFloat 4s ease-in-out infinite;
+  display:block;
+  flex:0 0 62px;
+  animation:logoIn .9s cubic-bezier(.2,.8,.2,1) both;
+  transition:transform .35s ease,filter .35s ease;
 }
 
-.brand-name {
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:.04em;
+.brand:hover .brand-logo{
+  transform:rotate(-3deg) scale(1.07);
+  filter:drop-shadow(0 0 12px var(--accent-dim));
 }
 
-.brand-tag {
-  color:var(--muted);
-  font-size:12px;
-  margin-left:7px;
-  font-family:"IBM Plex Mono",monospace;
+@keyframes logoIn{
+  from{opacity:0;transform:scale(.7) rotate(-8deg)}
+  to{opacity:1;transform:scale(1) rotate(0)}
 }
 
-.header-actions {
+.brand-text{
   display:flex;
-  gap:8px;
+  align-items:baseline;
+  gap:9px;
+  min-width:0;
+  overflow:hidden;
 }
 
-.icon-btn {
-  width:40px;
-  height:40px;
-  border:1px solid var(--border);
-  border-radius:11px;
+.brand .name{
+  font-weight:700;
+  font-size:clamp(19px,3vw,27px);
+  letter-spacing:-.3px;
+  white-space:nowrap;
+}
+
+.brand .tag{
+  font-size:12px;
   color:var(--muted);
-  background:var(--panel);
-  display:grid;
-  place-items:center;
-  transition:.2s ease;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.icon-btn:hover {
+.theme-btn{
+  flex:0 0 auto;
+  min-width:94px;
+  height:36px;
+  padding:0 12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:8px;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  white-space:nowrap;
+  transition:color .2s ease,border-color .2s ease,background .2s ease,transform .15s ease,box-shadow .25s ease;
+}
+
+.theme-btn:hover{
   color:var(--text);
-  border-color:var(--border2);
-  transform:translateY(-2px);
+  border-color:var(--faint);
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
+  transform:translateY(-1px);
 }
 
-main {
-  width:min(1180px,calc(100% - 32px));
-  margin:0 auto;
-  padding:55px 0 90px;
+.theme-btn:active{
+  transform:scale(.96)
 }
 
-.hero {
-  max-width:800px;
-  margin:0 auto 34px;
-  text-align:center;
-  animation:fadeUp .7s ease both;
+/* ================= MAIN ================= */
+
+main{
+  padding-top:28px;
+  padding-bottom:60px;
 }
 
-.eyebrow {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 11px;
-  border:1px solid var(--border);
-  border-radius:999px;
-  color:var(--muted);
-  background:var(--panel);
-  font:500 11px "IBM Plex Mono",monospace;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-
-.eyebrow-dot {
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
-  animation:blink 1.5s infinite;
-}
-
-h1 {
-  margin:20px 0 12px;
-  font-size:clamp(40px,7vw,72px);
-  line-height:.98;
-  letter-spacing:-.055em;
-}
-
-.hero p {
-  margin:0 auto;
-  max-width:680px;
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.7;
-}
-
-.search-card {
+.search-card{
   position:relative;
   overflow:hidden;
-  max-width:850px;
-  margin:0 auto;
-  padding:9px;
+  background:var(--surface);
   border:1px solid var(--border);
-  background:var(--panel);
-  border-radius:18px;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:28px;
   box-shadow:var(--shadow);
-  animation:fadeUp .8s .1s ease both;
+  animation:cardIn .7s .08s cubic-bezier(.2,.8,.2,1) both;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background .35s ease;
 }
 
-.search-card::before {
+.search-card::before{
   content:"";
   position:absolute;
-  inset:-100%;
-  background:conic-gradient(
-    from 0deg,
-    transparent,
-    rgba(118,169,255,.09),
-    transparent 20%
-  );
-  animation:spin 9s linear infinite;
-  pointer-events:none;
+  left:-30%;
+  top:0;
+  width:35%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  animation:scanline 4s ease-in-out infinite;
 }
 
-.search-inner {
-  position:relative;
+.search-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 45px rgba(0,0,0,.22);
+}
+
+@keyframes scanline{
+  0%{left:-35%;opacity:0}
+  15%{opacity:1}
+  45%{left:105%;opacity:0}
+  100%{left:105%;opacity:0}
+}
+
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(18px) scale(.985)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.search-card h1{
+  font-size:19px;
+  margin:0 0 4px;
+  font-weight:600;
+}
+
+.search-card p.sub{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.5;
+  max-width:65ch;
+}
+
+form{
   display:flex;
-  gap:9px;
+  gap:10px;
 }
 
-.search-input {
-  flex:1;
+input[type="text"]{
+  flex:1 1 auto;
+  width:100%;
   min-width:0;
-  height:58px;
-  padding:0 18px;
+  height:44px;
+  background:var(--surface-2);
   border:1px solid var(--border);
-  outline:none;
-  border-radius:12px;
   color:var(--text);
-  background:var(--bg2);
-  transition:.2s;
+  border-radius:8px;
+  padding:0 14px;
+  font-size:14.5px;
+  font-family:'IBM Plex Mono',monospace;
+  transition:border-color .25s ease,box-shadow .25s ease,background .25s ease,transform .2s ease;
 }
 
-.search-input:focus {
+input[type="text"]:focus{
+  outline:none;
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(118,169,255,.08);
+  box-shadow:0 0 0 3px var(--accent-dim),0 5px 20px var(--accent-dim);
+  transform:translateY(-1px);
 }
 
-.search-input::placeholder {
-  color:var(--dim);
+input[type="text"]::placeholder{
+  color:var(--faint);
+  font-family:'IBM Plex Sans',sans-serif;
 }
 
-.search-btn {
+button[type="submit"]{
+  flex:0 0 auto;
+  height:44px;
+  min-width:92px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  padding:0 20px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  font-family:inherit;
+  white-space:nowrap;
   position:relative;
   overflow:hidden;
-  height:58px;
-  padding:0 25px;
-  border:0;
-  border-radius:12px;
-  color:white;
-  background:linear-gradient(135deg,#477fdc,#765bd8);
-  font-weight:600;
-  transition:.2s;
+  transition:transform .15s ease,filter .2s ease,box-shadow .25s ease;
 }
 
-.search-btn::after {
+button[type="submit"]::after{
   content:"";
   position:absolute;
   top:0;
   left:-100%;
-  width:60%;
+  width:70%;
   height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
   transform:skewX(-20deg);
 }
 
-.search-btn:hover::after {
-  animation:shine .7s ease;
-}
-
-.search-btn:hover {
+button[type="submit"]:hover{
+  filter:brightness(1.08);
   transform:translateY(-2px);
-  box-shadow:0 9px 30px rgba(83,111,220,.25);
+  box-shadow:0 8px 22px var(--accent-dim);
 }
 
-.search-btn:active {
-  transform:scale(.98);
+button[type="submit"]:hover::after{
+  animation:buttonShine .65s ease;
 }
 
-.hint {
-  max-width:850px;
-  margin:10px auto 0;
-  padding-left:5px;
-  color:var(--dim);
-  font:11px "IBM Plex Mono",monospace;
+button[type="submit"]:active{
+  transform:scale(.96);
 }
 
-.progress-wrap {
+button[type="submit"]:disabled{
+  opacity:.55;
+  cursor:default;
+  transform:none;
+}
+
+@keyframes buttonShine{
+  from{left:-100%}
+  to{left:140%}
+}
+
+/* ================= PROGRESS ================= */
+
+.progress{
+  margin-top:16px;
   display:none;
-  max-width:850px;
-  margin:20px auto 0;
-  animation:fadeIn .3s ease;
 }
 
-.progress-top {
+.progress.active{
+  display:block;
+  animation:fadeUp .3s ease both;
+}
+
+.progress-line{
   display:flex;
   justify-content:space-between;
+  font-size:12.5px;
   color:var(--muted);
-  font:11px "IBM Plex Mono",monospace;
-  margin-bottom:7px;
+  margin-bottom:6px;
 }
 
-.progress {
-  height:5px;
+.progress-track{
+  height:4px;
+  background:var(--surface-2);
+  border-radius:3px;
   overflow:hidden;
-  border-radius:999px;
-  background:var(--border);
+  position:relative;
 }
 
-.progress-bar {
-  width:0%;
+.progress-fill{
   height:100%;
-  border-radius:inherit;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transition:width .25s ease;
-  box-shadow:0 0 15px rgba(118,169,255,.45);
+  background:var(--accent);
+  width:0%;
+  border-radius:3px;
+  transition:width .3s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 0 12px var(--accent);
+  position:relative;
 }
 
-.summary {
+.progress-fill::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:-3px;
+  width:8px;
+  height:10px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 10px 3px var(--accent);
+  animation:pulseDot .8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseDot{
+  from{opacity:.45;transform:scale(.8)}
+  to{opacity:1;transform:scale(1.2)}
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
   display:none;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  max-width:850px;
-  margin:24px auto 0;
-}
-
-.summary-card {
-  padding:15px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:var(--panel);
-  animation:cardIn .5s ease both;
-}
-
-.summary-value {
-  font:600 23px "IBM Plex Mono",monospace;
-}
-
-.summary-label {
-  margin-top:4px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-.results {
-  margin-top:42px;
-}
-
-.section-head {
-  display:flex;
   align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
-}
-
-.section-title {
-  font-size:17px;
-  font-weight:600;
-}
-
-.section-count {
+  gap:18px;
+  font-size:13px;
   color:var(--muted);
-  font:11px "IBM Plex Mono",monospace;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+  animation:fadeUp .4s ease both;
 }
 
-.result-grid {
+.summary.active{
+  display:flex
+}
+
+.summary b{
+  color:var(--text);
+  font-family:'IBM Plex Mono',monospace;
+}
+
+.summary .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:5px;
+}
+
+.summary .dot:first-child{
+  animation:dotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.5);opacity:.6}
+}
+
+.summary .copy-btn{
+  margin-left:auto;
+  min-height:32px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:7px;
+  padding:6px 12px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:all .2s ease;
+}
+
+.summary .copy-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+  transform:translateY(-1px);
+}
+
+/* ================= GROUPS ================= */
+
+section.group{
+  margin-bottom:30px
+}
+
+.group-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+  margin:0 0 12px;
+  animation:fadeUp .35s ease both;
+}
+
+.empty{
+  border:1px dashed var(--border);
+  border-radius:12px;
+  padding:40px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.6;
+  animation:emptyIn .55s cubic-bezier(.2,.8,.2,1) both;
+  transition:border-color .3s ease,background .3s ease;
+}
+
+.empty:hover{
+  border-color:var(--faint);
+  background:var(--surface);
+}
+
+.empty b{
+  color:var(--text);
+  display:block;
+  margin-bottom:4px;
+  font-size:14.5px;
+}
+
+@keyframes emptyIn{
+  from{opacity:0;transform:scale(.97)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ================= RESULTS ================= */
+
+.hits{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
   gap:12px;
 }
 
-.result-card {
-  position:relative;
-  overflow:hidden;
+.card{
+  background:var(--surface);
   border:1px solid var(--border);
-  border-radius:15px;
-  background:var(--panel);
-  transition:.25s ease;
-  animation:cardIn .5s ease both;
-}
-
-.result-card:hover {
-  transform:translateY(-3px);
-  border-color:var(--border2);
-  box-shadow:0 15px 40px rgba(0,0,0,.14);
-}
-
-.result-card::after {
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:2px;
-  height:100%;
-  background:var(--accent);
-  opacity:.7;
-}
-
-.result-head {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:17px 18px 12px;
-}
-
-.source-info {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.source-icon {
-  width:35px;
-  height:35px;
-  border-radius:9px;
-  display:grid;
-  place-items:center;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  font:600 12px "IBM Plex Mono",monospace;
-  color:var(--accent);
-}
-
-.source-name {
-  font-weight:600;
-  font-size:14px;
-}
-
-.source-category {
-  color:var(--muted);
-  font:10px "IBM Plex Mono",monospace;
-  margin-top:2px;
-}
-
-.status {
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:5px 8px;
-  border-radius:999px;
-  font:500 10px "IBM Plex Mono",monospace;
-  border:1px solid var(--border);
-}
-
-.status::before {
-  content:"";
-  width:5px;
-  height:5px;
-  border-radius:50%;
-}
-
-.status.found {
-  color:var(--green);
-}
-
-.status.found::before {
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-}
-
-.status.none {
-  color:var(--muted);
-}
-
-.status.none::before {
-  background:var(--dim);
-}
-
-.status.error {
-  color:var(--red);
-}
-
-.status.error::before {
-  background:var(--red);
-}
-
-.result-body {
-  padding:0 18px 17px;
-}
-
-.profile-main {
-  display:flex;
-  gap:13px;
-  align-items:flex-start;
-}
-
-.avatar {
-  width:58px;
-  height:58px;
-  flex:none;
-  border-radius:12px;
-  object-fit:cover;
-  background:var(--bg2);
-  border:1px solid var(--border);
-}
-
-.profile-title {
-  font-weight:600;
-  font-size:16px;
-  word-break:break-word;
-}
-
-.profile-subtitle {
-  color:var(--muted);
-  margin-top:4px;
-  font:11px "IBM Plex Mono",monospace;
-  word-break:break-word;
-}
-
-.profile-bio {
-  margin-top:10px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.55;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-.stats {
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:13px;
-}
-
-.stat {
-  padding:6px 8px;
-  border-radius:7px;
-  border:1px solid var(--border);
-  background:var(--bg2);
-  color:var(--muted);
-  font:10px "IBM Plex Mono",monospace;
-}
-
-.stat strong {
-  color:var(--text);
-}
-
-.result-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:14px;
-}
-
-.small-btn {
-  padding:7px 10px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  background:var(--bg2);
-  color:var(--muted);
-  font:10px "IBM Plex Mono",monospace;
-  transition:.2s;
-}
-
-.small-btn:hover {
-  color:var(--text);
-  border-color:var(--border2);
-}
-
-.raw {
-  margin-top:12px;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:var(--bg);
-  color:var(--muted);
-  font:10px/1.5 "IBM Plex Mono",monospace;
-  max-height:150px;
-  overflow:auto;
-  white-space:pre-wrap;
-}
-
-.misses {
-  margin-top:26px;
-}
-
-.misses-toggle {
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--panel);
-  color:var(--muted);
-  font-size:13px;
-}
-
-.misses-list {
-  display:none;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
-  margin-top:9px;
-}
-
-.misses-list.open {
-  display:grid;
-}
-
-.miss {
-  padding:11px 13px;
-  border:1px solid var(--border);
+  border-left:3px solid var(--ok);
   border-radius:10px;
-  background:var(--panel);
-  color:var(--muted);
-  font:10px "IBM Plex Mono",monospace;
+  padding:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  animation:resultIn .5s cubic-bezier(.2,.8,.2,1) both;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .25s ease;
 }
 
-.empty {
-  padding:50px 20px;
-  border:1px dashed var(--border);
-  border-radius:16px;
-  text-align:center;
-  color:var(--muted);
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 35px rgba(0,0,0,.18);
+  border-color:var(--faint);
+  border-left-color:var(--ok);
 }
 
-.empty-icon {
-  font-size:30px;
+@keyframes resultIn{
+  from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(2px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+.card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
   margin-bottom:12px;
 }
 
-.modal {
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  place-items:center;
-  padding:20px;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(8px);
+.card-id{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  min-width:0;
 }
 
-.modal.open {
-  display:grid;
-}
-
-.modal-box {
-  width:min(900px,100%);
-  max-height:85vh;
-  overflow:hidden;
+.avatar,
+.avatar-fallback{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  flex-shrink:0;
+  background:var(--surface-2);
   border:1px solid var(--border);
-  border-radius:17px;
-  background:var(--panel);
-  box-shadow:var(--shadow);
-  animation:modalIn .25s ease;
 }
 
-.modal-head {
+.avatar{
+  object-fit:cover;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+
+.card:hover .avatar{
+  transform:scale(1.1) rotate(2deg);
+  box-shadow:0 5px 15px rgba(0,0,0,.18);
+}
+
+.avatar-fallback{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  color:var(--muted);
+}
+
+.card-src{
+  min-width:0;
+}
+
+.card-src .name{
+  font-weight:600;
+  font-size:13.5px;
+}
+
+.card-src .cat{
+  font-size:11.5px;
+  color:var(--muted);
+}
+
+.inspect-btn{
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--faint);
+  border-radius:6px;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:all .2s ease;
+}
+
+.inspect-btn:hover{
+  color:var(--text);
+  border-color:var(--faint);
+  transform:rotate(90deg);
+}
+
+.card-title{
+  font-size:14.5px;
+  font-weight:600;
+  margin-bottom:1px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.card-handle{
+  font-size:12.5px;
+  color:var(--accent);
+  font-family:'IBM Plex Mono',monospace;
+  margin-bottom:10px;
+}
+
+.card-bio{
+  font-size:12.5px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-bottom:10px;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:10px;
+}
+
+.badge{
+  font-size:10.5px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--muted);
+  padding:2px 7px;
+  border-radius:5px;
+  font-family:'IBM Plex Mono',monospace;
+  transition:transform .2s ease,border-color .2s ease;
+}
+
+.badge:hover{
+  transform:translateY(-2px);
+  border-color:var(--faint);
+}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+  gap:6px;
+  margin-bottom:10px;
+}
+
+.metric{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:6px 8px;
+  text-align:center;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+
+.metric:hover{
+  transform:translateY(-3px);
+  border-color:var(--faint);
+}
+
+.metric .v{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  font-weight:600;
+}
+
+.metric .l{
+  font-size:9.5px;
+  color:var(--faint);
+  margin-top:1px;
+}
+
+.clublist{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-bottom:10px;
+}
+
+.clublist a{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11.5px;
+  color:var(--text);
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:4px 7px;
+  transition:transform .2s ease,border-color .2s ease;
+}
+
+.clublist a:hover{
+  text-decoration:none;
+  transform:translateX(4px);
+  border-color:var(--faint);
+}
+
+.clublist img{
+  width:16px;
+  height:16px;
+  border-radius:4px;
+}
+
+.card-foot{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding-top:10px;
+  border-top:1px solid var(--border);
+}
+
+.card-foot .open{
+  font-size:12px;
+  font-weight:600;
+  transition:transform .2s ease;
+}
+
+.card-foot .open:hover{
+  transform:translateX(3px);
+}
+
+.card-foot .id{
+  font-size:11px;
+  color:var(--faint);
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ================= MISSES ================= */
+
+details.misses{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
+  animation:fadeUp .45s ease both;
+}
+
+details.misses summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  transition:background .2s ease,color .2s ease;
+}
+
+details.misses summary:hover{
+  background:var(--surface-2);
+  color:var(--text);
+}
+
+details.misses summary::-webkit-details-marker{
+  display:none
+}
+
+details.misses summary .chev{
+  transition:transform .25s ease;
+  color:var(--faint);
+}
+
+details.misses[open] summary .chev{
+  transform:rotate(90deg);
+}
+
+.miss-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 16px;
+  font-size:12.5px;
+  border-top:1px solid var(--border);
+  animation:rowIn .3s ease both;
+}
+
+.miss-row .n{
+  color:var(--muted)
+}
+
+.miss-row .s{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  padding:1px 6px;
+  border-radius:4px;
+}
+
+.miss-row .s.nf{
+  color:var(--faint);
+  background:var(--surface-2);
+}
+
+.miss-row .s.er{
+  color:var(--err);
+  background:var(--err-dim);
+}
+
+@keyframes rowIn{
+  from{opacity:0;transform:translateX(-5px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* ================= MODAL ================= */
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:50;
+}
+
+.modal-bg.open{
+  display:flex;
+  animation:modalBgIn .25s ease both;
+}
+
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  max-width:640px;
+  width:100%;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+  animation:modalIn .35s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes modalBgIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.94) translateY(12px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:14px 16px;
   border-bottom:1px solid var(--border);
 }
 
-.modal-title {
-  font:600 13px "IBM Plex Mono",monospace;
-}
-
-.modal-content {
-  max-height:calc(85vh - 60px);
-  overflow:auto;
-  padding:17px;
-}
-
-.modal-content pre {
+.modal-head h3{
   margin:0;
-  white-space:pre-wrap;
-  word-break:break-word;
+  font-size:13.5px;
+  font-weight:600;
+}
+
+.modal-head button{
+  border:none;
+  background:transparent;
   color:var(--muted);
-  font:11px/1.6 "IBM Plex Mono",monospace;
+  cursor:pointer;
+  font-size:16px;
+  transition:transform .2s ease,color .2s ease;
 }
 
-footer {
-  width:min(1180px,calc(100% - 32px));
-  margin:0 auto;
-  padding:22px 0 35px;
+.modal-head button:hover{
+  color:var(--text);
+  transform:rotate(90deg);
+}
+
+.modal-body{
+  padding:14px 16px;
+  overflow:auto;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  color:var(--ok);
+  white-space:pre-wrap;
+  word-break:break-all;
+  background:var(--surface-2);
+}
+
+.modal-foot{
+  padding:10px 16px;
   border-top:1px solid var(--border);
-  color:var(--dim);
-  text-align:center;
-  font:10px "IBM Plex Mono",monospace;
+  display:flex;
+  justify-content:flex-end;
 }
 
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(18px); }
-  to { opacity:1; transform:none; }
+.modal-foot button{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:7px;
+  padding:7px 14px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:all .2s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity:0; }
-  to { opacity:1; }
+.modal-foot button:hover{
+  transform:translateY(-1px);
+  border-color:var(--faint);
 }
 
-@keyframes cardIn {
-  from { opacity:0; transform:translateY(15px) scale(.985); }
-  to { opacity:1; transform:none; }
+.hidden{
+  display:none!important
 }
 
-@keyframes modalIn {
-  from { opacity:0; transform:scale(.97) translateY(8px); }
-  to { opacity:1; transform:none; }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-@keyframes brandIn {
-  from { opacity:0; transform:translateX(-15px); }
-  to { opacity:1; transform:none; }
-}
+/* ================= RESPONSIVE ================= */
 
-@keyframes logoFloat {
-  0%,100% { transform:translateY(0) rotate(0); }
-  50% { transform:translateY(-2px) rotate(1deg); }
-}
+@media(max-width:700px){
 
-@keyframes blink {
-  0%,100% { opacity:1; }
-  50% { opacity:.3; }
-}
-
-@keyframes spin {
-  to { transform:rotate(360deg); }
-}
-
-@keyframes shine {
-  from { left:-100%; }
-  to { left:150%; }
-}
-
-@media (max-width:760px) {
-  header {
-    height:62px;
+  .wrap{
+    padding-left:14px;
+    padding-right:14px;
   }
 
-  .header-inner {
-    width:min(100% - 22px,1180px);
+  .header-row{
+    min-height:70px;
+    gap:10px;
   }
 
-  .brand img {
-    width:44px;
-    height:44px;
+  .brand{
+    gap:9px;
   }
 
-  .brand-name {
-    font-size:16px;
+  .brand-logo{
+    width:50px;
+    height:50px;
+    flex-basis:50px;
   }
 
-  .brand-tag {
+  .brand-text{
+    gap:0;
+  }
+
+  .brand .name{
+    font-size:20px;
+  }
+
+  .brand .tag{
     display:none;
   }
 
-  main {
-    width:calc(100% - 22px);
-    padding-top:38px;
+  .theme-btn{
+    min-width:88px;
+    width:88px;
+    height:34px;
+    padding:0 7px;
+    font-size:11.5px;
+  }
+}
+
+@media(max-width:430px){
+
+  .wrap{
+    padding-left:12px;
+    padding-right:12px;
   }
 
-  h1 {
-    font-size:43px;
+  .header-row{
+    min-height:64px;
+    gap:8px;
   }
 
-  .hero p {
-    font-size:14px;
+  .brand{
+    min-width:0;
+    gap:7px;
   }
 
-  .search-inner {
+  .brand-logo{
+    width:42px;
+    height:42px;
+    flex-basis:42px;
+  }
+
+  .brand .name{
+    font-size:18px;
+    letter-spacing:-.4px;
+  }
+
+  .theme-btn{
+    width:82px;
+    min-width:82px;
+    height:32px;
+    font-size:10.5px;
+  }
+
+  main{
+    padding-top:18px;
+  }
+
+  .search-card{
+    padding:16px;
+    border-radius:10px;
+  }
+
+  form{
     flex-direction:column;
   }
 
-  .search-btn {
+  input[type="text"],
+  button[type="submit"]{
     width:100%;
+    flex:none;
   }
 
-  .summary {
-    grid-template-columns:repeat(2,1fr);
+  .summary{
+    gap:10px 14px;
   }
 
-  .result-grid,
-  .misses-list {
+  .summary .copy-btn{
+    width:100%;
+    margin-left:0;
+  }
+
+  .hits{
     grid-template-columns:1fr;
   }
 }
 
-@media (max-width:420px) {
-  .brand img {
+@media(max-width:340px){
+
+  .brand-logo{
     width:36px;
     height:36px;
+    flex-basis:36px;
   }
 
-  .brand-name {
-    font-size:14px;
+  .brand .name{
+    font-size:16px;
   }
 
-  h1 {
-    font-size:37px;
-  }
-
-  .summary-value {
-    font-size:19px;
+  .theme-btn{
+    width:76px;
+    min-width:76px;
+    font-size:10px;
   }
 }
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="wrap header-row">
+
     <div class="brand">
-      <img src="https://osint-argus.vercel.app/logo.png" alt="Argus logo">
-      <div>
-        <span class="brand-name">ARGUS</span>
-        <span class="brand-tag">OSINT PROFILE ENGINE</span>
+
+      <img
+        src="https://osint-argus.vercel.app/logo.png"
+        class="brand-logo"
+        alt="Argus OSINT logo"
+        width="62"
+        height="62"
+      >
+
+      <div class="brand-text">
+        <span class="name">Argus OSINT</span>
+        <span class="tag">public profile lookup</span>
       </div>
+
     </div>
 
-    <div class="header-actions">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button>
-      <button class="icon-btn" id="clearBtn" title="Clear results">×</button>
-    </div>
+    <button class="theme-btn" id="themeBtn" type="button">
+      Light mode
+    </button>
+
   </div>
 </header>
 
-<main>
+<main class="wrap">
 
-  <section class="hero">
-    <div class="eyebrow">
-      <span class="eyebrow-dot"></span>
-      17 PUBLIC SOURCES
+<section class="search-card">
+
+  <h1>Look up a handle</h1>
+
+  <p class="sub">
+    Search publicly available profile information across
+    multiple platforms and explore matching accounts.
+  </p>
+
+  <form id="searchForm">
+
+    <input
+      type="text"
+      id="usernameInput"
+      placeholder="e.g. octocat"
+      required
+      autocomplete="off"
+    >
+
+    <button type="submit" id="searchBtn">
+      Check
+    </button>
+
+  </form>
+
+  <div class="progress" id="progressContainer">
+
+    <div class="progress-line">
+
+      <span id="progressText">
+        Querying sources…
+      </span>
+
+      <span id="progressPercent">
+        0%
+      </span>
+
     </div>
 
-    <h1>Argus</h1>
+    <div class="progress-track">
 
-    <p>
-      Concurrent public-profile discovery across developer,
-      social, gaming, identity and community platforms.
-    </p>
-  </section>
+      <div
+        class="progress-fill"
+        id="progressBar"
+      ></div>
 
-  <section class="search-card">
-    <div class="search-inner">
-      <input
-        id="username"
-        class="search-input"
-        type="text"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="e.g. octocat"
-        aria-label="Username"
-      >
-
-      <button id="searchBtn" class="search-btn">
-        Search
-      </button>
     </div>
-  </section>
 
-  <div class="hint">
-    Enter a username or handle. Argus queries public endpoints concurrently.
   </div>
 
-  <div class="progress-wrap" id="progressWrap">
-    <div class="progress-top">
-      <span id="progressText">Initializing scan...</span>
-      <span id="progressPercent">0%</span>
-    </div>
-    <div class="progress">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
+</section>
+
+<div class="summary" id="summary">
+
+  <span>
+    <span class="dot" style="background:var(--ok)"></span>
+    <b id="statFound">0</b>
+    matched
+  </span>
+
+  <span>
+    <span class="dot" style="background:var(--faint)"></span>
+    <b id="statNotFound">0</b>
+    no record
+  </span>
+
+  <span>
+    <span class="dot" style="background:var(--err)"></span>
+    <b id="statErrors">0</b>
+    blocked / errored
+  </span>
+
+  <button
+    class="copy-btn"
+    id="copySummaryBtn"
+    type="button"
+  >
+    Copy results
+  </button>
+
+</div>
+
+<section class="group" id="resultsSection">
+
+  <div class="empty" id="emptyState">
+
+    <b>No lookup run yet</b>
+
+    Enter a handle above and press Check
+    to search for public profiles.
+
   </div>
 
-  <div class="summary" id="summary">
-    <div class="summary-card">
-      <div class="summary-value" id="totalCount">0</div>
-      <div class="summary-label">SOURCES</div>
-    </div>
-
-    <div class="summary-card">
-      <div class="summary-value" id="foundCount">0</div>
-      <div class="summary-label">MATCHED</div>
-    </div>
-
-    <div class="summary-card">
-      <div class="summary-value" id="noneCount">0</div>
-      <div class="summary-label">NO RECORD</div>
-    </div>
-
-    <div class="summary-card">
-      <div class="summary-value" id="errorCount">0</div>
-      <div class="summary-label">ERROR / BLOCKED</div>
-    </div>
-  </div>
-
-  <section class="results" id="resultsSection">
-    <div class="empty" id="emptyState">
-      <div class="empty-icon">⌁</div>
-      <div>Enter a username to begin a concurrent public-profile scan.</div>
-    </div>
-  </section>
+</section>
 
 </main>
 
-<footer>
-  ARGUS OSINT · PUBLIC DATA ONLY · CONCURRENT PROFILE LOOKUP
-</footer>
+<div class="modal-bg" id="jsonModal">
 
-<div class="modal" id="jsonModal">
-  <div class="modal-box">
+  <div class="modal">
+
     <div class="modal-head">
-      <div class="modal-title" id="modalTitle">RAW JSON</div>
-      <button class="icon-btn" id="closeModal">×</button>
+
+      <h3 id="modalTitle">
+        Raw response
+      </h3>
+
+      <button id="closeModalBtn" type="button">
+        ✕
+      </button>
+
     </div>
-    <div class="modal-content">
-      <pre id="modalJson"></pre>
+
+    <div class="modal-body">
+
+      <pre
+        id="modalJsonContent"
+        style="margin:0;"
+      ></pre>
+
     </div>
+
+    <div class="modal-foot">
+
+      <button
+        id="copyModalJsonBtn"
+        type="button"
+      >
+        Copy JSON
+      </button>
+
+    </div>
+
   </div>
+
 </div>
 
 <script>
-"use strict";
 
-/* =========================================================
-   ARGUS CONFIGURATION
-   ========================================================= */
-
-const API_PROXY = "/api/proxy";
+/* ============================================================
+   ARGUS OSINT
+   18 public sources
+   All requests use the same /api/proxy endpoint.
+   ============================================================ */
 
 const TARGET_ENDPOINTS = [
 
-  /* -------------------------------------------------------
-     PRONOUNS.PAGE
-  ------------------------------------------------------- */
-  {
-    id:"pronouns",
-    name:"Pronouns.page",
-    category:"Identity",
-    icon:"PR",
-    fetch: async user => {
-      return fetchUrl(
-        `https://en.pronouns.page/api/profile/${encodeURIComponent(user)}`
-      );
-    },
-    parse: (data,user) => {
-      if (!data || !data.profiles) return null;
+  /* ================= IDENTITY ================= */
 
-      let profile = data.profiles.en || Object.values(data.profiles)[0];
-      if (!profile) return null;
+  {
+    id:'pronouns_page',
+    name:'Pronouns.page',
+    category:'Identity',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://en.pronouns.page/api/public/v3/users/${encodeURIComponent(user)}`
+      ),
+
+    parse:data=>{
+
+      if(!data || !data.profiles)
+        return null;
+
+      const en =
+        data.profiles.en ||
+        Object.values(data.profiles)[0];
+
+      if(!en)
+        return null;
+
+      const names=(en.names||[])
+        .map(n=>
+          typeof n==='string'
+            ?n
+            :n.value||n.name
+        )
+        .filter(Boolean);
+
+      const pronouns=(en.pronouns||[])
+        .map(p=>
+          typeof p==='string'
+            ?p
+            :p.value||p.pronoun
+        )
+        .filter(Boolean);
+
+      const links=(en.links||[])
+        .map(l=>
+          typeof l==='string'
+            ?l
+            :l.href||l.link
+        )
+        .filter(Boolean);
 
       return {
-        title: profile.name || data.username || user,
-        subtitle: profile.pronouns || "",
-        bio: profile.bio || profile.description || "",
-        avatar: profile.avatar || profile.image || "",
-        url: `https://en.pronouns.page/@${encodeURIComponent(data.username || user)}`,
-        stats: [
-          profile.pronouns ? ["Pronouns",profile.pronouns] : null
-        ].filter(Boolean)
+        avatar:data.avatar||null,
+        title:names[0]||data.username,
+        handle:`@${data.username}`,
+        bio:en.bio||'',
+        badges:pronouns,
+        metrics:[
+          {l:'Names',v:names.length},
+          {l:'Pronouns',v:pronouns.length}
+        ],
+        links,
+        profileUrl:`https://pronouns.page/@${data.username}`
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     CHESS.COM
-  ------------------------------------------------------- */
   {
-    id:"chess",
-    name:"Chess.com",
-    category:"Gaming",
-    icon:"CH",
-    fetch: async user => {
-      const base = `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
+    id:'gravatar',
+    name:'Gravatar',
+    category:'Identity',
 
-      const [profile,stats,clubs] = await Promise.all([
-        fetchUrl(base),
-        fetchUrl(base + "/stats"),
-        fetchUrl(base + "/clubs")
-      ]);
-
-      return {
-        profile:profile.data,
-        stats:stats.data,
-        clubs:clubs.data,
-        status:profile.status
-      };
-    },
-    parse: (data,user) => {
-      if (!data || data.status !== 200 || !data.profile) return null;
-
-      const p = data.profile;
-      const s = data.stats || {};
-
-      const stats = [];
-
-      if (s.chess_rapid?.last?.rating)
-        stats.push(["Rapid",s.chess_rapid.last.rating]);
-
-      if (s.chess_blitz?.last?.rating)
-        stats.push(["Blitz",s.chess_blitz.last.rating]);
-
-      if (s.chess_bullet?.last?.rating)
-        stats.push(["Bullet",s.chess_bullet.last.rating]);
-
-      if (p.followers != null)
-        stats.push(["Followers",p.followers]);
-
-      return {
-        title:p.username || user,
-        subtitle:p.name || "",
-        bio:p.status || "",
-        avatar:p.avatar || "",
-        url:p.url || `https://www.chess.com/member/${encodeURIComponent(p.username || user)}`,
-        stats
-      };
-    }
-  },
-
-  /* -------------------------------------------------------
-     LICHESS
-  ------------------------------------------------------- */
-  {
-    id:"lichess",
-    name:"Lichess",
-    category:"Gaming",
-    icon:"LI",
-    fetch: async user => {
-      return fetchUrl(
-        `https://lichess.org/api/user/${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !data.id) return null;
-
-      const stats = [];
-
-      if (data.perfs) {
-        for (const [key,val] of Object.entries(data.perfs)) {
-          if (val?.rating) {
-            stats.push([
-              key.charAt(0).toUpperCase()+key.slice(1),
-              val.rating
-            ]);
-          }
-        }
-      }
-
-      if (data.count?.all != null)
-        stats.push(["Games",data.count.all]);
-
-      if (data.nbFollowers != null)
-        stats.push(["Followers",data.nbFollowers]);
-
-      return {
-        title:data.username || user,
-        subtitle:data.title || "",
-        bio:data.profile?.bio || "",
-        avatar:data.profile?.avatar || "",
-        url:`https://lichess.org/@/${encodeURIComponent(data.username || user)}`,
-        stats
-      };
-    }
-  },
-
-  /* -------------------------------------------------------
-     GITHUB
-  ------------------------------------------------------- */
-  {
-    id:"github",
-    name:"GitHub",
-    category:"Developer",
-    icon:"GH",
-    fetch: async user => {
-      return fetchUrl(
-        `https://api.github.com/users/${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !data.login) return null;
-
-      return {
-        title:data.name || data.login,
-        subtitle:"@" + data.login,
-        bio:data.bio || "",
-        avatar:data.avatar_url || "",
-        url:data.html_url || `https://github.com/${encodeURIComponent(data.login)}`,
-        stats:[
-          ["Repos",data.public_repos],
-          ["Followers",data.followers],
-          ["Following",data.following],
-          ["Gists",data.public_gists]
-        ].filter(x => x[1] != null)
-      };
-    }
-  },
-
-  /* -------------------------------------------------------
-     GRAVATAR
-  ------------------------------------------------------- */
-  {
-    id:"gravatar",
-    name:"Gravatar",
-    category:"Identity",
-    icon:"GR",
-    fetch: async user => {
-      return fetchUrl(
+    fetch:async user =>
+      fetchUrl(
         `https://en.gravatar.com/${encodeURIComponent(user)}.json`
-      );
-    },
-    parse:(data,user) => {
-      const entry = data?.entry?.[0];
-      if (!entry) return null;
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.entry ||
+        !data.entry[0]
+      )
+        return null;
+
+      const e=data.entry[0];
+
+      const urls=
+        (e.urls||[])
+          .map(u=>u.value)
+          .filter(Boolean);
 
       return {
-        title:entry.displayName || user,
-        subtitle:entry.preferredUsername || "",
-        bio:entry.aboutMe || "",
-        avatar:entry.thumbnailUrl || "",
-        url:entry.profileUrl || `https://gravatar.com/${encodeURIComponent(user)}`,
-        stats:[]
+
+        avatar:e.thumbnailUrl,
+
+        title:
+          e.displayName ||
+          e.preferredUsername,
+
+        handle:
+          e.preferredUsername
+            ?`@${e.preferredUsername}`
+            :'',
+
+        bio:e.aboutMe||'',
+
+        badges:[
+          e.currentLocation
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Accounts',
+            v:e.accounts ? e.accounts.length : 0
+          },
+          {
+            l:'URLs',
+            v:urls.length
+          }
+        ],
+
+        links:urls,
+
+        profileUrl:
+          e.profileUrl ||
+          `https://gravatar.com/${e.preferredUsername}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     KEYBASE
-  ------------------------------------------------------- */
   {
-    id:"keybase",
-    name:"Keybase",
-    category:"Identity",
-    icon:"KB",
-    fetch: async user => {
-      return fetchUrl(
+    id:'keybase',
+    name:'Keybase',
+    category:'Security',
+
+    fetch:async user =>
+      fetchUrl(
         `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      const person = data?.them?.[0];
-      if (!person || !person.basics) return null;
+      ),
 
-      const basics = person.basics;
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.them ||
+        !data.them[0]
+      )
+        return null;
+
+      const u=data.them[0];
+
+      if(!u.id || !u.basics)
+        return null;
+
+      const proofs=(
+        u.proofs_summary
+          ?u.proofs_summary.all||[]
+          :[]
+      ).map(
+        p=>`${p.proof_type}: ${p.nametag}`
+      );
 
       return {
-        title:basics.username || user,
-        subtitle:basics.id || "",
-        bio:basics.bio || "",
-        avatar:"",
-        url:`https://keybase.io/${encodeURIComponent(basics.username || user)}`,
-        stats:[
-          ["Proofs",person.proofs_summary?.all?.length || 0]
-        ]
+
+        avatar:
+          u.pictures &&
+          u.pictures.primary
+            ?u.pictures.primary.url
+            :null,
+
+        title:
+          u.profile
+            ?u.profile.full_name ||
+              u.basics.username
+            :u.basics.username,
+
+        handle:`@${u.basics.username}`,
+
+        bio:
+          u.profile
+            ?u.profile.bio||''
+            :'',
+
+        badges:proofs.slice(0,4),
+
+        metrics:[
+          {
+            l:'Proofs',
+            v:proofs.length
+          },
+          {
+            l:'Devices',
+            v:u.devices
+              ?Object.keys(u.devices).length
+              :0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          `https://keybase.io/${u.basics.username}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     REDDIT
-  ------------------------------------------------------- */
   {
-    id:"reddit",
-    name:"Reddit",
-    category:"Community",
-    icon:"RE",
-    fetch: async user => {
-      return fetchUrl(
-        `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`
-      );
-    },
-    parse:(data,user) => {
-      const d = data?.data;
-      if (!d || !d.name) return null;
+    id:'pronouns_cc',
+    name:'Pronouns.cc',
+    category:'Identity',
 
-      return {
-        title:d.name,
-        subtitle:d.subreddit?.display_name_prefixed || "",
-        bio:d.subreddit?.public_description || "",
-        avatar:d.icon_img || d.snoovatar_img || "",
-        url:`https://www.reddit.com/user/${encodeURIComponent(d.name)}`,
-        stats:[
-          ["Karma",d.total_karma],
-          ["Created",d.created_utc ? new Date(d.created_utc*1000).toLocaleDateString() : null]
-        ].filter(x => x[1] != null)
-      };
-    }
-  },
-
-  /* -------------------------------------------------------
-     PRONOUNS.CC
-  ------------------------------------------------------- */
-  {
-    id:"pronounscc",
-    name:"Pronouns.cc",
-    category:"Identity",
-    icon:"PC",
-    fetch: async user => {
-      return fetchUrl(
+    fetch:async user =>
+      fetchUrl(
         `https://pronouns.cc/api/v1/users/${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || (!data.username && !data.id)) return null;
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        (!data.username && !data.members)
+      )
+        return null;
 
       return {
-        title:data.username || user,
-        subtitle:data.displayName || "",
-        bio:data.bio || "",
-        avatar:data.avatar || data.avatarUrl || "",
-        url:`https://pronouns.cc/@${encodeURIComponent(data.username || user)}`,
-        stats:[
-          data.members?.length != null ? ["Members",data.members.length] : null
-        ].filter(Boolean)
+
+        avatar:data.avatar_url,
+
+        title:
+          data.username ||
+          'System',
+
+        handle:
+          data.username
+            ?`@${data.username}`
+            :'',
+
+        bio:
+          data.biography ||
+          data.description ||
+          '',
+
+        badges:
+          data.pronouns
+            ?[data.pronouns]
+            :[],
+
+        metrics:[
+          {
+            l:'Members',
+            v:data.members
+              ?data.members.length
+              :0
+          }
+        ],
+
+        links:Array.isArray(data.links)
+          ?data.links
+          :[],
+
+        profileUrl:
+          `https://pronouns.cc/p/${data.username}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     HACKER NEWS
-  ------------------------------------------------------- */
+  /* ================= GAMING ================= */
+
   {
-    id:"hackernews",
-    name:"Hacker News",
-    category:"Community",
-    icon:"HN",
-    fetch: async user => {
-      return fetchUrl(
-        `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !data.id) return null;
+    id:'chess_com',
+    name:'Chess.com',
+    category:'Gaming',
+
+    fetch:async user=>{
+
+      const base =
+        `https://api.chess.com/pub/player/${encodeURIComponent(user)}`;
+
+      const profileRes=
+        await fetchUrl(base);
+
+      if(profileRes.status!==200)
+        return profileRes;
+
+      const [
+        statsRes,
+        clubsRes
+      ]=
+        await Promise.allSettled([
+
+          fetchUrl(`${base}/stats`),
+          fetchUrl(`${base}/clubs`)
+
+        ]);
 
       return {
-        title:data.id,
-        subtitle:"",
-        bio:data.about || "",
-        avatar:"",
-        url:`https://news.ycombinator.com/user?id=${encodeURIComponent(data.id)}`,
-        stats:[
-          ["Karma",data.karma],
-          ["Submitted",data.submitted?.length || 0]
-        ]
-      };
-    }
-  },
 
-  /* -------------------------------------------------------
-     DEV.TO
-  ------------------------------------------------------- */
-  {
-    id:"devto",
-    name:"DEV Community",
-    category:"Developer",
-    icon:"DV",
-    fetch: async user => {
-      return fetchUrl(
-        `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`
-      );
+        status:200,
+
+        data:{
+
+          profile:profileRes.data,
+
+          stats:
+            statsRes.status==='fulfilled' &&
+            statsRes.value.status===200
+              ?statsRes.value.data
+              :null,
+
+          clubs:
+            clubsRes.status==='fulfilled' &&
+            clubsRes.value.status===200
+              ?clubsRes.value.data.clubs
+              :[]
+
+        }
+
+      };
+
     },
-    parse:(data,user) => {
-      if (!data || !data.username) return null;
+
+    parse:payload=>{
+
+      if(
+        !payload ||
+        !payload.profile ||
+        !payload.profile.username
+      )
+        return null;
+
+      const p=payload.profile;
+      const s=payload.stats||{};
+      const clubs=payload.clubs||[];
+
+      const joined=p.joined
+        ?new Date(p.joined*1000).toLocaleDateString()
+        :'Unknown';
+
+      const lastOnline=p.last_online
+        ?new Date(p.last_online*1000).toLocaleDateString()
+        :'Unknown';
 
       return {
-        title:data.name || data.username,
-        subtitle:"@" + data.username,
-        bio:data.summary || "",
-        avatar:data.profile_image || "",
-        url:data.profile_url || `https://dev.to/${encodeURIComponent(data.username)}`,
-        stats:[
-          ["Articles",data.publications_count],
-          ["Followers",data.followers_count]
-        ].filter(x => x[1] != null)
+
+        avatar:p.avatar,
+
+        title:
+          p.name ||
+          p.username,
+
+        handle:`@${p.username}`,
+
+        bio:
+          `Joined ${joined} · last online ${lastOnline}`,
+
+        badges:[
+          p.title
+            ?`Title: ${p.title}`
+            :null,
+          p.location
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Blitz',
+            v:s.chess_blitz
+              ?s.chess_blitz.last.rating
+              :'—'
+          },
+          {
+            l:'Rapid',
+            v:s.chess_rapid
+              ?s.chess_rapid.last.rating
+              :'—'
+          },
+          {
+            l:'Bullet',
+            v:s.chess_bullet
+              ?s.chess_bullet.last.rating
+              :'—'
+          },
+          {
+            l:'Followers',
+            v:p.followers
+          }
+        ],
+
+        clubs:
+          clubs.slice(0,4).map(c=>({
+            name:c.name,
+            icon:c.icon,
+            url:c.url
+          })),
+
+        links:p.url?[p.url]:[],
+
+        profileUrl:p.url
+
       };
+
     }
+
   },
 
-  /* =======================================================
-     NEW SOURCES
-     ======================================================= */
-
-  /* -------------------------------------------------------
-     BLUESKY
-  ------------------------------------------------------- */
   {
-    id:"bluesky",
-    name:"Bluesky",
-    category:"Social",
-    icon:"BS",
-    fetch: async user => {
-      return fetchUrl(
+    id:'lichess',
+    name:'Lichess',
+    category:'Gaming',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://lichess.org/api/user/${encodeURIComponent(user)}`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        data.error ||
+        !data.id
+      )
+        return null;
+
+      const perf=data.perfs||{};
+
+      return {
+
+        avatar:null,
+
+        title:data.username,
+
+        handle:
+          data.title
+            ?`[${data.title}] @${data.id}`
+            :`@${data.id}`,
+
+        bio:data.bio||'',
+
+        badges:[
+          data.online?'Online':'Offline',
+          data.patron?'Patron':null
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Blitz',
+            v:perf.blitz?perf.blitz.rating:'—'
+          },
+          {
+            l:'Rapid',
+            v:perf.rapid?perf.rapid.rating:'—'
+          },
+          {
+            l:'Puzzles',
+            v:perf.puzzle?perf.puzzle.rating:'—'
+          },
+          {
+            l:'Games',
+            v:data.count?data.count.all:0
+          }
+        ],
+
+        links:data.url?[data.url]:[],
+
+        profileUrl:
+          data.url ||
+          `https://lichess.org/@/${data.username}`
+
+      };
+
+    }
+
+  },
+
+  /* ================= SOCIAL ================= */
+
+  {
+    id:'reddit',
+    name:'Reddit',
+    category:'Social',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://www.reddit.com/user/${encodeURIComponent(user)}/about.json`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.data ||
+        data.error===404
+      )
+        return null;
+
+      const u=data.data;
+
+      if(!u.name)
+        return null;
+
+      return {
+
+        avatar:
+          u.icon_img
+            ?u.icon_img.split('?')[0]
+            :null,
+
+        title:
+          u.subreddit
+            ?u.subreddit.title||u.name
+            :u.name,
+
+        handle:`u/${u.name}`,
+
+        bio:
+          u.subreddit
+            ?u.subreddit.public_description||''
+            :'',
+
+        badges:[
+          u.is_gold?'Gold':null,
+          u.is_mod?'Moderator':null,
+          u.has_verified_email?'Verified email':null
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Post karma',
+            v:u.link_karma
+          },
+          {
+            l:'Comment karma',
+            v:u.comment_karma
+          },
+          {
+            l:'Since',
+            v:u.created_utc
+              ?new Date(u.created_utc*1000).getFullYear()
+              :'—'
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          `https://reddit.com/user/${u.name}`
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'bluesky',
+    name:'Bluesky',
+    category:'Social',
+
+    fetch:async user =>
+      fetchUrl(
         `https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !data.handle) return null;
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.handle
+      )
+        return null;
 
       return {
-        title:data.displayName || data.handle,
-        subtitle:"@" + data.handle,
-        bio:data.description || "",
-        avatar:data.avatar || "",
-        url:`https://bsky.app/profile/${encodeURIComponent(data.handle)}`,
-        stats:[
-          ["Followers",data.followersCount],
-          ["Following",data.followsCount],
-          ["Posts",data.postsCount]
-        ].filter(x => x[1] != null)
+
+        avatar:data.avatar||null,
+
+        title:
+          data.displayName ||
+          data.handle,
+
+        handle:
+          `@${data.handle}`,
+
+        bio:
+          data.description||'',
+
+        badges:[
+          data.viewer &&
+          data.viewer.muted
+            ?'Muted'
+            :null,
+
+          data.viewer &&
+          data.viewer.blockedBy
+            ?'Blocked by account'
+            :null
+
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Followers',
+            v:data.followersCount??0
+          },
+          {
+            l:'Following',
+            v:data.followsCount??0
+          },
+          {
+            l:'Posts',
+            v:data.postsCount??0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          `https://bsky.app/profile/${encodeURIComponent(data.handle)}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     GITLAB
-  ------------------------------------------------------- */
   {
-    id:"gitlab",
-    name:"GitLab",
-    category:"Developer",
-    icon:"GL",
-    fetch: async user => {
-      return fetchUrl(
+    id:'mastodon',
+    name:'Mastodon',
+    category:'Social',
+
+    /*
+      Mastodon is instance-based. This checks the main
+      mastodon.social instance. A future version can accept
+      an instance/domain as an additional search parameter.
+    */
+
+    fetch:async user =>
+      fetchUrl(
+        `https://mastodon.social/api/v1/accounts/lookup?acct=${encodeURIComponent(user)}`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.acct ||
+        !data.id
+      )
+        return null;
+
+      return {
+
+        avatar:
+          data.avatar||null,
+
+        title:
+          data.display_name ||
+          data.username,
+
+        handle:
+          `@${data.acct}`,
+
+        bio:
+          data.note
+            ?data.note.replace(/<[^>]*>/g,' ')
+            :'',
+
+        badges:[
+          data.locked?'Locked account':null,
+          data.bot?'Bot account':null,
+          data.discoverable?'Discoverable':null
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Followers',
+            v:data.followers_count??0
+          },
+          {
+            l:'Following',
+            v:data.following_count??0
+          },
+          {
+            l:'Posts',
+            v:data.statuses_count??0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          data.url ||
+          `https://mastodon.social/@${data.username}`
+
+      };
+
+    }
+
+  },
+
+  /* ================= DEVELOPER ================= */
+
+  {
+    id:'github',
+    name:'GitHub',
+    category:'Developer',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://api.github.com/users/${encodeURIComponent(user)}`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        data.message==='Not Found' ||
+        !data.login
+      )
+        return null;
+
+      return {
+
+        avatar:data.avatar_url,
+
+        title:
+          data.name ||
+          data.login,
+
+        handle:`@${data.login}`,
+
+        bio:data.bio||'',
+
+        badges:[
+          data.company,
+          data.location
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Repos',
+            v:data.public_repos
+          },
+          {
+            l:'Followers',
+            v:data.followers
+          },
+          {
+            l:'Following',
+            v:data.following
+          },
+          {
+            l:'Gists',
+            v:data.public_gists
+          }
+        ],
+
+        links:
+          data.blog
+            ?[
+              data.blog.startsWith('http')
+                ?data.blog
+                :`https://${data.blog}`
+            ]
+            :[],
+
+        profileUrl:data.html_url
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'gitlab',
+    name:'GitLab',
+    category:'Developer',
+
+    fetch:async user =>
+      fetchUrl(
         `https://gitlab.com/api/v4/users?username=${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!Array.isArray(data) || !data.length) return null;
+      ),
 
-      const exact = data.find(
-        x => String(x.username || "").toLowerCase() === user.toLowerCase()
-      );
+    parse:data=>{
 
-      const p = exact || data[0];
+      if(
+        !Array.isArray(data) ||
+        !data.length
+      )
+        return null;
 
-      if (!p?.username) return null;
+      const exact=
+        data.find(
+          u=>
+            String(u.username||'').toLowerCase()===
+            String(userFromEndpoint).toLowerCase()
+        );
 
-      return {
-        title:p.name || p.username,
-        subtitle:"@" + p.username,
-        bio:p.bio || "",
-        avatar:p.avatar_url || "",
-        url:p.web_url || `https://gitlab.com/${encodeURIComponent(p.username)}`,
-        stats:[
-          ["Followers",p.followers],
-          ["Following",p.following]
-        ].filter(x => x[1] != null)
-      };
-    }
-  },
+      /*
+        The exact username is normally the first result because
+        GitLab's username filter is designed for direct lookup.
+      */
 
-  /* -------------------------------------------------------
-     STACK OVERFLOW
-  ------------------------------------------------------- */
-  {
-    id:"stackoverflow",
-    name:"Stack Overflow",
-    category:"Developer",
-    icon:"SO",
-    fetch: async user => {
-      return fetchUrl(
-        `https://api.stackexchange.com/2.3/users?inname=${encodeURIComponent(user)}&site=stackoverflow&pagesize=20`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !Array.isArray(data.items)) return null;
+      const u=exact||data[0];
 
-      const exact = data.items.find(
-        x => String(x.display_name || "").toLowerCase() === user.toLowerCase()
-      );
-
-      if (!exact) return null;
+      if(!u || !u.username)
+        return null;
 
       return {
-        title:exact.display_name || user,
-        subtitle:exact.user_type || "",
-        bio:"",
-        avatar:exact.profile_image || "",
-        url:exact.link || `https://stackoverflow.com/users/${exact.user_id}`,
-        stats:[
-          ["Reputation",exact.reputation],
-          ["Questions",exact.question_count],
-          ["Answers",exact.answer_count],
-          ["Badges",
-            exact.badge_counts
-              ? `${exact.badge_counts.gold || 0}/${exact.badge_counts.silver || 0}/${exact.badge_counts.bronze || 0}`
-              : null
-          ]
-        ].filter(x => x[1] != null)
+
+        avatar:u.avatar_url||null,
+
+        title:
+          u.name ||
+          u.username,
+
+        handle:`@${u.username}`,
+
+        bio:u.bio||'',
+
+        badges:[
+          u.location,
+          u.organization,
+          u.job_title,
+          u.pronouns
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Followers',
+            v:u.followers??0
+          },
+          {
+            l:'Following',
+            v:u.following??0
+          }
+        ],
+
+        links:[
+          u.website_url,
+          u.linkedin
+            ?`https://www.linkedin.com/in/${u.linkedin}`
+            :null
+        ].filter(Boolean),
+
+        profileUrl:
+          u.web_url ||
+          `https://gitlab.com/${u.username}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     HUGGING FACE
-  ------------------------------------------------------- */
   {
-    id:"huggingface",
-    name:"Hugging Face",
-    category:"AI / Developer",
-    icon:"HF",
-    fetch: async user => {
-      return fetchUrl(
+    id:'stack_overflow',
+    name:'Stack Overflow',
+    category:'Developer',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://api.stackexchange.com/2.3/users?site=stackoverflow&inname=${encodeURIComponent(user)}&pagesize=20`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !Array.isArray(data.items) ||
+        !data.items.length
+      )
+        return null;
+
+      const wanted=
+        String(window.__argusCurrentUsername||'')
+          .trim()
+          .toLowerCase();
+
+      const exact=
+        data.items.find(
+          u=>
+            String(u.display_name||'')
+              .trim()
+              .toLowerCase()===wanted
+        );
+
+      const u=
+        exact ||
+        data.items[0];
+
+      if(!u || !u.user_id)
+        return null;
+
+      return {
+
+        avatar:
+          u.profile_image||null,
+
+        title:
+          u.display_name||'Stack Overflow user',
+
+        handle:
+          `user/${u.user_id}`,
+
+        bio:'',
+
+        badges:[
+          u.user_type,
+          u.location
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Reputation',
+            v:u.reputation??0
+          },
+          {
+            l:'Badges',
+            v:u.badge_counts
+              ?(
+                (u.badge_counts.bronze||0)+
+                (u.badge_counts.silver||0)+
+                (u.badge_counts.gold||0)
+              )
+              :0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          u.link ||
+          `https://stackoverflow.com/users/${u.user_id}`
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'stack_exchange',
+    name:'Stack Exchange Network',
+    category:'Community',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://api.stackexchange.com/2.3/users?site=stackoverflow&inname=${encodeURIComponent(user)}&pagesize=20`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !Array.isArray(data.items) ||
+        !data.items.length
+      )
+        return null;
+
+      const wanted=
+        String(window.__argusCurrentUsername||'')
+          .trim()
+          .toLowerCase();
+
+      const u=
+        data.items.find(
+          x=>
+            String(x.display_name||'')
+              .trim()
+              .toLowerCase()===wanted
+        );
+
+      if(!u)
+        return null;
+
+      return {
+
+        avatar:u.profile_image||null,
+
+        title:
+          u.display_name,
+
+        handle:
+          `SE user/${u.user_id}`,
+
+        bio:'',
+
+        badges:[
+          u.user_type
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Reputation',
+            v:u.reputation??0
+          },
+          {
+            l:'Gold',
+            v:u.badge_counts
+              ?u.badge_counts.gold||0
+              :0
+          },
+          {
+            l:'Silver',
+            v:u.badge_counts
+              ?u.badge_counts.silver||0
+              :0
+          },
+          {
+            l:'Bronze',
+            v:u.badge_counts
+              ?u.badge_counts.bronze||0
+              :0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          u.link ||
+          `https://stackoverflow.com/users/${u.user_id}`
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'hackernews',
+    name:'Hacker News',
+    category:'Community',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://hacker-news.firebaseio.com/v0/user/${encodeURIComponent(user)}.json`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.id
+      )
+        return null;
+
+      return {
+
+        avatar:null,
+
+        title:data.id,
+
+        handle:
+          `since ${
+            data.created
+              ?new Date(data.created*1000).getFullYear()
+              :'—'
+          }`,
+
+        bio:data.about||'',
+
+        badges:[],
+
+        metrics:[
+          {
+            l:'Karma',
+            v:data.karma??0
+          },
+          {
+            l:'Posts',
+            v:data.submitted
+              ?data.submitted.length
+              :0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          `https://news.ycombinator.com/user?id=${data.id}`
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'dev_to',
+    name:'Dev.to',
+    category:'Developer',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://dev.to/api/users/by_username?url=${encodeURIComponent(user)}`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.username
+      )
+        return null;
+
+      return {
+
+        avatar:data.profile_image,
+
+        title:
+          data.name ||
+          data.username,
+
+        handle:`@${data.username}`,
+
+        bio:data.summary||'',
+
+        badges:[
+          data.location
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Joined',
+            v:
+              data.joined_at
+                ?data.joined_at.split(' ')[0]
+                :'—'
+          }
+        ],
+
+        links:[
+          data.website_url,
+          data.github_username
+            ?`https://github.com/${data.github_username}`
+            :null
+        ].filter(Boolean),
+
+        profileUrl:
+          `https://dev.to/${data.username}`
+
+      };
+
+    }
+
+  },
+
+  {
+    id:'huggingface',
+    name:'Hugging Face',
+    category:'AI / Developer',
+
+    fetch:async user =>
+      fetchUrl(
         `https://huggingface.co/api/users/${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data) return null;
+      ),
 
-      const username =
-        data.name ||
-        data.username ||
-        data.userName;
+    parse:data=>{
 
-      if (!username) return null;
+      if(
+        !data ||
+        !data.name
+      )
+        return null;
 
       return {
-        title:data.fullname || data.fullName || username,
-        subtitle:"@" + username,
-        bio:data.bio || "",
-        avatar:data.avatarUrl || data.avatar || "",
-        url:`https://huggingface.co/${encodeURIComponent(username)}`,
-        stats:[
-          ["Models",data.numModels],
-          ["Datasets",data.numDatasets],
-          ["Spaces",data.numSpaces]
-        ].filter(x => x[1] != null)
+
+        avatar:
+          data.avatarUrl ||
+          data.avatar_url ||
+          null,
+
+        title:
+          data.fullname ||
+          data.name,
+
+        handle:
+          `@${data.name}`,
+
+        bio:
+          data.fullname &&
+          data.fullname!==data.name
+            ?data.fullname
+            :'',
+
+        badges:[
+          data.isPro?'Pro':null,
+          data.isOrg?'Organization':null
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Followers',
+            v:data.numFollowers??0
+          }
+        ],
+
+        links:[],
+
+        profileUrl:
+          `https://huggingface.co/${data.name}`
+
       };
+
     }
+
   },
 
-  /* -------------------------------------------------------
-     NPM
-  ------------------------------------------------------- */
   {
-    id:"npm",
-    name:"npm",
-    category:"Developer",
-    icon:"NP",
-    fetch: async user => {
-      return fetchUrl(
-        `https://registry.npmjs.org/-/v1/search?text=maintainer:${encodeURIComponent(user)}&size=20`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !Array.isArray(data.objects)) return null;
+    id:'codeberg',
+    name:'Codeberg',
+    category:'Developer',
 
-      const packages = data.objects
-        .filter(x => {
-          const maintainers = x.package?.maintainers || [];
-          return maintainers.some(
-            m => String(m.username || "").toLowerCase() === user.toLowerCase()
-          );
-        })
-        .map(x => x.package)
-        .filter(Boolean);
-
-      if (!packages.length) return null;
-
-      const names = packages
-        .slice(0,5)
-        .map(x => x.name)
-        .filter(Boolean);
-
-      return {
-        title:user,
-        subtitle:"npm package maintainer",
-        bio:names.length
-          ? "Packages: " + names.join(", ")
-          : "",
-        avatar:"",
-        url:`https://www.npmjs.com/~${encodeURIComponent(user)}`,
-        stats:[
-          ["Packages",packages.length]
-        ]
-      };
-    }
-  },
-
-  /* -------------------------------------------------------
-     CODEBERG
-  ------------------------------------------------------- */
-  {
-    id:"codeberg",
-    name:"Codeberg",
-    category:"Developer",
-    icon:"CB",
-    fetch: async user => {
-      return fetchUrl(
+    fetch:async user =>
+      fetchUrl(
         `https://codeberg.org/api/v1/users/${encodeURIComponent(user)}`
-      );
-    },
-    parse:(data,user) => {
-      if (!data || !data.login) return null;
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !data.login
+      )
+        return null;
 
       return {
-        title:data.full_name || data.login,
-        subtitle:"@" + data.login,
-        bio:data.description || "",
-        avatar:data.avatar_url || "",
-        url:data.html_url || `https://codeberg.org/${encodeURIComponent(data.login)}`,
-        stats:[
-          ["Followers",data.followers_count],
-          ["Following",data.following_count],
-          ["Repos",data.repo_count]
-        ].filter(x => x[1] != null)
+
+        avatar:
+          data.avatar_url||null,
+
+        title:
+          data.full_name ||
+          data.login,
+
+        handle:`@${data.login}`,
+
+        bio:data.description||'',
+
+        badges:[
+          data.location,
+          data.website
+        ].filter(Boolean),
+
+        metrics:[
+          {
+            l:'Followers',
+            v:data.followers??0
+          },
+          {
+            l:'Following',
+            v:data.following??0
+          }
+        ],
+
+        links:
+          data.website
+            ?[data.website]
+            :[],
+
+        profileUrl:
+          data.html_url ||
+          `https://codeberg.org/${data.login}`
+
       };
+
     }
+
+  },
+
+  /* ================= PACKAGE / ECOSYSTEM ================= */
+
+  {
+    id:'npm',
+    name:'npm',
+    category:'Developer',
+
+    fetch:async user =>
+      fetchUrl(
+        `https://registry.npmjs.org/-/v1/search?text=maintainer:${encodeURIComponent(user)}&size=20`
+      ),
+
+    parse:data=>{
+
+      if(
+        !data ||
+        !Array.isArray(data.objects)
+      )
+        return null;
+
+      const packages=
+        data.objects
+          .map(o=>o.package)
+          .filter(Boolean);
+
+      if(!packages.length)
+        return null;
+
+      const username=
+        window.__argusCurrentUsername||user;
+
+      const exact=
+        packages.filter(pkg=>
+          (pkg.maintainers||[])
+            .some(m=>
+              String(m.username||'')
+                .toLowerCase()===
+              String(username)
+                .toLowerCase()
+            )
+        );
+
+      const list=
+        exact.length
+          ?exact
+          :packages;
+
+      const first=list[0];
+
+      return {
+
+        avatar:null,
+
+        title:
+          `npm packages by ${username}`,
+
+        handle:`@${username}`,
+
+        bio:
+          first.description ||
+          'Public npm package maintainer',
+
+        badges:[
+          'Package registry',
+          list.length>1
+            ?`${list.length} packages found`
+            :'1 package found'
+        ],
+
+        metrics:[
+          {
+            l:'Packages',
+            v:data.total??list.length
+          }
+        ],
+
+        links:
+          list
+            .slice(0,4)
+            .map(pkg=>
+              `https://www.npmjs.com/package/${encodeURIComponent(pkg.name)}`
+            ),
+
+        profileUrl:
+          `https://www.npmjs.com/~${encodeURIComponent(username)}`
+
+      };
+
+    }
+
   }
 
 ];
 
-/* =========================================================
-   DOM
-   ========================================================= */
+/* ============================================================
+   NETWORK
+   ============================================================ */
 
-const usernameInput = document.getElementById("username");
-const searchBtn = document.getElementById("searchBtn");
-const resultsSection = document.getElementById("resultsSection");
+async function fetchUrl(url){
 
-const progressWrap = document.getElementById("progressWrap");
-const progressBar = document.getElementById("progressBar");
-const progressText = document.getElementById("progressText");
-const progressPercent = document.getElementById("progressPercent");
+  try{
 
-const summary = document.getElementById("summary");
-const totalCount = document.getElementById("totalCount");
-const foundCount = document.getElementById("foundCount");
-const noneCount = document.getElementById("noneCount");
-const errorCount = document.getElementById("errorCount");
-
-const themeBtn = document.getElementById("themeBtn");
-const clearBtn = document.getElementById("clearBtn");
-
-const jsonModal = document.getElementById("jsonModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalJson = document.getElementById("modalJson");
-const closeModal = document.getElementById("closeModal");
-
-/* =========================================================
-   THEME
-   ========================================================= */
-
-const savedTheme = localStorage.getItem("argus-theme");
-
-if (savedTheme === "light") {
-  document.documentElement.dataset.theme = "light";
-}
-
-themeBtn.addEventListener("click",() => {
-  const light = document.documentElement.dataset.theme === "light";
-
-  if (light) {
-    delete document.documentElement.dataset.theme;
-    localStorage.setItem("argus-theme","dark");
-  } else {
-    document.documentElement.dataset.theme = "light";
-    localStorage.setItem("argus-theme","light");
-  }
-});
-
-/* =========================================================
-   API FETCH
-   ========================================================= */
-
-async function fetchUrl(url) {
-  const response = await fetch(
-    `${API_PROXY}?url=${encodeURIComponent(url)}`,
-    {
-      method:"GET",
-      headers:{
-        "Accept":"application/json"
-      }
-    }
-  );
-
-  let data = null;
-  const text = await response.text();
-
-  try {
-    data = text ? JSON.parse(text) : null;
-  } catch {
-    data = {
-      _raw:text
-    };
-  }
-
-  if (!response.ok) {
-    const error = new Error(`HTTP ${response.status}`);
-    error.status = response.status;
-    error.data = data;
-    throw error;
-  }
-
-  return {
-    status:response.status,
-    data
-  };
-}
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-let activeSearch = false;
-let currentResults = [];
-
-async function runSearch() {
-
-  const user = usernameInput.value.trim();
-
-  if (!user || activeSearch) return;
-
-  activeSearch = true;
-  currentResults = [];
-
-  searchBtn.disabled = true;
-  searchBtn.textContent = "Scanning…";
-
-  progressWrap.style.display = "block";
-  summary.style.display = "grid";
-
-  resultsSection.innerHTML = "";
-
-  totalCount.textContent = TARGET_ENDPOINTS.length;
-  foundCount.textContent = "0";
-  noneCount.textContent = "0";
-  errorCount.textContent = "0";
-
-  progressBar.style.width = "0%";
-  progressPercent.textContent = "0%";
-  progressText.textContent = "Starting concurrent scan…";
-
-  let completed = 0;
-
-  const promises = TARGET_ENDPOINTS.map(async endpoint => {
-
-    const result = {
-      endpoint,
-      status:"none",
-      data:null,
-      parsed:null,
-      error:null
-    };
-
-    try {
-
-      const response = await endpoint.fetch(user);
-
-      result.data = response?.data;
-
-      if (endpoint.id === "chess") {
-        if (response?.status === 200) {
-          result.parsed = endpoint.parse(response,user);
+    const res=
+      await fetch(
+        `/api/proxy?url=${encodeURIComponent(url)}`,
+        {
+          headers:{
+            'Accept':'application/json'
+          }
         }
-      } else {
-        result.parsed = endpoint.parse(response?.data,user);
-      }
-
-      result.status = result.parsed ? "found" : "none";
-
-    } catch (error) {
-
-      result.status = "error";
-      result.error = error;
-
-    } finally {
-
-      completed++;
-
-      const pct = Math.round(
-        completed / TARGET_ENDPOINTS.length * 100
       );
 
-      progressBar.style.width = pct + "%";
-      progressPercent.textContent = pct + "%";
-      progressText.textContent =
-        `Scanning ${completed}/${TARGET_ENDPOINTS.length} sources…`;
+    const text=
+      await res.text();
+
+    let data=null;
+
+    if(text){
+
+      try{
+        data=JSON.parse(text);
+      }catch{
+        data=null;
+      }
+
     }
 
-    return result;
-  });
+    return {
 
-  const settled = await Promise.allSettled(promises);
+      status:res.status,
 
-  currentResults = settled
-    .map(x => x.status === "fulfilled"
-      ? x.value
-      : {
-          endpoint:{name:"Unknown",category:"Unknown",icon:"?"},
-          status:"error",
-          error:x.reason
-        }
-    );
+      data
 
-  renderResults();
+    };
 
-  progressBar.style.width = "100%";
-  progressPercent.textContent = "100%";
-  progressText.textContent = "Scan complete";
+  }catch{
 
-  const found = currentResults.filter(x => x.status === "found").length;
-  const none = currentResults.filter(x => x.status === "none").length;
-  const errors = currentResults.filter(x => x.status === "error").length;
+    return {
 
-  foundCount.textContent = found;
-  noneCount.textContent = none;
-  errorCount.textContent = errors;
+      status:'blocked',
 
-  searchBtn.disabled = false;
-  searchBtn.textContent = "Search";
-  activeSearch = false;
-}
+      data:null
 
-/* =========================================================
-   RENDER
-   ========================================================= */
+    };
 
-function escapeHtml(value) {
-
-  if (value == null) return "";
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function renderStats(stats) {
-
-  if (!Array.isArray(stats) || !stats.length) return "";
-
-  return `
-    <div class="stats">
-      ${stats.map(([label,value]) => `
-        <div class="stat">
-          ${escapeHtml(label)}:
-          <strong>${escapeHtml(value)}</strong>
-        </div>
-      `).join("")}
-    </div>
-  `;
-}
-
-function renderCard(result,index) {
-
-  const ep = result.endpoint;
-
-  if (result.status === "none") {
-    return `
-      <article class="result-card" style="animation-delay:${index*35}ms">
-        <div class="result-head">
-          <div class="source-info">
-            <div class="source-icon">${escapeHtml(ep.icon)}</div>
-            <div>
-              <div class="source-name">${escapeHtml(ep.name)}</div>
-              <div class="source-category">${escapeHtml(ep.category)}</div>
-            </div>
-          </div>
-
-          <div class="status none">NO RECORD</div>
-        </div>
-
-        <div class="result-body">
-          <div style="color:var(--muted);font-size:12px;">
-            No matching public profile was returned.
-          </div>
-        </div>
-      </article>
-    `;
   }
 
-  if (result.status === "error") {
+}
 
-    const statusCode = result.error?.status
-      ? `HTTP ${result.error.status}`
-      : "REQUEST ERROR";
+/* ============================================================
+   UI
+   ============================================================ */
 
-    return `
-      <article class="result-card" style="animation-delay:${index*35}ms">
-        <div class="result-head">
-          <div class="source-info">
-            <div class="source-icon">${escapeHtml(ep.icon)}</div>
-            <div>
-              <div class="source-name">${escapeHtml(ep.name)}</div>
-              <div class="source-category">${escapeHtml(ep.category)}</div>
-            </div>
-          </div>
+const searchForm=
+  document.getElementById('searchForm');
 
-          <div class="status error">${escapeHtml(statusCode)}</div>
-        </div>
+const usernameInput=
+  document.getElementById('usernameInput');
 
-        <div class="result-body">
-          <div style="color:var(--muted);font-size:12px;">
-            The source could not be queried or blocked the request.
-          </div>
-        </div>
-      </article>
-    `;
-  }
+const searchBtn=
+  document.getElementById('searchBtn');
 
-  const p = result.parsed;
+const progressContainer=
+  document.getElementById('progressContainer');
 
-  return `
-    <article class="result-card" style="animation-delay:${index*35}ms">
+const progressBar=
+  document.getElementById('progressBar');
 
-      <div class="result-head">
+const progressText=
+  document.getElementById('progressText');
 
-        <div class="source-info">
-          <div class="source-icon">${escapeHtml(ep.icon)}</div>
+const progressPercent=
+  document.getElementById('progressPercent');
 
-          <div>
-            <div class="source-name">
-              ${escapeHtml(ep.name)}
-            </div>
+const summary=
+  document.getElementById('summary');
 
-            <div class="source-category">
-              ${escapeHtml(ep.category)}
-            </div>
-          </div>
-        </div>
+const statFound=
+  document.getElementById('statFound');
 
-        <div class="status found">
-          MATCH
-        </div>
+const statNotFound=
+  document.getElementById('statNotFound');
 
-      </div>
+const statErrors=
+  document.getElementById('statErrors');
 
-      <div class="result-body">
+const resultsSection=
+  document.getElementById('resultsSection');
 
-        <div class="profile-main">
+const emptyState=
+  document.getElementById('emptyState');
 
-          ${
-            p.avatar
-            ? `<img class="avatar"
-                src="${escapeHtml(p.avatar)}"
-                alt=""
-                loading="lazy"
-                referrerpolicy="no-referrer"
-                onerror="this.style.display='none'">`
-            : ""
+const copySummaryBtn=
+  document.getElementById('copySummaryBtn');
+
+const jsonModal=
+  document.getElementById('jsonModal');
+
+const modalTitle=
+  document.getElementById('modalTitle');
+
+const modalJsonContent=
+  document.getElementById('modalJsonContent');
+
+let currentResults=[];
+let rawModalJSON=null;
+
+/* ================= ESCAPE ================= */
+
+function esc(str){
+
+  if(str===null || str===undefined)
+    return '';
+
+  return String(str).replace(
+    /[&<>'"]/g,
+    t=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      "'":'&#39;',
+      '"':'&quot;'
+    }[t]||t)
+  );
+
+}
+
+/* ================= SEARCH ================= */
+
+searchForm.addEventListener(
+  'submit',
+  async e=>{
+
+    e.preventDefault();
+
+    const username=
+      usernameInput.value.trim();
+
+    if(!username)
+      return;
+
+    window.__argusCurrentUsername=username;
+
+    currentResults=[];
+
+    resultsSection.innerHTML='';
+
+    summary.classList.remove('active');
+
+    progressContainer.classList.add('active');
+
+    searchBtn.disabled=true;
+
+    progressBar.style.width='0%';
+
+    progressPercent.textContent='0%';
+
+    progressText.textContent=
+      `Querying ${TARGET_ENDPOINTS.length} sources…`;
+
+    let completed=0;
+    let found=0;
+    let notFound=0;
+    let errored=0;
+
+    await Promise.allSettled(
+
+      TARGET_ENDPOINTS.map(
+        async endpoint=>{
+
+          let res;
+
+          try{
+
+            res=
+              await endpoint.fetch(username);
+
+          }catch{
+
+            res={
+              status:'blocked',
+              data:null
+            };
+
           }
 
-          <div style="min-width:0;">
+          let result={
 
-            <div class="profile-title">
-              ${escapeHtml(p.title || "Unknown")}
-            </div>
+            endpoint,
 
-            ${
-              p.subtitle
-              ? `<div class="profile-subtitle">
-                  ${escapeHtml(p.subtitle)}
-                 </div>`
-              : ""
+            status:'error',
+
+            raw:res.data,
+
+            parsed:null
+
+          };
+
+          if(
+            res.status===200 &&
+            res.data
+          ){
+
+            try{
+
+              const parsed=
+                endpoint.parse(res.data);
+
+              if(parsed){
+
+                result.status='found';
+
+                result.parsed=parsed;
+
+                found++;
+
+              }else{
+
+                result.status='not_found';
+
+                notFound++;
+
+              }
+
+            }catch{
+
+              result.status='error';
+
+              errored++;
+
             }
 
-          </div>
+          }else if(
+            res.status===404
+          ){
 
-        </div>
+            result.status='not_found';
 
-        ${
-          p.bio
-          ? `<div class="profile-bio">${escapeHtml(p.bio)}</div>`
-          : ""
+            notFound++;
+
+          }else{
+
+            result.status='error';
+
+            errored++;
+
+          }
+
+          completed++;
+
+          const pct=
+            Math.round(
+              (completed/TARGET_ENDPOINTS.length)*100
+            );
+
+          progressBar.style.width=
+            `${pct}%`;
+
+          progressPercent.textContent=
+            `${pct}%`;
+
+          progressText.textContent=
+            completed===
+            TARGET_ENDPOINTS.length
+
+              ?'Search complete'
+
+              :`Querying sources… ${completed}/${TARGET_ENDPOINTS.length}`;
+
+          currentResults.push(result);
+
         }
+      )
 
-        ${renderStats(p.stats)}
+    );
 
-        <div class="result-actions">
+    progressContainer.classList.remove('active');
 
-          ${
-            p.url
-            ? `<a
-                class="small-btn"
-                href="${escapeHtml(p.url)}"
+    searchBtn.disabled=false;
+
+    statFound.textContent=found;
+
+    statNotFound.textContent=notFound;
+
+    statErrors.textContent=errored;
+
+    summary.classList.add('active');
+
+    renderResults(username);
+
+  }
+);
+
+/* ================= RESULTS ================= */
+
+function renderResults(username){
+
+  resultsSection.innerHTML='';
+
+  const hits=
+    currentResults.filter(
+      r=>r.status==='found'
+    );
+
+  const rest=
+    currentResults.filter(
+      r=>r.status!=='found'
+    );
+
+  if(
+    hits.length===0 &&
+    rest.length===0
+  ){
+
+    resultsSection.appendChild(
+      emptyState
+    );
+
+    return;
+
+  }
+
+  if(hits.length){
+
+    const title=
+      document.createElement('p');
+
+    title.className='group-title';
+
+    title.textContent=
+      `Matched on ${hits.length} source${hits.length===1?'':'s'}`;
+
+    const grid=
+      document.createElement('div');
+
+    grid.className='hits';
+
+    hits.forEach(
+      (item,index)=>{
+
+        const card=
+          buildCard(item);
+
+        card.style.animationDelay=
+          `${index*70}ms`;
+
+        grid.appendChild(card);
+
+      }
+    );
+
+    resultsSection.appendChild(title);
+
+    resultsSection.appendChild(grid);
+
+  }else{
+
+    const none=
+      document.createElement('div');
+
+    none.className='empty';
+
+    none.innerHTML=
+      `<b>No public match for "${esc(username)}"</b>
+       Checked ${currentResults.length} sources — nothing came back as a confirmed profile.`;
+
+    resultsSection.appendChild(none);
+
+  }
+
+  if(rest.length){
+
+    const details=
+      document.createElement('details');
+
+    details.className='misses';
+
+    const summaryEl=
+      document.createElement('summary');
+
+    summaryEl.innerHTML=
+      `<span>${rest.length} source${rest.length===1?'':'s'} with no record or a blocked request</span>
+       <span class="chev">›</span>`;
+
+    details.appendChild(summaryEl);
+
+    rest.forEach(
+      (r,index)=>{
+
+        const row=
+          document.createElement('div');
+
+        row.className='miss-row';
+
+        row.style.animationDelay=
+          `${index*35}ms`;
+
+        row.innerHTML=
+          `<span class="n">${esc(r.endpoint.name)}</span>
+           <span class="s ${r.status==='error'?'er':'nf'}">
+           ${r.status==='error'?'blocked':'no record'}
+           </span>`;
+
+        details.appendChild(row);
+
+      }
+    );
+
+    resultsSection.appendChild(details);
+
+  }
+
+}
+
+/* ================= CARD ================= */
+
+function buildCard(item){
+
+  const p=item.parsed;
+
+  const card=
+    document.createElement('div');
+
+  card.className='card';
+
+  const initial=
+    String(
+      p.title ||
+      p.handle ||
+      '?'
+    ).charAt(0).toUpperCase();
+
+  const avatarHTML=
+    p.avatar
+
+      ?`<img
+          class="avatar"
+          src="${esc(p.avatar)}"
+          alt=""
+          loading="lazy"
+          onerror="this.outerHTML='<div class=&quot;avatar-fallback&quot;>${esc(initial)}</div>'"
+        >`
+
+      :`<div class="avatar-fallback">
+          ${esc(initial)}
+        </div>`;
+
+  const badges=
+    (p.badges||[])
+      .filter(Boolean)
+      .map(
+        b=>
+          `<span class="badge">${esc(String(b))}</span>`
+      )
+      .join('');
+
+  const metrics=
+    (p.metrics||[])
+      .map(
+        m=>
+          `<div class="metric">
+            <div class="v">${esc(String(m.v))}</div>
+            <div class="l">${esc(m.l)}</div>
+           </div>`
+      )
+      .join('');
+
+  const clubs=
+    (p.clubs||[]).length
+
+      ?`<div class="clublist">
+          ${p.clubs.map(
+            c=>
+              `<a
+                href="${esc(c.url)}"
                 target="_blank"
-                rel="noopener noreferrer">
-                Open profile ↗
-               </a>`
-            : ""
-          }
+                rel="noopener noreferrer"
+              >
+                ${
+                  c.icon
+                    ?`<img src="${esc(c.icon)}" alt="" loading="lazy">`
+                    :''
+                }
+                ${esc(c.name)}
+              </a>`
+          ).join('')}
+        </div>`
 
-          <button
-            class="small-btn raw-btn"
-            data-index="${index}">
-            Raw JSON
-          </button>
+      :'';
 
-          <button
-            class="small-btn copy-btn"
-            data-index="${index}">
-            Copy
-          </button>
+  const links=
+    (p.links||[])
+      .filter(Boolean)
+      .slice(0,4)
+      .map(
+        link=>
+          `<a
+            href="${esc(link)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${esc(link)}
+          </a>`
+      )
+      .join('');
+
+  card.innerHTML=`
+
+    <div class="card-head">
+
+      <div class="card-id">
+
+        ${avatarHTML}
+
+        <div class="card-src">
+
+          <div class="name">
+            ${esc(item.endpoint.name)}
+          </div>
+
+          <div class="cat">
+            ${esc(item.endpoint.category)}
+          </div>
 
         </div>
 
       </div>
 
-    </article>
-  `;
-}
+      <button
+        class="inspect-btn"
+        title="View raw response"
+        aria-label="View raw response"
+        type="button"
+      >
+        { }
+      </button>
 
-function renderResults() {
+    </div>
 
-  const found = currentResults.filter(
-    r => r.status === "found"
-  );
+    <div class="card-title">
+      ${esc(p.title||'')}
+    </div>
 
-  const misses = currentResults.filter(
-    r => r.status !== "found"
-  );
+    <div class="card-handle">
+      ${esc(p.handle||'')}
+    </div>
 
-  resultsSection.innerHTML = `
     ${
-      found.length
-      ? `
-        <div class="section-head">
-          <div class="section-title">
-            Matches
-          </div>
-
-          <div class="section-count">
-            ${found.length} FOUND
-          </div>
-        </div>
-
-        <div class="result-grid">
-          ${
-            found.map((result) =>
-              renderCard(
-                result,
-                currentResults.indexOf(result)
-              )
-            ).join("")
-          }
-        </div>
-      `
-      : `
-        <div class="empty">
-          <div class="empty-icon">⌁</div>
-          <div>No public profiles were found.</div>
-        </div>
-      `
+      p.bio
+        ?`<div class="card-bio">
+            ${esc(p.bio)}
+          </div>`
+        :''
     }
 
     ${
-      misses.length
-      ? `
-        <div class="misses">
-
-          <button
-            class="misses-toggle"
-            id="missesToggle">
-
-            <span>
-              Other sources
-              (${misses.length})
-            </span>
-
-            <span>＋</span>
-
-          </button>
-
-          <div class="misses-list" id="missesList">
-
-            ${
-              misses.map(result => `
-                <div class="miss">
-                  <strong>${escapeHtml(result.endpoint.name)}</strong>
-                  <br>
-                  <span>
-                    ${
-                      result.status === "error"
-                      ? "Error / blocked"
-                      : "No matching record"
-                    }
-                  </span>
-                </div>
-              `).join("")
-            }
-
-          </div>
-
-        </div>
-      `
-      : ""
+      badges
+        ?`<div class="badges">
+            ${badges}
+          </div>`
+        :''
     }
-  `;
 
-  const missesToggle =
-    document.getElementById("missesToggle");
+    ${
+      metrics
+        ?`<div class="metrics">
+            ${metrics}
+          </div>`
+        :''
+    }
 
-  if (missesToggle) {
+    ${clubs}
 
-    missesToggle.addEventListener("click",() => {
+    ${
+      links
+        ?`<div class="clublist">
+            ${links}
+          </div>`
+        :''
+    }
 
-      const list =
-        document.getElementById("missesList");
+    <div class="card-foot">
 
-      list.classList.toggle("open");
+      <span class="id mono">
+        ${esc(item.endpoint.id)}
+      </span>
 
-      missesToggle.lastElementChild.textContent =
-        list.classList.contains("open")
-        ? "−"
-        : "＋";
-    });
-  }
+      ${
+        p.profileUrl
 
-  document.querySelectorAll(".raw-btn").forEach(btn => {
+          ?`<a
+              class="open"
+              href="${esc(p.profileUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open profile
+            </a>`
 
-    btn.addEventListener("click",() => {
-
-      const result =
-        currentResults[Number(btn.dataset.index)];
-
-      modalTitle.textContent =
-        `${result.endpoint.name} — RAW JSON`;
-
-      modalJson.textContent =
-        JSON.stringify(result.data,null,2);
-
-      jsonModal.classList.add("open");
-    });
-
-  });
-
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-
-    btn.addEventListener("click",async () => {
-
-      const result =
-        currentResults[Number(btn.dataset.index)];
-
-      const text =
-        JSON.stringify(result.data,null,2);
-
-      try {
-
-        await navigator.clipboard.writeText(text);
-
-        const old = btn.textContent;
-
-        btn.textContent = "Copied";
-
-        setTimeout(() => {
-          btn.textContent = old;
-        },1200);
-
-      } catch {}
-
-    });
-
-  });
-}
-
-/* =========================================================
-   COPY FULL REPORT
-   ========================================================= */
-
-async function copyReport() {
-
-  if (!currentResults.length) return;
-
-  const user = usernameInput.value.trim();
-
-  const lines = [
-    "ARGUS OSINT REPORT",
-    "===================",
-    "",
-    `Target: ${user}`,
-    `Generated: ${new Date().toISOString()}`,
-    "",
-  ];
-
-  for (const result of currentResults) {
-
-    lines.push(
-      `[${result.endpoint.name}]`
-    );
-
-    lines.push(
-      `Status: ${result.status}`
-    );
-
-    if (result.parsed) {
-
-      const p = result.parsed;
-
-      lines.push(
-        `Name: ${p.title || ""}`
-      );
-
-      lines.push(
-        `Username: ${p.subtitle || ""}`
-      );
-
-      if (p.url)
-        lines.push(`URL: ${p.url}`);
-
-      if (p.bio)
-        lines.push(`Bio: ${p.bio}`);
-
-      if (Array.isArray(p.stats)) {
-
-        for (const [key,value] of p.stats) {
-          lines.push(`${key}: ${value}`);
-        }
-
+          :''
       }
 
-    }
-
-    lines.push("");
-  }
-
-  try {
-    await navigator.clipboard.writeText(lines.join("\n"));
-  } catch {}
-}
-
-/* =========================================================
-   CLEAR
-   ========================================================= */
-
-clearBtn.addEventListener("click",() => {
-
-  usernameInput.value = "";
-  currentResults = [];
-
-  resultsSection.innerHTML = `
-    <div class="empty" id="emptyState">
-      <div class="empty-icon">⌁</div>
-      <div>Enter a username to begin a concurrent public-profile scan.</div>
     </div>
+
   `;
 
-  progressWrap.style.display = "none";
-  summary.style.display = "none";
-  progressBar.style.width = "0%";
+  card
+    .querySelector('.inspect-btn')
+    .addEventListener(
+      'click',
+      ()=>{
 
-});
+        modalTitle.textContent=
+          `${item.endpoint.name} — raw response`;
 
-/* =========================================================
-   SEARCH EVENTS
-   ========================================================= */
+        rawModalJSON=
+          item.raw ||
+          {
+            status:'No payload'
+          };
 
-searchBtn.addEventListener("click",runSearch);
+        modalJsonContent.textContent=
+          JSON.stringify(
+            rawModalJSON,
+            null,
+            2
+          );
 
-usernameInput.addEventListener("keydown",event => {
+        jsonModal.classList.add('open');
 
-  if (event.key === "Enter") {
-    event.preventDefault();
-    runSearch();
+      }
+    );
+
+  return card;
+
+}
+
+/* ================= COPY RESULTS ================= */
+
+copySummaryBtn.addEventListener(
+  'click',
+  ()=>{
+
+    const hits=
+      currentResults.filter(
+        r=>r.status==='found'
+      );
+
+    if(!hits.length)
+      return;
+
+    let text=
+      `Argus OSINT report — ${usernameInput.value.trim()}\n\n`;
+
+    hits.forEach(i=>{
+
+      const p=i.parsed;
+
+      text+=
+        `${i.endpoint.name} (${p.handle||''})\n`;
+
+      if(p.title)
+        text+=
+          `Name: ${p.title}\n`;
+
+      if(p.bio)
+        text+=
+          `Bio: ${p.bio}\n`;
+
+      if(p.profileUrl)
+        text+=
+          `URL: ${p.profileUrl}\n`;
+
+      text+='\n';
+
+    });
+
+    navigator.clipboard
+      .writeText(text)
+      .then(()=>{
+
+        const old=
+          copySummaryBtn.textContent;
+
+        copySummaryBtn.textContent=
+          'Copied';
+
+        setTimeout(
+          ()=>{
+            copySummaryBtn.textContent=old;
+          },
+          1500
+        );
+
+      });
+
   }
+);
 
-});
+/* ================= MODAL ================= */
 
-/* =========================================================
-   MODAL
-   ========================================================= */
+document
+  .getElementById('closeModalBtn')
+  .addEventListener(
+    'click',
+    ()=>{
+      jsonModal.classList.remove('open');
+    }
+  );
 
-closeModal.addEventListener("click",() => {
-  jsonModal.classList.remove("open");
-});
-
-jsonModal.addEventListener("click",event => {
-
-  if (event.target === jsonModal) {
-    jsonModal.classList.remove("open");
+jsonModal.addEventListener(
+  'click',
+  e=>{
+    if(e.target===jsonModal)
+      jsonModal.classList.remove('open');
   }
+);
 
-});
+document
+  .getElementById('copyModalJsonBtn')
+  .addEventListener(
+    'click',
+    ()=>{
 
-document.addEventListener("keydown",event => {
+      if(!rawModalJSON)
+        return;
 
-  if (event.key === "Escape") {
-    jsonModal.classList.remove("open");
+      navigator.clipboard
+        .writeText(
+          JSON.stringify(
+            rawModalJSON,
+            null,
+            2
+          )
+        )
+        .then(()=>{
+
+          const btn=
+            document.getElementById(
+              'copyModalJsonBtn'
+            );
+
+          const old=
+            btn.textContent;
+
+          btn.textContent='Copied';
+
+          setTimeout(
+            ()=>{
+              btn.textContent=old;
+            },
+            1500
+          );
+
+        });
+
+    }
+  );
+
+/* ================= ESC CLOSE MODAL ================= */
+
+document.addEventListener(
+  'keydown',
+  e=>{
+
+    if(e.key==='Escape')
+      jsonModal.classList.remove('open');
+
   }
+);
 
-});
+/* ================= THEME ================= */
+
+const themeBtn=
+  document.getElementById('themeBtn');
+
+(function initTheme(){
+
+  const prefersLight=
+    window.matchMedia(
+      '(prefers-color-scheme: light)'
+    ).matches;
+
+  const initial=
+    prefersLight
+      ?'light'
+      :'dark';
+
+  document.documentElement
+    .setAttribute(
+      'data-theme',
+      initial
+    );
+
+  themeBtn.textContent=
+    initial==='light'
+      ?'Dark mode'
+      :'Light mode';
+
+})();
+
+themeBtn.addEventListener(
+  'click',
+  ()=>{
+
+    const current=
+      document.documentElement
+        .getAttribute('data-theme');
+
+    const next=
+      current==='light'
+        ?'dark'
+        :'light';
+
+    document.documentElement
+      .setAttribute(
+        'data-theme',
+        next
+      );
+
+    themeBtn.textContent=
+      next==='light'
+        ?'Dark mode'
+        :'Light mode';
+
+  }
+);
+
 </script>
 
 </body>
